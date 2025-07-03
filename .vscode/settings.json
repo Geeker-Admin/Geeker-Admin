@@ -80,5 +80,7 @@
     "zhongyingwen",
     "zhuti"
   ],
-  "editor.rulers": [120]
+  "editor.rulers": [
+    120
+  ]
 }

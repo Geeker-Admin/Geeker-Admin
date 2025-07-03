@@ -128,7 +128,7 @@ const handleHttpUpload = async (options: UploadRequestOptions) => {
   formData.append('file', options.file)
   try {
     const api = props.api ?? uploadImg
-    const { data } = await api(formData)
+    const data = await api(formData)
     options.onSuccess(data)
   } catch (error) {
     options.onError(error as any)

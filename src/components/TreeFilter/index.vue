@@ -88,7 +88,7 @@ const setSelected = () => {
 onBeforeMount(async () => {
   setSelected()
   if (props.requestApi) {
-    const { data } = await props.requestApi()
+    const data = await props.requestApi()
     treeData.value = data
     treeAllData.value = [{ id: '', [props.label]: '全部' }, ...data]
   }
