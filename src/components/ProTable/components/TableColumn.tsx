@@ -43,8 +43,8 @@ export default defineComponent({
               {...item}
               align={item.align ?? 'center'}
               showOverflowTooltip={item.showOverflowTooltip ?? item.prop !== TABLE_COLUMN_OPERATION_NAME}
-              label={item.label || '操作'}
-              fixed={item.fixed || 'right'}
+              label={item.label}
+              fixed={item.fixed}
             >
               {{
                 default: (scope: RenderScope<any>) => {
