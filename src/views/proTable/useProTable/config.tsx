@@ -32,7 +32,7 @@ const getTableConfig = ({
   changeStatusHandler: (_row: ResUserList) => Promise<void>
 }): ProTableProps<ReqUserParams, ResUserList> => {
   return {
-    columns: [
+    columns: reactive([
       { type: 'selection', fixed: 'left', width: 70 },
       { type: 'sort', label: 'Sort', width: 80 },
       { type: 'expand', label: 'Expand', width: 85 },
@@ -111,7 +111,7 @@ const getTableConfig = ({
         },
       },
       { prop: 'operation', label: '操作', fixed: 'right', width: 330 },
-    ],
+    ]),
     // toolbarLeft: [
     //   'add',
     //   { auth: 'batchAdd', name: 'batchAdd', text: '批量添加用户', icon: 'Upload', type: 'primary' },
