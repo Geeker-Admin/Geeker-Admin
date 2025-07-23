@@ -3,24 +3,29 @@
     <!-- drawer -->
     <template v-if="modalConfig.component === 'drawer'">
       <el-drawer v-model="modalVisible" v-bind="{ destroyOnClose: true, ...modalConfig.drawer }" @close="handleClose">
-        <el-form ref="formRef" v-bind="modalConfig.form" :model="formData" :rules="formRules">
+        <el-form ref="formRef" v-bind="form" :model="formData" :rules="formRules">
           <el-row :gutter="20">
             <template v-for="item in formItems" :key="item.prop">
               <el-col v-show="!item.hidden" v-bind="item.col">
-                <el-form-item :label="item.label" :prop="item.prop">
+                <el-form-item :prop="item.prop">
                   <!-- Label -->
                   <template #label>
-                    <span>
-                      {{ item?.label || '' }}
-                      <el-tooltip v-if="item?.tips" v-bind="getTooltipProps(item.tips)">
+                    <span v-if="typeof item.label === 'function'">
+                      <component :is="item.label" />
+                    </span>
+                    <span v-else>
+                      {{ item.label }}
+                      <el-tooltip v-if="item.tips" v-bind="getTooltipProps(item.tips)">
                         <QuestionFilled class="w-4 h-4 mx-1" />
                       </el-tooltip>
                       <span v-if="modalConfig.colon">:</span>
                     </span>
                   </template>
 
+                  <component :is="item.render" v-if="item.render" :row="formData" />
+
                   <!-- components -->
-                  <template v-if="item.type === 'custom'">
+                  <template v-else-if="item.type === 'custom'">
                     <slot
                       :name="item.slotName ?? item.prop"
                       :prop="item.prop"
@@ -29,14 +34,14 @@
                     ></slot>
                   </template>
                   <component
-                    :is="componentMap.get(item.type)"
+                    :is="componentMap.get(item.type!)"
                     v-else
                     v-model.trim="formData[item.prop]"
                     v-bind="{ style: { width: '100%' }, ...item.attrs }"
                   >
-                    <template v-if="['select', 'radio', 'checkbox'].includes(item.type)">
+                    <template v-if="['select', 'radio', 'checkbox'].includes(item.type!)">
                       <component
-                        :is="childrenMap.get(item.type)"
+                        :is="childrenMap.get(item.type!)"
                         v-for="opt in item.options"
                         :key="opt.value"
                         :label="opt.label"
@@ -55,7 +60,7 @@
         </el-form>
 
         <template #footer>
-          <el-button v-if="!formDisable" type="primary" @click="handleSubmit">确 定</el-button>
+          <el-button v-if="!formDisable" type="primary" :loading="isLoading" @click="handleSubmit">确 定</el-button>
           <el-button @click="handleClose">{{ !formDisable ? '取 消' : '关闭' }}</el-button>
         </template>
       </el-drawer>
@@ -67,15 +72,18 @@
         v-bind="{ destroyOnClose: true, alignCenter: true, ...modalConfig.dialog }"
         @close="handleClose"
       >
-        <el-form ref="formRef" v-bind="modalConfig.form" :model="formData" :rules="formRules">
+        <el-form ref="formRef" v-bind="form" :model="formData" :rules="formRules">
           <el-scrollbar max-height="70vh" :view-style="{ overflowX: 'hidden' }">
             <el-row :gutter="20">
               <template v-for="item in formItems" :key="item.prop">
                 <el-col v-show="!item.hidden" v-bind="item.col">
-                  <el-form-item :label="item.label" :prop="item.prop">
+                  <el-form-item :prop="item.prop">
                     <template #label>
-                      <span>
-                        {{ item?.label || '' }}
+                      <span v-if="typeof item.label === 'function'">
+                        <component :is="item.label" />
+                      </span>
+                      <span v-else>
+                        {{ item.label }}
                         <el-tooltip v-if="item?.tips" v-bind="getTooltipProps(item.tips)">
                           <QuestionFilled class="w-4 h-4 mx-1" />
                         </el-tooltip>
@@ -83,7 +91,9 @@
                       </span>
                     </template>
 
-                    <template v-if="item.type === 'custom'">
+                    <component :is="item.render" v-if="item.render" :row="formData" />
+
+                    <template v-else-if="item.type === 'custom'">
                       <slot
                         :name="item.slotName ?? item.prop"
                         :prop="item.prop"
@@ -92,14 +102,14 @@
                       ></slot>
                     </template>
                     <component
-                      :is="componentMap.get(item.type)"
+                      :is="componentMap.get(item.type!)"
                       v-else
                       v-model.trim="formData[item.prop]"
                       v-bind="{ style: { width: '100%' }, ...item.attrs }"
                     >
-                      <template v-if="['select', 'radio', 'checkbox'].includes(item.type)">
+                      <template v-if="['select', 'radio', 'checkbox'].includes(item.type!)">
                         <component
-                          :is="childrenMap.get(item.type)"
+                          :is="childrenMap.get(item.type!)"
                           v-for="opt in item.options"
                           :key="opt.value"
                           :label="opt.label"
@@ -120,7 +130,7 @@
         </el-form>
 
         <template #footer>
-          <el-button v-if="!formDisable" type="primary" @click="handleSubmit">确 定</el-button>
+          <el-button v-if="!formDisable" type="primary" :loading="isLoading" @click="handleSubmit">确 定</el-button>
           <el-button @click="handleClose">{{ !formDisable ? '取 消' : '关闭' }}</el-button>
         </template>
       </el-dialog>
@@ -197,6 +207,8 @@ const formData = reactive<IObject>({}) // 表单数据
 const formRules: FormRules = {} // 表单验证规则
 const formDisable = ref(false) // 表单禁用状态
 
+const isLoading = ref(false)
+
 const form = ref<Partial<Omit<FormProps, 'model' | 'rules'>>>({})
 // 获取tooltip提示框属性
 const getTooltipProps = (tips: string | IObject) => {
@@ -220,7 +232,7 @@ const setFormData = (data: IObject) => {
 }
 // 表单提交
 const handleSubmit = useThrottleFn(() => {
-  formRef.value?.validate((valid: boolean) => {
+  formRef.value?.validate(async (valid: boolean) => {
     if (!valid) {
       return
     }
@@ -232,15 +244,23 @@ const handleSubmit = useThrottleFn(() => {
       handleClose()
       return
     }
-    props.modalConfig.formAction(formData).then(() => {
+    isLoading.value = true
+
+    try {
+      await props.modalConfig.formAction(formData)
       if (props.modalConfig.component === 'drawer') {
         ElMessage.success(`${props.modalConfig.drawer?.title}成功`)
       } else {
         ElMessage.success(`${props.modalConfig.dialog?.title}成功`)
       }
       emit('submitClick')
+      isLoading.value = false
       handleClose()
-    })
+    } catch (error: any) {
+      ElMessage.error(error)
+    } finally {
+      isLoading.value = false
+    }
   })
 }, 3000)
 
@@ -252,7 +272,7 @@ onMounted(() => {
     formRules[item.prop] = item?.rules ?? []
     form.value = { labelWidth: 'auto', ...props.modalConfig?.form }
 
-    if (['input-tag', 'custom-tag', 'cascader'].includes(item.type)) {
+    if (['input-tag', 'custom-tag', 'cascader'].includes(item.type!)) {
       formData[item.prop] = Array.isArray(item.initialValue) ? item.initialValue : []
     } else if (item.type === 'input-number') {
       formData[item.prop] = item.initialValue ?? null

@@ -141,11 +141,11 @@ export type IComponentType = DateComponent | InputComponent | OtherComponent
 
 export type IFormItems<T = IComponentType> = Array<{
   // 组件类型(如input,select,radio,custom等)
-  type: T
+  type?: T
   // 标签提示
   tips?: string | IObject
   // 标签文本
-  label: string
+  label: string | (() => VNode)
   // 键名
   prop: string
   // 组件属性
@@ -158,6 +158,8 @@ export type IFormItems<T = IComponentType> = Array<{
   initialValue?: any
   // 插槽名(适用于自定义组件，设置类型为custom)
   slotName?: string
+  // 自定义渲染
+  render?: (_scope: { row: IObject }) => VNode | string
   // 是否隐藏
   hidden?: boolean
   // layout组件Col属性
