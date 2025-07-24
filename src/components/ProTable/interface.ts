@@ -122,7 +122,7 @@ export interface ProTableProps<Q = any, I extends DefaultRow = any, Extra = IObj
   toolbarMiddle?: VNodeChild | Component // 表格工具栏中间内容
   columns: ColumnProps<I>[] // 列配置项  ==> 必传
   data?: I[] // 静态 table data 数据，若存在则不会使用 requestApi 返回的 data ==> 非必传
-  requestApi: (_params: Q & Extra) => Promise<ResultPage<I>> // 请求表格数据的 api ==> 非必传
+  requestApi?: (_params: Q & Extra) => Promise<ResultPage<I>> // 请求表格数据的 api ==> 非必传
   requestAuto?: boolean // 是否自动执行请求 api ==> 非必传（默认为true）
   dataCallback?: (_data: I[]) => IObject[] // 返回数据的回调函数，可以对数据进行处理 ==> 非必传
   title?: string // 表格标题 ==> 非必传

@@ -16,7 +16,7 @@ export interface StateProps {
 
 /**
  * @description table 页面操作方法封装
- * @param {Function} api 获取表格数据 api 方法 (必传)
+ * @param {Function} api 获取表格数据 api 方法 (非必传)
  * @param {Object} initParam 获取数据初始化参数 (非必传，默认为{})
  * @param {Boolean} isPageable 是否有分页 (非必传，默认为true)
  * @param {Function} dataCallBack 对后台返回的数据进行处理的方法 (非必传)
@@ -26,7 +26,7 @@ export const useTable = <
   ResponseT extends { list: TableItem[]; total: number } | TableItem[],
   TableItem = any,
 >(
-  api: (_params: RequestT) => Promise<ResponseT>,
+  api?: (_params: RequestT) => Promise<ResponseT>,
   _initParam: object = {},
   isPageable: boolean = true,
   dataCallBack?: (_data: TableItem[]) => IObject[]
@@ -56,6 +56,9 @@ export const useTable = <
    * @return void
    * */
   const getTableList = async (resetPageSize: boolean = false) => {
+    if (!api) {
+      return
+    }
     try {
       // 先把初始化参数和分页参数放到总参数里面
       state.totalParam = { ...state.totalParam, ..._initParam, pageNum: 1 }
