@@ -284,10 +284,26 @@ const processTableData = computed(() => {
   )
 })
 
+// 判断是否是前端分页
+const isFrontPage = computed(() => {
+  return props.data && props.pagination
+})
+
 // 监听页面 initParam 改化，重新获取表格数据
 watch(
   () => props.initParam,
   () => getTableList(false),
+  { deep: true }
+)
+
+// 监听前端分页
+watch(
+  () => props.data,
+  newVal => {
+    if (isFrontPage.value) {
+      pageable.value.total = newVal!.length
+    }
+  },
   { deep: true }
 )
 
