@@ -68,18 +68,9 @@ export class AxiosCanceler {
   }
 }
 
-const config = {
-  // 默认地址请求地址，可在 .env.** 文件中修改
-  baseURL: import.meta.env.VITE_API_URL,
-  // 设置超时时间
-  timeout: ResultEnum.TIMEOUT as number,
-  // 跨域时候允许携带凭证
-  withCredentials: true,
-}
-
 const axiosCanceler = new AxiosCanceler()
 
-class RequestHttp {
+export class RequestHttp {
   service: AxiosInstance
   public constructor(config: AxiosRequestConfig) {
     // instantiation
@@ -184,5 +175,3 @@ class RequestHttp {
     return this.service.post(url, params, { ..._object, responseType: 'blob' })
   }
 }
-
-export default new RequestHttp(config)

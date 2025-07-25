@@ -1,4 +1,4 @@
-import http from '@/utils/request'
+import http from '@/utils/request/geeker'
 import { SERVER_ENDPOINTS } from '@/constants'
 
 export interface ReqUserParams extends RequestPage {

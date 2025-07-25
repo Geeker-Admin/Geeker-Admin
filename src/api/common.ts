@@ -1,5 +1,5 @@
 import { SERVER_ENDPOINTS } from '@/constants'
-import http from '@/utils/request'
+import http from '@/utils/request/geeker'
 
 export const CommonAPI = {
   downloadFile: (url: string) => http.get<Blob>(url, { responseType: 'blob' }),
