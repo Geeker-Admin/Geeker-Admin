@@ -11,6 +11,8 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  issues: write
+  pull-requests: write
 
 # 允许一个并发部署
 concurrency:
@@ -86,11 +88,25 @@ jobs:
             const fs = require('fs');
             const path = require('path');
 
+            function getDirSize(dir) {
+              let total = 0;
+              const files = fs.readdirSync(dir);
+              for (const file of files) {
+                const filePath = path.join(dir, file);
+                const stat = fs.statSync(filePath);
+                if (stat.isDirectory()) {
+                  total += getDirSize(filePath);
+                } else {
+                  total += stat.size;
+                }
+              }
+              return total;
+            }
+
             try {
               const distPath = path.join(process.cwd(), 'dist');
-              const stats = fs.statSync(distPath);
-              const sizeInMB = (stats.size / (1024 * 1024)).toFixed(2);
-              
+              const sizeInMB = (getDirSize(distPath) / (1024 * 1024)).toFixed(2);
+
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
