@@ -79,24 +79,24 @@ const functionDialogVisible = ref(false)
 const { t } = useI18n()
 
 // 表格配置项
-const columns = ref<ColumnProps<ResUserList>[]>([
-  { type: 'radio', label: computed(() => t('common.radio')), width: 80 },
-  { type: 'index', label: computed(() => t('common.index')), width: 80 },
-  { prop: 'username', label: computed(() => t('common.username')), width: 120 },
-  { prop: 'gender', label: computed(() => t('common.gender')), width: 120, sortable: true, enum: genderType },
-  { prop: 'idCard', label: computed(() => t('common.idCard')) },
-  { prop: 'email', label: computed(() => t('common.email')) },
-  { prop: 'address', label: computed(() => t('common.address')) },
+const columns = computed<ColumnProps<ResUserList>[]>(() => [
+  { type: 'radio', label: t('common.radio'), width: 80 },
+  { type: 'index', label: t('common.index'), width: 80 },
+  { prop: 'username', label: t('common.username'), width: 120 },
+  { prop: 'gender', label: t('common.gender'), width: 120, sortable: true, enum: genderType },
+  { prop: 'idCard', label: t('common.idCard') },
+  { prop: 'email', label: t('common.email') },
+  { prop: 'address', label: t('common.address') },
   {
     prop: 'status',
-    label: computed(() => t('common.userStatus')),
+    label: t('common.userStatus'),
     width: 150,
     sortable: true,
     tag: true,
     enum: userStatus,
   },
-  { prop: 'createTime', label: computed(() => t('common.createTime')), width: 180, sortable: true },
-  { prop: 'operation', label: computed(() => t('common.operations')), width: 410, fixed: 'right' },
+  { prop: 'createTime', label: t('common.createTime'), width: 180, sortable: true },
+  { prop: 'operation', label: t('common.operations'), width: 410, fixed: 'right' },
 ])
 
 const toolbarMiddle = () => (
