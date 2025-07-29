@@ -32,7 +32,7 @@
     "proTable": {}
   },
   "error": {
-    "fePaginationFilterMethodIsRequired": "前端分页时，fePaginationFilterMethod 是必要参数。",
+    "fePaginationFilterMethodIsRequired": "前端分页筛选时，fePaginationFilterMethod 是必要参数。",
     "localeNotSupported": "本地化语言 [{locale}] 不支持，请检查 `src/locales/index.ts`",
     "tableDataShouldBeArray": "表格数据应该是数组，当前类型不正确"
   },
