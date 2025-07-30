@@ -98,7 +98,7 @@ jobs:
               }
               
               // 添加详细评论
-              const commentBody = `⚠️ **Issue 格式验证失败**\n\n### ❌ 发现的问题：\n\n${validationErrors.join('\n\n')}\n\n### 🔍 调试信息：\n\n${debugInfo.join('\n')}\n\n### 📋 请按照以下要求完善你的 Issue：\n\n#### 🔍 必需的环境信息\n- [ ] 操作系统选择\n- [ ] 浏览器版本填写\n- [ ] 仓库代码版本确认\n\n#### 📋 必需的内容\n- [ ] 重现步骤（Bug Report）或问题描述（Feature Request）\n- [ ] 预期行为（Bug Report）\n- [ ] 检查清单完成\n\n### 📝 Issue 模板参考：\n\n\`\`\`markdown\n## 🐛 Bug 报告\n\n### 基本信息\n\n#### 操作系统\n- [ ] Windows\n- [ ] macOS\n- [ ] Linux\n- [ ] 其他\n\n#### 浏览器版本\n- [ ] Chrome\n- [ ] Firefox\n- [ ] Safari\n- [ ] Edge\n- [ ] 其他\n\n#### 仓库代码版本\n- [ ] 是最新的仓库代码\n- [ ] 不是最新的仓库代码\n\n### 📋 重现步骤\n\n1. 打开页面\n2. 点击按钮\n3. 观察结果\n\n### 🎯 预期行为\n\n描述你期望看到的行为...\n\n### 🚨 实际行为\n\n描述实际发生的行为...\n\n### ✅ 检查清单\n\n- [ ] 我已经搜索了现有的 issues\n- [ ] 我已经确认这是一个 bug\n- [ ] 我已经提供了重现步骤\n\`\`\`\n\n### ⚠️ 重要提醒\n- 不符合格式要求的 Issue 将在 24 小时后自动关闭\n- 请使用提供的模板创建 Issue\n\n请完善信息后重新提交，谢谢！`;
+              const commentBody = `⚠️ **Issue 格式验证失败**\n\n### ❌ 发现的问题：\n\n${validationErrors.join('\n\n')}\n\n### ⚠️ 重要提醒\n- 不符合格式要求的 Issue 将在 24 小时后自动关闭\n- 请使用提供的模板创建 Issue\n\n请完善信息后重新提交，谢谢！`;
               
               try {
                 await github.rest.issues.createComment({
@@ -163,4 +163,3 @@ jobs:
                 console.log('⚠️ 添加成功评论失败:', e.message);
               }
             }
- 
