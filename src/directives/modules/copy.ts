@@ -12,13 +12,13 @@ interface ElType extends HTMLElement {
 const copy: Directive = {
   mounted(el: ElType, binding: DirectiveBinding) {
     el.copyData = binding.value
-    el.addEventListener('click', handleClick)
+    el.addEventListener('click', () => void handleClick(el))
   },
   updated(el: ElType, binding: DirectiveBinding) {
     el.copyData = binding.value
   },
   beforeUnmount(el: ElType) {
-    el.removeEventListener('click', handleClick)
+    el.removeEventListener('click', () => void handleClick(el))
   },
 }
 

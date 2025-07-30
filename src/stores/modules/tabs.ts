@@ -19,7 +19,7 @@ export const useTabsStore = defineStore('geeker-tabs', {
       }
       // add keepalive
       if (!keepAliveStore.keepAliveName.includes(tabItem.name) && tabItem.isKeepAlive) {
-        keepAliveStore.addKeepAliveName(tabItem.path)
+        return keepAliveStore.addKeepAliveName(tabItem.path)
       }
     },
     // Remove Tabs
@@ -33,7 +33,7 @@ export const useTabsStore = defineStore('geeker-tabs', {
           if (!nextTab) {
             return
           }
-          router.push(nextTab.path)
+          return router.push(nextTab.path)
         })
       }
       // remove keepalive
@@ -53,7 +53,7 @@ export const useTabsStore = defineStore('geeker-tabs', {
       }
       // set keepalive
       const KeepAliveList = this.tabsMenuList.filter(item => item.isKeepAlive)
-      keepAliveStore.setKeepAliveName(KeepAliveList.map(item => item.path))
+      return keepAliveStore.setKeepAliveName(KeepAliveList.map(item => item.path))
     },
     // Close MultipleTab
     async closeMultipleTab(tabsMenuValue?: string) {
@@ -62,7 +62,7 @@ export const useTabsStore = defineStore('geeker-tabs', {
       })
       // set keepalive
       const KeepAliveList = this.tabsMenuList.filter(item => item.isKeepAlive)
-      keepAliveStore.setKeepAliveName(KeepAliveList.map(item => item.path))
+      return keepAliveStore.setKeepAliveName(KeepAliveList.map(item => item.path))
     },
     // Set Tabs
     async setTabs(tabsMenuList: TabsMenuProps[]) {

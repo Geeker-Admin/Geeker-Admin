@@ -48,6 +48,7 @@ import { CircleClose, UserFilled } from '@element-plus/icons-vue'
 import type { ElForm } from 'element-plus'
 import { useLoadingStore } from '@/stores/modules/loading'
 import { storeToRefs } from 'pinia'
+import { useDictStore } from '@/stores/modules/dict'
 
 // todo caps lock
 // todo forget password
@@ -87,6 +88,7 @@ const login = (formEl: FormInstance | undefined) => {
 
     // 2.添加动态路由
     await initDynamicRouter()
+    useDictStore().getAllDict()
 
     // 3.清空 tabs、keepAlive 数据
     tabsStore.setTabs([])

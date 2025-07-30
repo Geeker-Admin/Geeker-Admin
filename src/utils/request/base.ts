@@ -118,13 +118,12 @@ export class RequestHttp {
         // 登录失效
         if (data.code == ResultEnum.OVERDUE) {
           userStore.setToken('')
-          router.replace(LOGIN_URL)
-          ElMessage.error(data.msg)
-          return Promise.reject(data)
+          ElMessage.error(data.msg || data.message)
+          return Promise.reject(router.replace(LOGIN_URL))
         }
         // 全局错误信息拦截（防止下载文件的时候返回数据流，没有 code 直接报错）
         if (data.code && data.code !== ResultEnum.SUCCESS) {
-          ElMessage.error(data.msg)
+          ElMessage.error(data.msg || data.message)
           return Promise.reject(data)
         }
         // 成功请求（在页面上除非特殊情况，否则不用处理失败逻辑）
@@ -149,7 +148,7 @@ export class RequestHttp {
         }
         // 服务器结果都没有返回(可能服务器错误可能客户端断网)，断网处理:可以跳转到断网页面
         if (!window.navigator.onLine) {
-          router.replace('/500')
+          return Promise.reject(router.replace('/500'))
         }
         return Promise.reject(error)
       }

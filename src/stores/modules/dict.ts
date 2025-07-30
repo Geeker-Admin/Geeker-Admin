@@ -5,7 +5,7 @@ import { DictAPI } from '@/api/system/dict'
 import { DICT_CACHE_TIME } from '@/constants'
 
 export const useDictStore = defineStore('geeker-dict', () => {
-  const dict = useStorage<Record<string, { list: Dict[]; __cache_time: number }>>('dict', {}, localStorage, {
+  const dict = useStorage<Record<string, { list: Dict[]; __cache_time: number }>>('geeker-dict', {}, localStorage, {
     mergeDefaults: true,
   })
 
@@ -20,9 +20,18 @@ export const useDictStore = defineStore('geeker-dict', () => {
     })
   }
 
+  const getAllDict = () => {
+    return DictAPI.getAllDict().then(data => {
+      data.forEach(item => {
+        dict.value[item.code] = { list: item.list, __cache_time: Date.now() }
+      })
+      return data
+    })
+  }
+
   const clearDict = () => {
     dict.value = {}
   }
 
-  return { getDict, clearDict }
+  return { getDict, clearDict, getAllDict }
 })

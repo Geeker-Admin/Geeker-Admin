@@ -1,12 +1,8 @@
 import http from '@/utils/request'
 import { treeMap } from '@/utils'
 
-export interface Dict {
+export interface Dict extends SelectOption {
   type?: string
-  value: string | number
-  label: string
-  code: string
-  name: string
 }
 
 export interface DictListItem extends Dict {
@@ -37,9 +33,7 @@ export const DictAPI = {
 
   // 获取所有字典列表
   getAllDict: () => {
-    return http.get<Record<string, Dict[]>>(`/dict/all`).then(res => {
-      return res.list
-    })
+    return http.get<{ code: string; list: Dict[] }[]>(`/dict/all`)
   },
   // 获取字典数据
   getDictData: (code: string) => http.get<Dict[]>(`/dict/item/${code}`),
