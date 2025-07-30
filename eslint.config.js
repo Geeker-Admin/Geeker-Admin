@@ -1,20 +1,18 @@
 // https://eslint.nodejs.cn/docs/latest/use/configure/configuration-files
 
 import globals from 'globals'
-import pluginJs from '@eslint/js' // JavaScript 规则
-import eslintPluginVue from 'eslint-plugin-vue'
-import typescriptEslint from 'typescript-eslint'
-import prettierPlugin from 'eslint-plugin-prettier'
-// 不再需要单独引入 eslint-config-prettier，因为 prettier/recommended 已经包含了它
+import js from '@eslint/js'
+import vue from 'eslint-plugin-vue'
+import tseslint from 'typescript-eslint'
+import prettier from 'eslint-plugin-prettier'
 
-// 解析自动导入配置
-
+// 读取自动导入配置
 import fs from 'fs'
 const autoImportConfig = JSON.parse(fs.readFileSync('.eslintrc-auto-import.json', 'utf-8'))
 
 /** @type {import('eslint').Linter.Config[]} */
 
-// 全局变量
+// 全局变量定义
 const GlobalType = {
   ...autoImportConfig.globals,
   ...globals.browser,
@@ -45,35 +43,29 @@ const GlobalType = {
 }
 
 export default [
-  // 基本配置 - 忽略文件
+  // 忽略文件配置
   {
-    ignores: ['*.d.ts', '**/coverage', '**/dist', 'vite.config.ts', 'mock/**', 'src/types/**'],
+    ignores: [
+      '*.d.ts',
+      '**/coverage',
+      '**/dist',
+      'vite.config.ts',
+      'mock/**',
+      'src/types/**',
+      'webhook-receivers/**', // 忽略 webhook 接收器目录
+    ],
   },
 
-  // Prettier 规则 (放在前面，优先级更高)
-  {
-    files: ['**/*.{js,mjs,cjs,ts,tsx,vue}'],
-    plugins: {
-      prettier: prettierPlugin,
-    },
-    rules: {
-      // 使用 prettier 推荐配置
-      ...prettierPlugin.configs.recommended.rules,
-      // 添加额外的 Prettier 规则，使用项目的 .prettierrc.mjs 配置
-      'prettier/prettier': ['error'],
-    },
-  },
+  // JavaScript 推荐配置
+  js.configs.recommended,
 
-  // JavaScript 规则
-  pluginJs.configs.recommended,
+  // TypeScript 推荐配置
+  ...tseslint.configs.recommended,
 
-  // TypeScript 规则
-  ...typescriptEslint.configs.recommended,
+  // Vue 推荐配置
+  ...vue.configs['flat/recommended'],
 
-  // Vue 规则
-  ...eslintPluginVue.configs['flat/recommended'],
-
-  // JS/TS/Vue 文件配置
+  // 全局配置 - 适用于所有 JS/TS/Vue 文件
   {
     files: ['**/*.{js,mjs,cjs,ts,tsx,vue}'],
     languageOptions: {
@@ -81,11 +73,21 @@ export default [
       sourceType: 'module',
       globals: GlobalType,
       parserOptions: {
-        parser: typescriptEslint.parser,
+        parser: tseslint.parser,
+        ecmaVersion: 'latest',
+        sourceType: 'module',
       },
     },
+    plugins: {
+      prettier,
+      '@typescript-eslint': tseslint.plugin,
+      vue,
+    },
     rules: {
-      // 添加空行相关规则
+      // Prettier 规则
+      'prettier/prettier': 'error',
+
+      // 空行规则
       'no-multiple-empty-lines': ['error', { max: 1, maxBOF: 0, maxEOF: 0 }],
 
       // TypeScript 规则
@@ -94,27 +96,27 @@ export default [
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
 
-      // Vue 规则 - 禁用可能与 Prettier 冲突的规则
+      // Vue 规则
       'vue/multi-word-component-names': 'off',
       'vue/max-attributes-per-line': 'off',
-      'vue/html-self-closing': 'off', // 禁用可能与 Prettier 冲突的规则
-      'vue/html-indent': 'off', // 禁用可能与 Prettier 冲突的规则
-      'vue/singleline-html-element-content-newline': 'off', // 禁用可能与 Prettier 冲突的规则
-      // 禁用组件名称转换为 kebab-case
+      'vue/html-self-closing': 'off',
+      'vue/html-indent': 'off',
+      'vue/singleline-html-element-content-newline': 'off',
       'vue/component-name-in-template-casing': 'off',
       'vue/require-default-prop': 'off',
       'vue/html-closing-bracket-newline': 'off',
-      curly: ['error', 'all'],
+
       // 一般规则
+      curly: ['error', 'all'],
       'no-console': ['error', { allow: ['error'] }],
       'no-debugger': 'error',
       'no-unused-vars': [
         'error',
         {
-          argsIgnorePattern: '^_', // 忽略参数名以 _ 开头的参数未使用警告
-          varsIgnorePattern: '^[A-Z0-9_]+$', // 忽略变量名为大写字母、数字或下划线组合的未使用警告（枚举定义未使用场景）
-          caughtErrors: 'none', // 忽略所有 catch 参数的未使用警告
-          ignoreRestSiblings: true, // 忽略解构赋值中同级未使用变量的警告
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^[A-Z0-9_]+$',
+          caughtErrors: 'none',
+          ignoreRestSiblings: true,
         },
       ],
     },
@@ -124,10 +126,10 @@ export default [
   {
     files: ['**/*.vue'],
     languageOptions: {
-      parser: eslintPluginVue.parser,
+      parser: vue.parser,
       parserOptions: {
         jsx: true,
-        parser: typescriptEslint.parser,
+        parser: tseslint.parser,
         ecmaVersion: 'latest',
         sourceType: 'module',
         extraFileExtensions: ['.vue'],
@@ -135,6 +137,24 @@ export default [
           jsx: true,
         },
       },
+    },
+  },
+
+  // TypeScript 文件特定配置
+  {
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        project: './tsconfig.json',
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-floating-promises': 'error',
+      '@typescript-eslint/await-thenable': 'error',
+      '@typescript-eslint/no-misused-promises': 'error',
     },
   },
 ]

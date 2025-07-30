@@ -106,7 +106,7 @@ jobs:
             try {
               const distPath = path.join(process.cwd(), 'dist');
               const sizeInMB = (getDirSize(distPath) / (1024 * 1024)).toFixed(2);
-
+              
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
@@ -155,5 +155,5 @@ jobs:
       - name: Success message
         run: |
           echo "✅ 部署成功！"
-          echo "📱 预览地址: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+          echo "📱 地址: https://geeker-admin.maicss.com"
           echo "🔗 部署时间: $(date)"

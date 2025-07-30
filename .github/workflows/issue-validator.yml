@@ -1,0 +1,165 @@
+name: Issue Validator
+
+on:
+  issues:
+    types: [opened, edited]
+
+# 添加必要的权限
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  validate-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate Issue Format
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+
+            console.log('🔍 开始验证 Issue 格式...');
+            console.log(`Issue 标题: ${issue.title}`);
+            console.log(`Issue 描述长度: ${body.length}`);
+
+            let validationErrors = [];
+            let debugInfo = [];
+
+            // 检查是否包含必要的环境信息
+            const hasOS = body.includes('### 操作系统') && body.includes('- [ ]');
+            const hasBrowser = body.includes('### 浏览器版本') && body.includes('- [ ]');
+            const hasVersion = body.includes('### 仓库代码版本') && body.includes('- [ ]');
+
+            // 检查是否包含重现步骤或功能描述
+            const hasSteps = body.includes('## 📋 重现步骤') || body.includes('## 🎯 问题描述');
+
+            // 检查是否包含预期行为（bug report）
+            const hasExpectedBehavior = body.includes('## 🎯 预期行为');
+
+            // 检查是否包含检查清单
+            const hasChecklist = body.includes('## ✅ 检查清单') && body.includes('- [ ]');
+
+            if (!hasOS) {
+              validationErrors.push('❌ **缺少操作系统信息**');
+              debugInfo.push('未找到操作系统选择项（需要包含 "### 操作系统" 和 "- [ ]" 格式）');
+            } else {
+              console.log('✅ 操作系统检查通过');
+            }
+
+            if (!hasBrowser) {
+              validationErrors.push('❌ **缺少浏览器版本信息**');
+              debugInfo.push('未找到浏览器版本填写项（需要包含 "### 浏览器版本" 和 "- [ ]" 格式）');
+            } else {
+              console.log('✅ 浏览器版本检查通过');
+            }
+
+            if (!hasVersion) {
+              validationErrors.push('❌ **缺少仓库代码版本确认**');
+              debugInfo.push('未找到仓库代码版本确认项（需要包含 "### 仓库代码版本" 和 "- [ ]" 格式）');
+            } else {
+              console.log('✅ 仓库代码版本检查通过');
+            }
+
+            if (!hasSteps) {
+              validationErrors.push('❌ **缺少重现步骤或问题描述**');
+              debugInfo.push('未找到重现步骤或问题描述（需要包含 "## 📋 重现步骤" 或 "## 🎯 问题描述"）');
+            } else {
+              console.log('✅ 重现步骤检查通过');
+            }
+
+            if (!hasChecklist) {
+              validationErrors.push('❌ **缺少检查清单**');
+              debugInfo.push('未找到检查清单（需要包含 "## ✅ 检查清单" 和 "- [ ]" 格式）');
+            } else {
+              console.log('✅ 检查清单检查通过');
+            }
+
+            if (validationErrors.length > 0) {
+              console.log('❌ Issue 格式验证失败');
+              console.log('错误详情:', validationErrors);
+              
+              // 添加标签（首次只添加 needs-info）
+              try {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  labels: ['needs-info']
+                });
+                console.log('✅ 已添加 needs-info 标签');
+              } catch (e) {
+                console.log('⚠️ 添加标签失败:', e.message);
+              }
+              
+              // 添加详细评论
+              const commentBody = `⚠️ **Issue 格式验证失败**\n\n### ❌ 发现的问题：\n\n${validationErrors.join('\n\n')}\n\n### ⚠️ 重要提醒\n- 不符合格式要求的 Issue 将在 24 小时后自动关闭\n- 请使用提供的模板创建 Issue\n\n请完善信息后重新提交，谢谢！`;
+              
+              try {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  body: commentBody
+                });
+                console.log('✅ 已添加详细评论');
+              } catch (e) {
+                console.log('⚠️ 添加评论失败:', e.message);
+              }
+              
+              core.setFailed(`Issue format validation failed: ${validationErrors.join(', ')}`);
+            } else {
+              console.log('✅ Issue 格式验证通过');
+              
+              // 移除 invalid 和 needs-info 标签（如果存在）
+              const labelsToRemove = ['invalid', 'needs-info'];
+              for (const label of labelsToRemove) {
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    name: label
+                  });
+                  console.log(`✅ 已移除 ${label} 标签`);
+                } catch (e) {
+                  // 标签不存在，忽略错误
+                  console.log(`ℹ️ ${label} 标签不存在，无需移除`);
+                }
+              }
+              
+              // 如果 issue 之前被关闭了，重新打开
+              if (issue.state === 'closed') {
+                try {
+                  await github.rest.issues.update({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    state: 'open'
+                  });
+                  console.log('✅ 已重新打开 Issue');
+                } catch (e) {
+                  console.log('⚠️ 重新打开 Issue 失败:', e.message);
+                }
+              }
+              
+              // 添加成功评论
+              const successComment = `✅ **Issue 格式验证通过！**\n\n所有格式要求都已满足，Issue 已准备就绪。`;
+              
+              try {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  body: successComment
+                });
+                console.log('✅ 已添加成功评论');
+              } catch (e) {
+                console.log('⚠️ 添加成功评论失败:', e.message);
+              }
+            }

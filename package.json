@@ -16,7 +16,7 @@
       "url": "https://github.com/HalseySpicy"
     }
   ],
-  "license": "MIT",
+  "license": "Apache-2.0",
   "homepage": "https://github.com/Geeker-Admin/Geeker-Admin",
   "repository": {
     "type": "git",
@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
-    "@vueuse/core": "^13.5.0",
+    "@vueuse/core": "^13.6.0",
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-vue": "^5.1.12",
     "axios": "^1.11.0",
@@ -66,16 +66,16 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@eslint/js": "^9.32.0",
-    "@iconify/json": "^2.2.362",
+    "@iconify/json": "^2.2.363",
     "@types/node": "^24.1.0",
     "@types/nprogress": "^0.2.3",
     "@types/qs": "^6.14.0",
     "@types/sortablejs": "^1.15.8",
     "@unocss/preset-wind4": "^66.3.3",
-    "@vitejs/plugin-vue": "^6.0.0",
+    "@vitejs/plugin-vue": "^6.0.1",
     "@vitejs/plugin-vue-jsx": "^5.0.1",
     "autoprefixer": "^10.4.21",
-    "code-inspector-plugin": "^0.20.17",
+    "code-inspector-plugin": "^1.0.2",
     "cz-git": "1.12.0",
     "czg": "^1.12.0",
     "eslint": "^9.32.0",
@@ -111,7 +111,7 @@
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-html": "^3.2.2",
     "vite-plugin-pwa": "^1.0.2",
-    "vite-plugin-vue-devtools": "^7.7.7",
+    "vite-plugin-vue-devtools": "^8.0.0",
     "vue-eslint-parser": "^10.2.0",
     "vue-tsc": "^3.0.4"
   },

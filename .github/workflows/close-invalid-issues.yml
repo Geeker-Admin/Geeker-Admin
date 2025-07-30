@@ -1,0 +1,73 @@
+name: Close Invalid Issues
+
+on:
+  schedule:
+    # 每天运行一次
+    - cron: '0 0 * * *'
+
+# 添加必要的权限
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  close-invalid-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close Invalid Issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // 获取所有开放的 issues
+            const allIssues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            });
+
+            for (const issue of allIssues.data) {
+              const createdAt = new Date(issue.created_at);
+              const now = new Date();
+              const hoursDiff = (now - createdAt) / (1000 * 60 * 60);
+              
+              // 检查是否有 needs-info 标签
+              const hasNeedsInfo = issue.labels.some(label => label.name === 'needs-info');
+              // 检查是否有 invalid 标签
+              const hasInvalid = issue.labels.some(label => label.name === 'invalid');
+              
+              if (hoursDiff >= 24) {
+                if (hasNeedsInfo && !hasInvalid) {
+                  // 超过24小时的 needs-info 添加 invalid 标签
+                  await github.rest.issues.addLabels({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    labels: ['invalid']
+                  });
+                  
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    body: '⏰ 此 issue 已存在超过 24 小时且标记为 needs-info，现添加 invalid 标签。\n\n请在 24 小时内完善信息，否则将被自动关闭。'
+                  });
+                } else if (hasInvalid) {
+                  // 超过24小时的 invalid 关闭 issue
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    body: '⏰ 此 issue 已存在超过 24 小时且格式不符合要求，现自动关闭。\n\n如需重新提交，请按照模板格式创建新的 issue。'
+                  });
+                  
+                  await github.rest.issues.update({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    state: 'closed'
+                  });
+                }
+              }
+            }
+ 

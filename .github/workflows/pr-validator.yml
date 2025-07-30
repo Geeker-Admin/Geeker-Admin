@@ -1,0 +1,173 @@
+name: PR Validator
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+# 添加必要的权限
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  validate-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate PR Format
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const body = pr.body || '';
+            const commits = await github.rest.pulls.listCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number
+            });
+
+            console.log('🔍 开始验证 PR 格式...');
+            console.log(`PR 标题: ${pr.title}`);
+            console.log(`PR 描述长度: ${body.length}`);
+            console.log(`Commit 数量: ${commits.data.length}`);
+
+            let validationErrors = [];
+            let debugInfo = [];
+
+            // 检查是否关联了 issue
+            const hasIssueLink = body.includes('**关联 Issue:** #') && !body.includes('**关联 Issue:** #_____');
+            if (!hasIssueLink) {
+              validationErrors.push('❌ **必须关联一个 issue**（格式：#issue_number）');
+              debugInfo.push('未找到有效的 Issue 关联（需要包含 "**关联 Issue:** #" 格式）');
+            } else {
+              console.log('✅ Issue 关联检查通过');
+            }
+
+            // 检查是否只有一个 commit
+            if (commits.data.length > 1) {
+              validationErrors.push(`❌ **PR 只能包含一个 commit**，当前有 ${commits.data.length} 个 commit，请使用 rebase 合并多个 commit`);
+              debugInfo.push(`检测到 ${commits.data.length} 个 commit，需要合并为 1 个`);
+            } else {
+              console.log('✅ Commit 数量检查通过');
+            }
+
+            // 检查是否选择了 PR 类型
+            const validTypes = [
+              'feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 
+              'build', 'ci', 'chore', 'revert', 'wip', 'workflow', 'types', 'release'
+            ];
+
+            const hasPRType = body.includes('- [x]') && (
+              body.includes('新功能') ||
+              body.includes('Bug 修复') ||
+              body.includes('文档更新') ||
+              body.includes('代码重构') ||
+              body.includes('性能优化') ||
+              body.includes('测试相关') ||
+              body.includes('构建/CI 相关') ||
+              body.includes('回滚') ||
+              body.includes('开发中') ||
+              body.includes('发布相关')
+            );
+            if (!hasPRType) {
+              validationErrors.push('❌ **必须选择 PR 类型**（只能选择一个）');
+              debugInfo.push('未找到有效的 PR 类型选择（需要包含 "- [x]" 和类型描述）');
+            } else {
+              console.log('✅ PR 类型检查通过');
+            }
+
+            // 检查是否完成了检查清单
+            console.log('🔍 检查清单验证详情:');
+            console.log('- 包含 "## 检查清单":', body.includes('## 检查清单'));
+            console.log('- 包含 "## 📋 检查清单":', body.includes('## 📋 检查清单'));
+            console.log('- 包含 "- [x]":', body.includes('- [x]'));
+            console.log('- 包含 "我的提交信息遵循了 [Conventional Commits]":', body.includes('我的提交信息遵循了 [Conventional Commits]'));
+            console.log('- 包含 "Conventional Commits":', body.includes('Conventional Commits'));
+            console.log('- 包含 "我的 PR 只包含一个 commit":', body.includes('我的 PR 只包含一个 commit'));
+            console.log('- 包含 "我使用了 rebase 而不是 merge":', body.includes('我使用了 rebase 而不是 merge'));
+
+            const hasChecklist = (body.includes('## 检查清单') || body.includes('## 📋 检查清单')) && 
+              body.includes('- [x]') && 
+              (body.includes('我的提交信息遵循了 [Conventional Commits]') || body.includes('Conventional Commits')) &&
+              body.includes('我的 PR 只包含一个 commit') &&
+              body.includes('我使用了 rebase 而不是 merge');
+            if (!hasChecklist) {
+              validationErrors.push('❌ **检查清单未完成**');
+              debugInfo.push('未找到完整的检查清单（需要包含所有必选项并标记为已完成）');
+            } else {
+              console.log('✅ 检查清单检查通过');
+            }
+
+            if (validationErrors.length > 0) {
+              console.log('❌ PR 格式验证失败');
+              console.log('错误详情:', validationErrors);
+              
+              // 添加标签（首次只添加 needs-info）
+              try {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  labels: ['needs-info']
+                });
+                console.log('✅ 已添加 needs-info 标签');
+              } catch (e) {
+                console.log('⚠️ 添加标签失败:', e.message);
+              }
+              
+              // 添加详细评论
+              const commentBody = `⚠️ **PR 格式验证失败**\n\n### ❌ 发现的问题：\n\n${validationErrors.join('\n\n')}\n\n### ⚠️ 重要提醒\n- 不符合格式要求的 PR 将被标记为 invalid\n- 请使用提供的模板创建 PR\n\n请完善信息后重新提交，谢谢！`;
+              
+              try {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  body: commentBody
+                });
+                console.log('✅ 已添加详细评论');
+              } catch (e) {
+                console.log('⚠️ 添加评论失败:', e.message);
+              }
+              
+              core.setFailed(`PR format validation failed: ${validationErrors.join(', ')}`);
+            } else {
+              console.log('✅ PR 格式验证通过');
+              
+              // 移除 invalid 和 needs-info 标签（如果存在）
+              const labelsToRemove = ['invalid', 'needs-info'];
+              for (const label of labelsToRemove) {
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: pr.number,
+                    name: label
+                  });
+                  console.log(`✅ 已移除 ${label} 标签`);
+                } catch (e) {
+                  // 标签不存在，忽略错误
+                  console.log(`ℹ️ ${label} 标签不存在，无需移除`);
+                }
+              }
+              
+              // 添加成功评论
+              const successComment = `✅ **PR 格式验证通过！**\n\n所有格式要求都已满足，PR 已准备就绪。`;
+              
+              try {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  body: successComment
+                });
+                console.log('✅ 已添加成功评论');
+              } catch (e) {
+                console.log('⚠️ 添加成功评论失败:', e.message);
+              }
+            }
