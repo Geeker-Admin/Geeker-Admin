@@ -39,9 +39,6 @@ jobs:
             // 检查是否包含重现步骤或功能描述
             const hasSteps = body.includes('## 📋 重现步骤') || body.includes('## 🎯 问题描述');
 
-            // 检查是否包含预期行为（bug report）
-            const hasExpectedBehavior = body.includes('## 🎯 预期行为');
-
             // 检查是否包含检查清单
             const hasChecklist = body.includes('## ✅ 检查清单') && body.includes('- [ ]');
 

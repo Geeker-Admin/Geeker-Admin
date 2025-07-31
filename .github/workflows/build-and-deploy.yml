@@ -13,6 +13,7 @@ permissions:
   id-token: write
   issues: write
   pull-requests: write
+  actions: read
 
 # 允许一个并发部署
 concurrency:
@@ -79,6 +80,7 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
             const path = require('path');
@@ -100,21 +102,26 @@ jobs:
 
             try {
               const distPath = path.join(process.cwd(), 'dist');
-              const sizeInMB = (getDirSize(distPath) / (1024 * 1024)).toFixed(2);
-              
-              github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: `✅ 构建成功！\n\n📦 构建产物大小: ${sizeInMB} MB\n🔗 构建时间: ${new Date().toISOString()}`
-              });
+              if (fs.existsSync(distPath)) {
+                const sizeInMB = (getDirSize(distPath) / (1024 * 1024)).toFixed(2);
+                
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: `✅ 构建成功！\n\n📦 构建产物大小: ${sizeInMB} MB\n🔗 构建时间: ${new Date().toISOString()}`
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: `⚠️ 构建完成但未找到构建产物\n\n🔗 构建时间: ${new Date().toISOString()}`
+                });
+              }
             } catch (error) {
-              github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: `❌ 构建失败！\n\n请检查构建日志以获取更多信息。`
-              });
+              console.error('创建评论时出错:', error.message);
+              // 不抛出错误，避免整个工作流失败
             }
 
   deploy:

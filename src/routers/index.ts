@@ -76,7 +76,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   // 8.正常访问页面
-  authStore.setRouteName(to.name as string)
+  void authStore.setRouteName(to.name as string)
   next()
 })
 
