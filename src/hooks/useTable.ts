@@ -88,12 +88,9 @@ export function useTable<TableItem>(
       }
 
       if (pagination === ProTablePaginationEnum.FE) {
-        if (!fePaginationFilterMethod) {
-          throw new Error(t('error.fePaginationFilterMethodIsRequired'))
-        }
         const { pageNum, pageSize, ...rest } = state.totalParam
         const queryKeys = Object.keys(rest)
-        const filterData = queryKeys.length ? fePaginationFilterMethod(rest) : (data as TableItem[])
+        const filterData = queryKeys.length ? fePaginationFilterMethod!(rest) : (data as TableItem[])
         listData = filterData.slice((pageNum - 1) * pageSize, pageNum * pageSize)
         state.pageable.total = queryKeys.length ? filterData.length : (data as TableItem[]).length
       }

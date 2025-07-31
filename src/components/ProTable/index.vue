@@ -137,7 +137,7 @@
 
 <script setup lang="ts">
 defineOptions({ name: 'ProTable' })
-import { ElTable } from 'element-plus'
+import { ElTable, ElMessage } from 'element-plus'
 import { useTable } from '@/hooks/useTable'
 import { useSelection } from '@/hooks/useSelection'
 import type { ColumnProps, TypeProps, ProTableProps } from './interface'
@@ -338,6 +338,15 @@ const searchColumns = computed(() => {
     ?.filter(item => item.search?.el || item.search?.render)
     .sort((a, b) => a.search!.order! - b.search!.order!)
 })
+
+// 如果是前端分页，且有筛选参数，但是没有 fePaginationFilterMethod，则抛出错误
+if (
+  props.pagination === ProTablePaginationEnum.FE &&
+  searchColumns.value.length !== 0 &&
+  !props.fePaginationFilterMethod
+) {
+  ElMessage.error(t('error.fePaginationFilterMethodIsRequired'))
+}
 
 // 设置 搜索表单默认排序 && 搜索表单项的默认值
 searchColumns.value?.forEach((column, index) => {
