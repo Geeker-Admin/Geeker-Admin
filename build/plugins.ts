@@ -15,6 +15,7 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import Icons from 'unplugin-icons/vite'
+import { cdn } from './cdn'
 
 const iconsDir = './src/assets/icons/svg'
 
@@ -23,7 +24,7 @@ const iconsDir = './src/assets/icons/svg'
  * @param viteEnv
  */
 export const createVitePlugins = (viteEnv: ViteEnv): (PluginOption | PluginOption[])[] => {
-  const { VITE_GLOB_APP_TITLE, VITE_REPORT, VITE_DEVTOOLS, VITE_PWA, VITE_CODE_INSPECTOR } = viteEnv
+  const { VITE_GLOB_APP_TITLE, VITE_REPORT, VITE_DEVTOOLS, VITE_PWA, VITE_CODE_INSPECTOR, VITE_CDN } = viteEnv
   return [
     vue(),
     // vue 可以使用 jsx/tsx 语法
@@ -101,6 +102,7 @@ export const createVitePlugins = (viteEnv: ViteEnv): (PluginOption | PluginOptio
       //   return svg
       // },
     }),
+    VITE_CDN && cdn,
     // vitePWA
     VITE_PWA && createVitePwa(viteEnv),
     // 是否生成包预览，分析依赖包大小做优化处理
