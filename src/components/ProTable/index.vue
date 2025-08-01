@@ -173,6 +173,7 @@ const columnTypes: TypeProps[] = ['selection', 'radio', 'index', 'expand', 'sort
 
 // 是否显示搜索模块
 const isShowSearch = ref(true)
+const searchParamDefaultValuePromises: { key: string; promise: Promise<any> }[] = []
 
 const importModal = ref({
   visible: false,
@@ -269,7 +270,17 @@ const clearSelection = () => tableRef.value!.clearSelection()
 // 初始化表格数据 && 拖拽排序
 onMounted(() => {
   dragSort()
-  props.requestAuto && getTableList()
+  Promise.all(searchParamDefaultValuePromises.map(item => item.promise))
+    .then(res => {
+      res.forEach((value, index) => {
+        const { key } = searchParamDefaultValuePromises[index]
+        searchParam.value[key] = value
+        searchInitParam.value[key] = value
+      })
+    })
+    .then(() => {
+      props.requestAuto && getTableList()
+    })
 })
 
 // 监听页面 initParam 改化，重新获取表格数据
@@ -354,8 +365,12 @@ searchColumns.value?.forEach((column, index) => {
   const key = column.search?.key ?? handleProp(column.prop!)
   const defaultValue = column.search?.defaultValue
   if (defaultValue !== undefined && defaultValue !== null) {
-    searchParam.value[key] = defaultValue
-    searchInitParam.value[key] = defaultValue
+    if (defaultValue instanceof Promise) {
+      searchParamDefaultValuePromises.push({ key, promise: defaultValue })
+    } else {
+      searchParam.value[key] = defaultValue
+      searchInitParam.value[key] = defaultValue
+    }
   }
 })
 

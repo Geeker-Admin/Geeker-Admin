@@ -49,7 +49,7 @@ export type SearchProps = {
   order?: number // 搜索项排序（从大到小）
   span?: number // 搜索项所占用的列数，默认为 1 列
   offset?: number // 搜索字段左侧偏移列数
-  defaultValue?: string | number | boolean | any[] | Ref<any> // 搜索项默认值
+  defaultValue?: any | any[] | Ref<any> | Promise<any> // 搜索项默认值
   render?: (_scope: SearchRenderScope) => VNode // 自定义搜索内容渲染（tsx语法）
 } & Partial<Record<BreakPoint, Responsive>>
 
