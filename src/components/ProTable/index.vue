@@ -22,7 +22,7 @@
             :icon="item.icon"
             :type="item.type"
             :auth="item.auth"
-            :loading="loading"
+            :loading="loadingStore.loading"
             v-bind="item.attrs"
             @click="handleToolbarClick(item.name)"
           >
@@ -47,7 +47,7 @@
             :icon="item.icon"
             :auth="item.auth"
             :title="item.text"
-            :loading="loading"
+            :loading="loadingStore.loading"
             circle
             @click="handleToolbarClick(item.name)"
           />
@@ -151,6 +151,8 @@ import { toolbarButtonsConfig } from '@/utils/proTable'
 import { Operation } from '@element-plus/icons-vue'
 import { ProTablePaginationEnum } from '@/enums'
 import { useI18n } from 'vue-i18n'
+import { useLoadingStore } from '@/stores/modules/loading'
+import { TABLE_COLUMN_OPERATIONS_NAME } from '@/constants/proTable'
 
 // 接受父组件参数，配置默认值
 const props = withDefaults(defineProps<ProTableProps>(), {
@@ -173,6 +175,10 @@ const columnTypes: TypeProps[] = ['selection', 'radio', 'index', 'expand', 'sort
 
 // 是否显示搜索模块
 const isShowSearch = ref(true)
+
+const loadingStore = useLoadingStore()
+
+const searchParamDefaultValuePromises: { key: string; promise: Promise<any> }[] = []
 
 const importModal = ref({
   visible: false,
@@ -269,7 +275,17 @@ const clearSelection = () => tableRef.value!.clearSelection()
 // 初始化表格数据 && 拖拽排序
 onMounted(() => {
   dragSort()
-  props.requestAuto && getTableList()
+  Promise.all(searchParamDefaultValuePromises.map(item => item.promise))
+    .then(res => {
+      res.forEach((value, index) => {
+        const { key } = searchParamDefaultValuePromises[index]
+        searchParam.value[key] = value
+        searchInitParam.value[key] = value
+      })
+    })
+    .then(() => {
+      props.requestAuto && getTableList()
+    })
 })
 
 // 监听页面 initParam 改化，重新获取表格数据
@@ -354,8 +370,12 @@ searchColumns.value?.forEach((column, index) => {
   const key = column.search?.key ?? handleProp(column.prop!)
   const defaultValue = column.search?.defaultValue
   if (defaultValue !== undefined && defaultValue !== null) {
-    searchParam.value[key] = defaultValue
-    searchInitParam.value[key] = defaultValue
+    if (defaultValue instanceof Promise) {
+      searchParamDefaultValuePromises.push({ key, promise: defaultValue })
+    } else {
+      searchParam.value[key] = defaultValue
+      searchInitParam.value[key] = defaultValue
+    }
   }
 })
 
@@ -367,7 +387,7 @@ const setSearchParamForm = (key: string, value: any) => {
 const colRef = ref()
 const colSetting = tableColumns.value.filter(item => {
   const { type, prop, isSetting } = item
-  return !columnTypes.includes(type!) && prop !== 'operation' && isSetting
+  return !columnTypes.includes(type!) && prop !== TABLE_COLUMN_OPERATIONS_NAME && isSetting
 })
 const openColSetting = () => colRef.value.openColSetting()
 

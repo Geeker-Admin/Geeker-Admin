@@ -20,7 +20,7 @@
         </ElIcon>
       </template>
       <!-- 菜单操作 -->
-      <template #operation>
+      <template #[TABLE_COLUMN_OPERATIONS_NAME]>
         <ElButton type="primary" link :icon="EditPen"> 编辑 </ElButton>
         <ElButton type="primary" link :icon="Delete"> 删除 </ElButton>
       </template>
@@ -36,6 +36,7 @@ import { Delete, EditPen, CirclePlus } from '@element-plus/icons-vue'
 import authMenuList from '@/assets/json/authMenuList.json'
 import ProTable from '@/components/ProTable/index.vue'
 import { ProTablePaginationEnum } from '@/enums'
+import { TABLE_COLUMN_OPERATIONS_NAME } from '@/constants/proTable'
 
 const proTable = ref()
 
@@ -48,6 +49,6 @@ const columns: ColumnProps[] = [
   { prop: 'name', label: '菜单 name', search: { el: 'input' } },
   { prop: 'path', label: '菜单路径', width: 300, search: { el: 'input' } },
   { prop: 'component', label: '组件路径', width: 300 },
-  { prop: 'operation', label: '操作', width: 250, fixed: 'right' },
+  { prop: TABLE_COLUMN_OPERATIONS_NAME, label: '操作', width: 250, fixed: 'right' },
 ]
 </script>

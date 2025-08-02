@@ -28,12 +28,10 @@
     "username": "Username",
     "view": "View"
   },
-  "components": {
-    "proTable": {}
-  },
   "error": {
-    "fePaginationFilterMethodIsRequired": "fePaginationFilterMethod is a necessary parameter when paging in front-end.",
+    "fePaginationFilterMethodIsRequired": "fePaginationFilterMethod is a necessary parameter when paging in front-end and has search config.",
     "localeNotSupported": "Localization language [{locale}] is not supported, please check `src/locales/index.ts`",
+    "notRemoteDictNeedOptions": "Dict prop [options] is required when remote is false",
     "tableDataShouldBeArray": "The table data should be an array, the current type is incorrect"
   },
   "header": {
@@ -53,6 +51,13 @@
   },
   "home": {
     "welcome": "Welcome"
+  },
+  "proTable": {
+    "colName": "Col Name",
+    "colSetting": "Col Setting",
+    "colShow": "Show",
+    "colSort": "Sort",
+    "noColSetting": "No Col Settings"
   },
   "system": {
     "dictManage": {

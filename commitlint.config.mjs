@@ -29,6 +29,7 @@ export default {
       'always',
       [
         'feat',
+        'i18n',
         'fix',
         'docs',
         'style',

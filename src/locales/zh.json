@@ -28,12 +28,10 @@
     "username": "用户姓名",
     "view": "查看"
   },
-  "components": {
-    "proTable": {}
-  },
   "error": {
-    "fePaginationFilterMethodIsRequired": "前端分页时，fePaginationFilterMethod 是必要参数。",
+    "fePaginationFilterMethodIsRequired": "前端分页且有查询项时，fePaginationFilterMethod 是必要参数。",
     "localeNotSupported": "本地化语言 [{locale}] 不支持，请检查 `src/locales/index.ts`",
+    "notRemoteDictNeedOptions": "字典 remote 为 false 时，options 是必要参数",
     "tableDataShouldBeArray": "表格数据应该是数组，当前类型不正确"
   },
   "header": {
@@ -53,6 +51,13 @@
   },
   "home": {
     "welcome": "欢迎使用"
+  },
+  "proTable": {
+    "colName": "列名称",
+    "colSetting": "列设置",
+    "colShow": "显示",
+    "colSort": "排序",
+    "noColSetting": "暂无可配置列"
   },
   "system": {
     "dictManage": {

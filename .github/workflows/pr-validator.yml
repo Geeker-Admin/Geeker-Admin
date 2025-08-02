@@ -58,7 +58,7 @@ jobs:
 
             // 检查是否选择了 PR 类型
             const validTypes = [
-              'feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 
+              'feat', 'i18n', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 
               'build', 'ci', 'chore', 'revert', 'wip', 'workflow', 'types', 'release'
             ];
 

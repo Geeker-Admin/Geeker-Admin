@@ -62,7 +62,7 @@ const getTableConfig = ({
         prop: 'gender',
         label: '性别',
         enum: UserAPI.getUserGender,
-        search: { el: 'select', props: { filterable: true } },
+        search: { el: 'select', attrs: { filterable: true } },
         fieldNames: { label: 'genderLabel', value: 'genderValue' },
       },
       {
@@ -91,7 +91,7 @@ const getTableConfig = ({
         search: {
           el: 'date-picker',
           span: 2,
-          props: { type: 'datetimerange', valueFormat: 'YYYY-MM-DD HH:mm:ss' },
+          attrs: { type: 'datetimerange', valueFormat: 'YYYY-MM-DD HH:mm:ss' },
           defaultValue: [
             dayjs().subtract(1, 'month').format('YYYY-MM-DD HH:mm:ss'),
             dayjs().format('YYYY-MM-DD HH:mm:ss'),
@@ -103,7 +103,7 @@ const getTableConfig = ({
         label: '用户状态',
         enum: UserAPI.getUserStatus,
         minWidth: 110,
-        search: { el: 'tree-select', props: { filterable: true } },
+        search: { el: 'tree-select', attrs: { filterable: true } },
         fieldNames: { label: 'userLabel', value: 'userStatus' },
         render: scope => {
           return BUTTONS.value.includes('status') ? (

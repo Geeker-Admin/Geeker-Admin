@@ -3,6 +3,10 @@ name: Issue Validator
 on:
   issues:
     types: [opened, edited]
+  # 添加并发控制，避免重复运行
+concurrency:
+  group: 'issue-validator-${{ github.event.issue.number }}'
+  cancel-in-progress: true
 
 # 添加必要的权限
 permissions:
@@ -36,7 +40,10 @@ jobs:
             const hasBrowser = body.includes('### 浏览器版本') && body.includes('- [ ]');
             const hasVersion = body.includes('### 仓库代码版本') && body.includes('- [ ]');
 
-            // 检查是否包含重现步骤或功能描述
+            // 检查是否包含重现步骤或功能描述（仅在 bug 类型时检查）
+            const isBug = issue.labels.some(label => 
+              typeof label === 'string' ? label === 'bug' : label.name === 'bug'
+            );
             const hasSteps = body.includes('## 📋 重现步骤') || body.includes('## 🎯 问题描述');
 
             // 检查是否包含检查清单
@@ -63,11 +70,14 @@ jobs:
               console.log('✅ 仓库代码版本检查通过');
             }
 
-            if (!hasSteps) {
+            // 只在 bug 类型时检查重现步骤
+            if (isBug && !hasSteps) {
               validationErrors.push('❌ **缺少重现步骤或问题描述**');
               debugInfo.push('未找到重现步骤或问题描述（需要包含 "## 📋 重现步骤" 或 "## 🎯 问题描述"）');
-            } else {
+            } else if (isBug) {
               console.log('✅ 重现步骤检查通过');
+            } else {
+              console.log('ℹ️ 非 bug 类型，跳过重现步骤检查');
             }
 
             if (!hasChecklist) {

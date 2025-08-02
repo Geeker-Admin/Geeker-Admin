@@ -23,7 +23,7 @@
           <el-button type="primary" :icon="CirclePlus" @click="openDrawer('新增')">新增用户</el-button>
         </template>
         <!-- 表格操作 -->
-        <template #operation="scope">
+        <template #[TABLE_COLUMN_OPERATIONS_NAME]="scope">
           <el-button type="primary" link :icon="View" @click="openDrawer('查看', scope.row)">查看</el-button>
           <el-button type="primary" link :icon="EditPen" @click="openDrawer('编辑', scope.row)">编辑</el-button>
           <el-button type="primary" link :icon="Delete" @click="deleteAccount(scope.row)">删除</el-button>
@@ -48,6 +48,7 @@ import UserDrawer from '@/views/proTable/components/UserDrawer.vue'
 import { CirclePlus, Delete, EditPen, View } from '@element-plus/icons-vue'
 import type { ColumnProps, ProTableInstance } from '@/components/ProTable/interface'
 import { UserAPI } from '@/api/system/user'
+import { TABLE_COLUMN_OPERATIONS_NAME } from '@/constants/proTable'
 
 onMounted(() => {
   getTreeFilter()
@@ -115,7 +116,7 @@ const columns = reactive<ColumnProps<ResUserList>[]>([
     enum: filterGenderEnum,
     search: {
       el: 'select',
-      props: {
+      attrs: {
         placeholder: '请输入性别查询',
         filterable: true,
         remote: true,
@@ -138,7 +139,7 @@ const columns = reactive<ColumnProps<ResUserList>[]>([
     fieldNames: { label: 'userLabel', value: 'userStatus' },
   },
   { prop: 'createTime', label: '创建时间', width: 180 },
-  { prop: 'operation', label: '操作', width: 300, fixed: 'right' },
+  { prop: TABLE_COLUMN_OPERATIONS_NAME, label: '操作', width: 300, fixed: 'right' },
 ])
 
 // 删除用户信息

@@ -24,7 +24,7 @@
           <el-button type="primary" plain @click="toDetail"> To 平级详情页面 </el-button>
         </template>
         <!-- 表格操作 -->
-        <template #operation="scope">
+        <template #[TABLE_COLUMN_OPERATIONS_NAME]="scope">
           <el-button type="primary" link :icon="View" @click="openDrawer('查看', scope.row)"> 查看 </el-button>
           <el-button type="primary" link :icon="EditPen" @click="openDrawer('编辑', scope.row)"> 编辑 </el-button>
           <el-button type="primary" link :icon="Refresh" @click="resetPass(scope.row)"> 重置密码 </el-button>
@@ -51,6 +51,7 @@ import UserDrawer from '@/views/proTable/components/UserDrawer.vue'
 import type { ProTableInstance, ColumnProps } from '@/components/ProTable/interface'
 import { CirclePlus, Delete, EditPen, Download, Upload, View, Refresh } from '@element-plus/icons-vue'
 import { UserAPI } from '@/api/system/user'
+import { TABLE_COLUMN_OPERATIONS_NAME } from '@/constants/proTable'
 
 const router = useRouter()
 
@@ -99,7 +100,7 @@ const columns = reactive<ColumnProps<ResUserList>[]>([
     fieldNames: { label: 'userLabel', value: 'userStatus' },
   },
   { prop: 'createTime', label: '创建时间', width: 180 },
-  { prop: 'operation', label: '操作', width: 330, fixed: 'right' },
+  { prop: TABLE_COLUMN_OPERATIONS_NAME, label: '操作', width: 330, fixed: 'right' },
 ])
 
 // 删除用户信息

@@ -28,6 +28,9 @@ import { computed, ref } from 'vue'
 import type { SelectProps } from 'element-plus'
 import { useLoadingStore } from '@/stores/modules/loading'
 import { useDictStore } from '@/stores/modules/dict'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 interface DictProps extends Partial<SelectProps> {
   modelValue: string | number | boolean
@@ -53,7 +56,7 @@ if (code) {
   })
 } else {
   if (!options?.length) {
-    throw new Error('Dict prop [options] is required when remote is false')
+    throw new Error(t('error.notRemoteDictNeedOptions'))
   } else {
     localOptions.value = options
   }

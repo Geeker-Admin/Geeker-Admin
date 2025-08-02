@@ -1,6 +1,6 @@
 <template>
   <div v-if="columns.length" class="card table-search">
-    <el-form ref="formRef" :model="searchParam">
+    <el-form ref="formRef" :model="searchParam" :disabled="loadingStore.loading">
       <grid ref="gridRef" :collapsed="collapsed" :gap="[20, 0]" :cols="searchCol">
         <grid-item v-for="(item, index) in columns" :key="item.prop" v-bind="getResponsive(item)" :index="index">
           <el-form-item>
@@ -13,13 +13,17 @@
               </el-space>
               <span>&nbsp;:</span>
             </template>
-            <search-form-item :column="item" :search-param="searchParam" />
+            <search-form-item :column="item" :search-param="searchParam" :attrs="item.search?.attrs" />
           </el-form-item>
         </grid-item>
         <grid-item suffix>
           <div class="operation">
-            <el-button type="primary" :icon="Search" @click="search"> {{ $t('common.search') }} </el-button>
-            <el-button :icon="Delete" @click="reset"> {{ $t('common.reset') }} </el-button>
+            <el-button type="primary" :icon="Search" :loading="loadingStore.loading" @click="search">
+              {{ $t('common.search') }}
+            </el-button>
+            <el-button :icon="Delete" :loading="loadingStore.loading" @click="reset">
+              {{ $t('common.reset') }}
+            </el-button>
             <el-button v-if="showCollapse" type="primary" link class="search-isOpen" @click="collapsed = !collapsed">
               {{ collapsed ? $t('common.expand') : $t('common.collapse') }}
               <el-icon class="el-icon--right">
@@ -41,6 +45,9 @@ import SearchFormItem from './components/SearchFormItem.vue'
 import Grid from '@/components/Grid/index.vue'
 import GridItem from '@/components/Grid/components/GridItem.vue'
 import MaterialSymbolsHelpOutline from '~icons/material-symbols/help-outline?width=20px&height=20px'
+import { useLoadingStore } from '@/stores/modules/loading'
+
+const loadingStore = useLoadingStore()
 
 interface ProTableProps {
   columns?: ColumnProps[] // 搜索配置列
