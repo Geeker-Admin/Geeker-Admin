@@ -34,6 +34,7 @@ declare global {
     VITE_API_URL: string
     VITE_PROXY: [string, string][]
     VITE_CODE_INSPECTOR: boolean
+    VITE_CDN: boolean
   }
 
   /* __APP_INFO__ */
