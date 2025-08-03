@@ -91,9 +91,10 @@ const updateSearchList = () => {
             if (titleList.length > 0) {
               item.meta.customTitle = titleList.join(' / ')
             }
-            return item
+            return true
           }
         }
+        return false
       })
     : []
   activePath.value = searchList.value.length ? searchList.value[0].path : ''
