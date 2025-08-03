@@ -39,7 +39,8 @@
     "prepare": "husky",
     "preinstall": "npx only-allow pnpm && git config core.ignorecase false",
     "release": "standard-version",
-    "commit": "git add -A && czg && git push"
+    "commit": "git add -A && czg && git push",
+    "lint": "pnpm lint:lint-staged &&  pnpm lint:prettier && pnpm lint:stylelint && pnpm prepare && pnpm type:check && pnpm lint:eslint"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
