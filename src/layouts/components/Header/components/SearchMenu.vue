@@ -22,7 +22,7 @@
             <el-icon class="menu-icon">
               <component :is="item.meta.icon" />
             </el-icon>
-            <span class="menu-title">{{ item.meta.title }}</span>
+            <span class="menu-title">{{ item.meta.customTitle }}</span>
           </div>
           <mi-enter class="menu-enter cursor-pointer" @click="handleOpen" />
         </div>
@@ -45,10 +45,12 @@ import { useDebounceFn } from '@vueuse/core'
 import type { MenuOptions } from '@/api/system/menu'
 import HugeiconsSearch01 from '~icons/hugeicons/search-01?width=20px&height=20px'
 import MiEnter from '~icons/mi/enter?width=20px&height=20px'
+import { findParents } from '@/utils/index'
 
 const router = useRouter()
 const authStore = useAuthStore()
 const menuList = computed(() => authStore.flatMenuListGet.filter(item => !item.meta.isHide))
+const authMenuList = computed(() => authStore.authMenuListGet)
 
 const activePath = ref('')
 const mouseoverMenuItem = (menu: MenuOptions) => {
@@ -79,12 +81,20 @@ const handleOpen = () => {
 const searchList = ref<MenuOptions[]>([])
 const updateSearchList = () => {
   searchList.value = searchMenu.value
-    ? menuList.value.filter(
-        item =>
-          (item.path.toLowerCase().includes(searchMenu.value.toLowerCase()) ||
-            item.meta.title.toLowerCase().includes(searchMenu.value.toLowerCase())) &&
-          !item.meta?.isHide
-      )
+    ? menuList.value.filter(item => {
+        if (
+          item.path.toLowerCase().includes(searchMenu.value.toLowerCase()) ||
+          item.meta.title.toLowerCase().includes(searchMenu.value.toLowerCase())
+        ) {
+          if (!item.meta?.isHide && item.path && item.component) {
+            let titleList = findParents(authMenuList.value, item).map((item: MenuOptions) => item.meta.title)
+            if (titleList.length > 0) {
+              item.meta.customTitle = titleList.join(' / ')
+            }
+            return item
+          }
+        }
+      })
     : []
   activePath.value = searchList.value.length ? searchList.value[0].path : ''
 }
