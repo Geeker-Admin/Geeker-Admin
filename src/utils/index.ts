@@ -217,7 +217,7 @@ export function getMenuListPath(menuList: MenuOptions[], menuPathArr: string[] =
  * @description 找出targetItem的所有父级
  * @param {Array} menu 菜单列表
  * @param {Object} targetItem 菜单对象
- * @returns {Array | null}
+ * @returns {MenuOptions[]} 返回所有父级菜单项组成的数组
  */
 export function findParents(menu: MenuOptions[], targetItem: MenuOptions): MenuOptions[] {
   const path: MenuOptions[] = []
