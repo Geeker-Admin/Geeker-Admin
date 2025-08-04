@@ -22,7 +22,7 @@
             <el-icon class="menu-icon">
               <component :is="item.meta.icon" />
             </el-icon>
-            <span class="menu-title">{{ item.meta.title }}</span>
+            <span class="menu-title">{{ item.meta.customTitle }}</span>
           </div>
           <mi-enter class="menu-enter cursor-pointer" @click="handleOpen" />
         </div>
@@ -45,10 +45,12 @@ import { useDebounceFn } from '@vueuse/core'
 import type { MenuOptions } from '@/api/system/menu'
 import HugeiconsSearch01 from '~icons/hugeicons/search-01?width=20px&height=20px'
 import MiEnter from '~icons/mi/enter?width=20px&height=20px'
+import { findParents } from '@/utils/index'
 
 const router = useRouter()
 const authStore = useAuthStore()
 const menuList = computed(() => authStore.flatMenuListGet.filter(item => !item.meta.isHide))
+const authMenuList = computed(() => authStore.authMenuListGet)
 
 const activePath = ref('')
 const mouseoverMenuItem = (menu: MenuOptions) => {
@@ -78,14 +80,36 @@ const handleOpen = () => {
 
 const searchList = ref<MenuOptions[]>([])
 const updateSearchList = () => {
-  searchList.value = searchMenu.value
-    ? menuList.value.filter(
-        item =>
-          (item.path.toLowerCase().includes(searchMenu.value.toLowerCase()) ||
-            item.meta.title.toLowerCase().includes(searchMenu.value.toLowerCase())) &&
-          !item.meta?.isHide
-      )
-    : []
+  if (!searchMenu.value) {
+    searchList.value = []
+    activePath.value = ''
+    return
+  }
+
+  const searchValue = searchMenu.value.toLowerCase()
+  searchList.value = menuList.value
+    .filter(item => {
+      // 提前检查基础条件
+      if (!item.path || !item.component || item.meta?.isHide) {
+        return false
+      }
+      // 检查路径或标题是否匹配
+      return item.path.toLowerCase().includes(searchValue) || item.meta.title.toLowerCase().includes(searchValue)
+    })
+    .map(item => {
+      const parents = findParents(authMenuList.value, item)
+      const titleList = parents.map((parent: MenuOptions) => parent.meta.title)
+      const customTitle = titleList.length > 0 ? titleList.join(' / ') : item.meta.title
+
+      return {
+        ...item,
+        meta: {
+          ...item.meta,
+          customTitle,
+        },
+      }
+    })
+
   activePath.value = searchList.value.length ? searchList.value[0].path : ''
 }
 
