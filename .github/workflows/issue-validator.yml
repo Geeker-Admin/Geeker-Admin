@@ -155,18 +155,5 @@ jobs:
                 }
               }
               
-              // 添加成功评论
-              const successComment = `✅ **Issue 格式验证通过！**\n\n所有格式要求都已满足，Issue 已准备就绪。`;
-              
-              try {
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issue.number,
-                  body: successComment
-                });
-                console.log('✅ 已添加成功评论');
-              } catch (e) {
-                console.log('⚠️ 添加成功评论失败:', e.message);
-              }
+              console.log(`✅ **Issue 格式验证通过！**\n\n所有格式要求都已满足，Issue 已准备就绪。`);
             }
