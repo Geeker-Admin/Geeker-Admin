@@ -214,6 +214,36 @@ export function getMenuListPath(menuList: MenuOptions[], menuPathArr: string[] =
 }
 
 /**
+ * @description 找出targetItem的所有父级
+ * @param {Array} menu 菜单列表
+ * @param {Object} targetItem 菜单对象
+ * @returns {MenuOptions[]} 返回所有父级菜单项组成的数组
+ */
+export function findParents(menu: MenuOptions[], targetItem: MenuOptions): MenuOptions[] {
+  const recursiveFind = (
+    menu: MenuOptions[],
+    targetItem: MenuOptions,
+    currentPath: MenuOptions[]
+  ): MenuOptions[] | null => {
+    for (const item of menu) {
+      const newPath = [...currentPath, item]
+      if (item.path === targetItem.path) {
+        return newPath
+      }
+      if (item.children) {
+        const found = recursiveFind(item.children, targetItem, newPath)
+        if (found) {
+          return found
+        }
+      }
+    }
+    return null
+  }
+  const result = recursiveFind(menu, targetItem, [])
+  return result ? result : []
+}
+
+/**
  * @description 递归查询当前 path 所对应的菜单对象 (该函数暂未使用)
  * @param {Array} menuList 菜单列表
  * @param {String} path 当前访问地址

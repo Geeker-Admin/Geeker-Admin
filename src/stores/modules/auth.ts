@@ -23,6 +23,7 @@ export const useAuthStore = defineStore('geeker-auth', () => {
   const showMenuListGet = computed(() => getShowMenuList(state.authMenuList))
   const flatMenuListGet = computed(() => getFlatMenuList(state.authMenuList))
   const breadcrumbListGet = computed(() => getAllBreadcrumbList(state.authMenuList))
+  const authMenuListGet = computed(() => state.authMenuList)
 
   const actions = {
     async getAuthButtonList() {
@@ -42,6 +43,7 @@ export const useAuthStore = defineStore('geeker-auth', () => {
     showMenuListGet,
     flatMenuListGet,
     breadcrumbListGet,
+    authMenuListGet,
     ...actions,
   }
 })
