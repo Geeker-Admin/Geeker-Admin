@@ -42,6 +42,7 @@ export type SearchRenderScope = {
 
 export type SearchProps = {
   el?: SearchType // 当前项搜索框的类型
+  highlightKeyword?: boolean // 是否在表格里高亮搜索关键词
   label?: string // 当前项搜索框的 label
   key?: string // 当搜索项 key 不为 prop 属性时，可通过 key 指定
   tooltip?: string // 搜索提示
