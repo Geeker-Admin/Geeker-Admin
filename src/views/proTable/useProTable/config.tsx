@@ -82,7 +82,7 @@ const getTableConfig = ({
       },
       { prop: 'idCard', label: '身份证号', minWidth: 110, search: { el: 'input' } },
       { prop: 'email', label: '邮箱', minWidth: 110 },
-      { prop: 'address', label: '居住地址', minWidth: 110 },
+      { prop: 'address', label: '居住地址', minWidth: 110, search: { highlightKeyword: true, el: 'input' } },
       {
         prop: 'createTime',
         label: '创建时间',

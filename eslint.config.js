@@ -53,6 +53,8 @@ export default [
       'mock/**',
       'src/types/**',
       'webhook-receivers/**', // 忽略 webhook 接收器目录
+      'tmp/**',
+      'scripts/**',
     ],
   },
 
