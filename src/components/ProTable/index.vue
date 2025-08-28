@@ -97,7 +97,7 @@
           </template>
         </el-table-column>
         <!-- other -->
-        <table-column v-else :column="{ ...item, label: unref(label) }">
+        <table-column v-else :column="{ ...item, label: unref(label) }" :search-param="searchParam">
           <template v-for="slotName in Object.keys($slots)" #[slotName]="scope">
             <slot :name="slotName" v-bind="scope"></slot>
           </template>
