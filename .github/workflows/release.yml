@@ -91,17 +91,9 @@ jobs:
                   release_notes+="### $category\n${log_entries[$category]}\n"
               fi
           done < <(yq '.categories[].title' $CONFIG_FILE)
-          # 构建输出内容
-          release_notes="## 版本更新日志 ($current_tag)\n\n"
           current_date=$(date +"%Y-%m-%d")
           # 添加发布日期和下载统计信息
-          release_notes+=" ### 📅 发布日期: ${current_date}\n"
-          while IFS= read -r category; do
-              if [[ -n "${log_entries[$category]}" ]]; then
-                  release_notes+="### $category\n${log_entries[$category]}\n"
-              fi
-          done < <(yq '.categories[].title' $CONFIG_FILE)
-
+          release_notes+="### 📅 发布日期: ${current_date}\n"
           # 添加统计信息
           release_notes+="### 📊 统计信息\n"
           release_notes+="- 本次发布包含 ${commit_count} 个提交\n"
