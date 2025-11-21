@@ -35,9 +35,8 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
-import { useRouter } from 'vue-router'
-import { HOME_URL } from '@/config'
-import { encryptPassword, getTimeState } from '@/utils'
+import { useRoute, useRouter } from 'vue-router'
+import { encryptPassword, getTimeState, parseRedirect } from '@/utils'
 import { ElNotification } from 'element-plus'
 import { AuthApi, type ReqLoginForm } from '@/api/auth'
 import { useUserStore } from '@/stores/modules/user'
@@ -54,6 +53,7 @@ import { useDictStore } from '@/stores/modules/dict'
 // todo forget password
 // todo remember me
 const router = useRouter()
+const route = useRoute()
 const userStore = useUserStore()
 const tabsStore = useTabsStore()
 const keepAliveStore = useKeepAliveStore()
@@ -80,28 +80,33 @@ const login = (formEl: FormInstance | undefined) => {
     if (!valid) {
       return
     }
-    // 1.执行登录接口
-    const hashedPassword = await encryptPassword(loginForm.password)
-    const { access_token } = await AuthApi.login({ ...loginForm, password: hashedPassword })
-    localStorage.setItem('userCode', loginForm.username)
-    userStore.setToken(access_token)
+    try {
+      // 1.执行登录接口
+      const hashedPassword = await encryptPassword(loginForm.password)
+      const { access_token } = await AuthApi.login({ ...loginForm, password: hashedPassword })
+      localStorage.setItem('userCode', loginForm.username)
+      userStore.setToken(access_token)
 
-    // 2.添加动态路由
-    await initDynamicRouter()
-    useDictStore().getAllDict()
+      // 2.添加动态路由
+      await initDynamicRouter()
+      useDictStore().getAllDict()
 
-    // 3.清空 tabs、keepAlive 数据
-    tabsStore.setTabs([])
-    keepAliveStore.setKeepAliveName([])
+      // 3.清空 tabs、keepAlive 数据
+      tabsStore.setTabs([])
+      keepAliveStore.setKeepAliveName([])
 
-    // 4.跳转到首页
-    router.push(HOME_URL)
-    ElNotification({
-      title: getTimeState(),
-      message: '欢迎登录 Geeker-Admin',
-      type: 'success',
-      duration: 3000,
-    })
+      // 4.跳转到 redirect 或首页
+      const { path, queryParams } = parseRedirect(route.query)
+      router.push({ path, query: queryParams })
+      ElNotification({
+        title: getTimeState(),
+        message: '欢迎登录 Geeker-Admin',
+        type: 'success',
+        duration: 3000,
+      })
+    } catch (error) {
+      console.error(error)
+    }
   })
 }
 
