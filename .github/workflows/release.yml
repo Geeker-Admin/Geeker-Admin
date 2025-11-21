@@ -21,7 +21,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install yq
-        run: sudo snap install yq
+        run: |
+          YQ_VERSION="v4.43.1"
+          wget -O yq "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64"
+          chmod +x yq
+          sudo mv yq /usr/local/bin/yq
 
       - name: Generate changelog
         id: changelog
@@ -40,14 +44,14 @@ jobs:
           current_tag=${tags[0]}
           previous_tag=${tags[1]:-}
           if [[ -z "$previous_tag" ]]; then
-              commit_range="$current_tag"
+              # First release: include all commits
               echo "首次发布版本: $current_tag"
+              commits=$(git log --pretty=format:"%s|%h" || true)
           else
               commit_range="$previous_tag..$current_tag"
               echo "版本范围: $commit_range"
+              commits=$(git log --pretty=format:"%s|%h" "$commit_range" || true)
           fi
-          # 获取所有符合规范的提交
-          commits=$(git log --pretty=format:"%s|%h" "$commit_range")
           # 生成分类日志
           declare -A log_entries
           while IFS="|" read -r subject hash; do
@@ -78,7 +82,7 @@ jobs:
           while IFS= read -r line; do
               commits=$(echo "$line" | awk '{print $1}')
               name=$(echo "$line" | awk '{$1=""; print $0}' | sed 's/^ //')
-              contributor_notes+="- @${name} (${commits} commits)\n"
+              contributor_notes+="- ${name} (${commits} commits)\n"
           done <<< "$contributor_stats"
           # 构建输出内容
           release_notes="## 版本更新日志 ($current_tag)\n\n"
@@ -87,17 +91,9 @@ jobs:
                   release_notes+="### $category\n${log_entries[$category]}\n"
               fi
           done < <(yq '.categories[].title' $CONFIG_FILE)
-          # 构建输出内容
-          release_notes="## 版本更新日志 ($current_tag)\n\n"
           current_date=$(date +"%Y-%m-%d")
           # 添加发布日期和下载统计信息
-          release_notes+=" ### 📅 发布日期: ${current_date}\n"
-          while IFS= read -r category; do
-              if [[ -n "${log_entries[$category]}" ]]; then
-                  release_notes+="### $category\n${log_entries[$category]}\n"
-              fi
-          done < <(yq '.categories[].title' $CONFIG_FILE)
-
+          release_notes+="### 📅 发布日期: ${current_date}\n"
           # 添加统计信息
           release_notes+="### 📊 统计信息\n"
           release_notes+="- 本次发布包含 ${commit_count} 个提交\n"
