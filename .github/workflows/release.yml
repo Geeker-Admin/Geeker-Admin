@@ -44,14 +44,14 @@ jobs:
           current_tag=${tags[0]}
           previous_tag=${tags[1]:-}
           if [[ -z "$previous_tag" ]]; then
-              commit_range="$current_tag"
+              # First release: include all commits
               echo "首次发布版本: $current_tag"
+              commits=$(git log --pretty=format:"%s|%h" || true)
           else
               commit_range="$previous_tag..$current_tag"
               echo "版本范围: $commit_range"
+              commits=$(git log --pretty=format:"%s|%h" "$commit_range" || true)
           fi
-          # 获取所有符合规范的提交
-          commits=$(git log --pretty=format:"%s|%h" "$commit_range")
           # 生成分类日志
           declare -A log_entries
           while IFS="|" read -r subject hash; do
