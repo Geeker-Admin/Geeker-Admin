@@ -99,7 +99,7 @@ const updateSearchList = () => {
     .map(item => {
       const parents = parentMap.value.get(item.path) || []
       const titleList = parents.map((parent: MenuOptions) => parent.meta.title)
-      const customTitle = titleList.length > 0 ? titleList.join(' / ') : item.meta.title
+      const customTitle = titleList.length > 0 ? titleList.join(TITLE_SEPARATOR) : item.meta.title
 
       return {
         ...item,
