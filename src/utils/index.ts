@@ -240,7 +240,7 @@ export function findParents(menu: MenuOptions[], targetItem: MenuOptions): MenuO
     return null
   }
   const result = recursiveFind(menu, targetItem, [])
-  return result ? result : []
+  return result ?? []
 }
 
 /**
