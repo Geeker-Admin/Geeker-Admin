@@ -97,7 +97,7 @@ const updateSearchList = () => {
       return item.path.toLowerCase().includes(searchValue) || item.meta.title.toLowerCase().includes(searchValue)
     })
     .map(item => {
-      const parents = findParents(authMenuList.value, item)
+      const parents = parentMap.value.get(item.path) || []
       const titleList = parents.map((parent: MenuOptions) => parent.meta.title)
       const customTitle = titleList.length > 0 ? titleList.join(' / ') : item.meta.title
 
