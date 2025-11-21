@@ -27,15 +27,18 @@
           <mi-enter class="menu-enter cursor-pointer" @click="handleOpen" />
         </div>
       </div>
-      <el-empty v-else class="mt-5 mb-5" :image-size="100" description="暂无菜单" />
+      <el-empty
+        v-else
+        class="mt-5 mb-5"
+        :image-size="100"
+        :description="searchMenu.length ? '没有匹配到菜单' : '请输入关键字进行搜索'"
+      />
     </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
-defineOptions({
-  name: 'SearchMenu',
-})
+defineOptions({ name: 'SearchMenu' })
 import { ref, computed, nextTick, watch } from 'vue'
 import type { InputInstance } from 'element-plus'
 import { Search } from '@element-plus/icons-vue'
@@ -51,12 +54,21 @@ const router = useRouter()
 const authStore = useAuthStore()
 const menuList = computed(() => authStore.flatMenuListGet.filter(item => !item.meta.isHide))
 const authMenuList = computed(() => authStore.authMenuListGet)
+const TITLE_SEPARATOR = '/'
 
 const activePath = ref('')
 const mouseoverMenuItem = (menu: MenuOptions) => {
   activePath.value = menu.path
 }
 
+const parentMap = computed(() => {
+  const map = new Map<string, MenuOptions[]>()
+  menuList.value.forEach(item => {
+    const parents = findParents(authMenuList.value, item)
+    map.set(item.path, parents)
+  })
+  return map
+})
 const menuInputRef = ref<InputInstance | null>(null)
 const isShowSearch = ref<boolean>(false)
 const searchMenu = ref<string>('')
@@ -173,6 +185,7 @@ const handleClickMenu = () => {
   }
   .menu-list {
     max-height: 515px;
+    padding-right: 8px;
     margin-top: 15px;
     overflow: auto;
     .menu-item {

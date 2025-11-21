@@ -22,7 +22,7 @@ defineOptions({
 })
 import { computed } from 'vue'
 import { useGlobalStore } from '@/stores/modules/global'
-import type { AssemblySizeType } from '@/stores/interface'
+import type { AssemblySizeType } from '@/stores/interface/store'
 import TablerLayout from '~icons/tabler/layout?width=20px&height=20px'
 
 const globalStore = useGlobalStore()
