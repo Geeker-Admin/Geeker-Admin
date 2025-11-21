@@ -82,7 +82,7 @@ jobs:
           while IFS= read -r line; do
               commits=$(echo "$line" | awk '{print $1}')
               name=$(echo "$line" | awk '{$1=""; print $0}' | sed 's/^ //')
-              contributor_notes+="- @${name} (${commits} commits)\n"
+              contributor_notes+="- ${name} (${commits} commits)\n"
           done <<< "$contributor_stats"
           # 构建输出内容
           release_notes="## 版本更新日志 ($current_tag)\n\n"
