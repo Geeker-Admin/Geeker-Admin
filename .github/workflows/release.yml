@@ -21,7 +21,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install yq
-        run: sudo snap install yq
+        run: |
+          YQ_VERSION="v4.43.1"
+          wget -O yq "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64"
+          chmod +x yq
+          sudo mv yq /usr/local/bin/yq
 
       - name: Generate changelog
         id: changelog
