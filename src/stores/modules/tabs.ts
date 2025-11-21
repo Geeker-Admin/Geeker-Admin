@@ -2,7 +2,7 @@ import router from '@/routers'
 import { defineStore } from 'pinia'
 import { getUrlWithParams } from '@/utils'
 import { useKeepAliveStore } from './keepAlive'
-import type { TabsState, TabsMenuProps } from '@/stores/interface'
+import type { TabsState, TabsMenuProps } from '@/stores/interface/store'
 import piniaPersistConfig from '@/stores/helper/persist'
 
 const keepAliveStore = useKeepAliveStore()

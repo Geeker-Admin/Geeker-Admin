@@ -29,15 +29,15 @@ defineOptions({
   name: 'Avatar',
 })
 import { computed, ref } from 'vue'
-import { LOGIN_URL } from '@/config'
-import { useRouter } from 'vue-router'
 import { AuthApi } from '@/api/auth'
 import { useUserStore } from '@/stores/modules/user'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import InfoDialog from './InfoDialog.vue'
 import PasswordDialog from './PasswordDialog.vue'
+import { logoutWithRedirect } from '@/utils'
+import { useRoute } from 'vue-router'
 
-const router = useRouter()
+const route = useRoute()
 const userStore = useUserStore()
 const username = computed(() => userStore.userInfo.name)
 
@@ -52,11 +52,10 @@ const logout = () => {
     await AuthApi.logout()
 
     // 2.清除 Token
-    userStore.setToken('')
-
-    // 3.重定向到登陆页
-    router.replace(LOGIN_URL)
+    userStore.clearUserInfo()
     ElMessage.success('退出登录成功！')
+    // 3.重定向到登陆页
+    logoutWithRedirect(route)
   })
 }
 

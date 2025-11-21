@@ -11,7 +11,7 @@ defineOptions({
   name: 'Layout',
 })
 import { computed, reactive, watch, type Component } from 'vue'
-import type { LayoutType } from '@/stores/interface'
+import type { LayoutType } from '@/stores/interface/store'
 import { useGlobalStore } from '@/stores/modules/global'
 import ThemeDrawer from './components/ThemeDrawer/index.vue'
 import LayoutVertical from './LayoutVertical/index.vue'

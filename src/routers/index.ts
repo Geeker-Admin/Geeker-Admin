@@ -5,6 +5,7 @@ import { LOGIN_URL, ROUTER_WHITE_LIST } from '@/config'
 import { initDynamicRouter } from '@/routers/modules/dynamicRouter'
 import { staticRouter, errorRouter } from '@/routers/modules/staticRouter'
 import NProgress from '@/config/nprogress'
+import { logoutWithRedirect } from '@/utils'
 
 const mode = import.meta.env.VITE_ROUTER_MODE
 
@@ -52,7 +53,7 @@ router.beforeEach(async (to, from, next) => {
 
   // 3.判断是访问登陆页，有 Token 就在当前页面，没有 Token 重置路由到登陆页
   if (to.path.toLocaleLowerCase() === LOGIN_URL) {
-    if (userStore.token) {
+    if (userStore.userInfo.isLoggedIn) {
       return next(from.fullPath)
     }
     resetRouter()
@@ -65,8 +66,8 @@ router.beforeEach(async (to, from, next) => {
   }
 
   // 5.判断是否有 Token，没有重定向到 login 页面
-  if (!userStore.token) {
-    return next({ path: LOGIN_URL, replace: true })
+  if (!userStore.userInfo.isLoggedIn) {
+    return logoutWithRedirect(to)
   }
 
   // 6.如果没有菜单列表，就重新请求菜单列表并添加动态路由

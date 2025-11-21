@@ -18,7 +18,7 @@ defineOptions({
   name: 'LayoutAsync',
 })
 import { computed, defineAsyncComponent, reactive, watch, type Component } from 'vue'
-import type { LayoutType } from '@/stores/interface'
+import type { LayoutType } from '@/stores/interface/store'
 import { useGlobalStore } from '@/stores/modules/global'
 import Loading from '@/components/Loading/index.vue'
 import ThemeDrawer from './components/ThemeDrawer/index.vue'
