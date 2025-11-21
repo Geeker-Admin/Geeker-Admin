@@ -214,10 +214,10 @@ export function getMenuListPath(menuList: MenuOptions[], menuPathArr: string[] =
 }
 
 /**
- * @description 找出targetItem的所有父级
+ * @description 找出targetItem的所有父级，并返回包含targetItem本身的路径数组（targetItem作为最后一个元素）。
  * @param {Array} menu 菜单列表
  * @param {Object} targetItem 菜单对象
- * @returns {MenuOptions[]} 返回所有父级菜单项组成的数组
+ * @returns {MenuOptions[]} 返回所有父级菜单项及targetItem本身组成的数组，targetItem为最后一个元素
  */
 export function findParents(menu: MenuOptions[], targetItem: MenuOptions): MenuOptions[] {
   const recursiveFind = (
