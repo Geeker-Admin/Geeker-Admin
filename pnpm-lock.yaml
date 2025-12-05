@@ -213,6 +213,9 @@ importers:
       vite-plugin-vue-devtools:
         specifier: ^8.0.5
         version: 8.0.5(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(sass@1.94.2)(terser@5.44.1)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))
+      vue-component-type-helpers:
+        specifier: ^3.1.5
+        version: 3.1.5
       vue-eslint-parser:
         specifier: ^10.2.0
         version: 10.2.0(eslint@9.39.1(jiti@2.6.1))
@@ -4903,6 +4906,9 @@ packages:
 
   vscode-uri@3.1.0:
     resolution: {integrity: sha512-/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ==}
+
+  vue-component-type-helpers@3.1.5:
+    resolution: {integrity: sha512-7V3yJuNWW7/1jxCcI1CswnpDsvs02Qcx/N43LkV+ZqhLj2PKj50slUflHAroNkN4UWiYfzMUUUXiNuv9khmSpQ==}
 
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
@@ -10303,6 +10309,8 @@ snapshots:
       yaml: 2.8.1
 
   vscode-uri@3.1.0: {}
+
+  vue-component-type-helpers@3.1.5: {}
 
   vue-demi@0.14.10(vue@3.5.24(typescript@5.9.3)):
     dependencies:

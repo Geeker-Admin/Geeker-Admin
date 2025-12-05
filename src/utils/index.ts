@@ -470,3 +470,24 @@ export const parseRedirect = (query: LocationQuery): { path: string; queryParams
 
   return { path, queryParams }
 }
+
+/**
+ * 从一个排序的稀疏数组里找到第一个不存在的数字
+ * @param array 正序排序的稀疏数组
+ * @param from 开始查找的数字
+ * @example findFirstMissingNumber([0, 1, 2, 3, 5], 0) // 4
+ * @example findFirstMissingNumber([0, 1, 2, 3, 5], 4) // 6
+ * @example findFirstMissingNumber([0, 1, 2, 3, 5], 8) // 9
+ * @returns 第一个不存在的数字
+ */
+export function findFirstMissingNumber(array: number[], from: number) {
+  let current = from
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] > current) {
+      return current
+    } else if (array[i] === current) {
+      current++
+    }
+  }
+  return current
+}

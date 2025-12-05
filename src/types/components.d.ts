@@ -12,6 +12,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    A: typeof import('./../components/ProTable/a.vue')['default']
     ColSetting: typeof import('./../components/ProTable/components/ColSetting.vue')['default']
     Dict: typeof import('./../components/Dict/index.vue')['default']
     ECharts: typeof import('./../components/ECharts/index.vue')['default']
@@ -43,6 +44,7 @@ declare module 'vue' {
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElImageViewer: typeof import('element-plus/es')['ElImageViewer']
     ElInput: typeof import('element-plus/es')['ElInput']
+    ElInputNumber: typeof import('element-plus/es')['ElInputNumber']
     ElLink: typeof import('element-plus/es')['ElLink']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElMenu: typeof import('element-plus/es')['ElMenu']
@@ -96,6 +98,7 @@ declare module 'vue' {
 
 // For TSX support
 declare global {
+  const A: (typeof import('./../components/ProTable/a.vue'))['default']
   const ColSetting: (typeof import('./../components/ProTable/components/ColSetting.vue'))['default']
   const Dict: (typeof import('./../components/Dict/index.vue'))['default']
   const ECharts: (typeof import('./../components/ECharts/index.vue'))['default']
@@ -127,6 +130,7 @@ declare global {
   const ElIcon: (typeof import('element-plus/es'))['ElIcon']
   const ElImageViewer: (typeof import('element-plus/es'))['ElImageViewer']
   const ElInput: (typeof import('element-plus/es'))['ElInput']
+  const ElInputNumber: (typeof import('element-plus/es'))['ElInputNumber']
   const ElLink: (typeof import('element-plus/es'))['ElLink']
   const ElMain: (typeof import('element-plus/es'))['ElMain']
   const ElMenu: (typeof import('element-plus/es'))['ElMenu']

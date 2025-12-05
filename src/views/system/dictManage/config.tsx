@@ -2,7 +2,6 @@ import type { ProTableProps } from '@/components/ProTable/interface'
 import type { DictListItem, DictQuery } from '@/api/system/dict'
 import { DictAPI } from '@/api/system/dict'
 import { ElButton, ElMessage, ElTag } from 'element-plus'
-import { TABLE_COLUMN_OPERATIONS_NAME } from '@/constants/proTable'
 
 export function getConfig(): ProTableProps<DictQuery, DictListItem> {
   return {
@@ -35,7 +34,7 @@ export function getConfig(): ProTableProps<DictQuery, DictListItem> {
         },
       },
       {
-        prop: TABLE_COLUMN_OPERATIONS_NAME,
+        type: 'operation',
         width: 200,
         fixed: 'right',
         render: scope => {

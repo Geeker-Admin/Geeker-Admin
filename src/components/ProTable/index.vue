@@ -74,7 +74,7 @@
       <template v-for="{ label, ...item } in tableColumns" :key="item.prop">
         <!-- selection || radio || index || expand || sort -->
         <el-table-column
-          v-if="item.type && columnTypes.includes(item.type)"
+          v-if="item.type && item.type !== 'operation' && ColumnTypes.includes(item.type)"
           v-bind="item"
           :label="unref(label)"
           :align="item.align ?? 'center'"
@@ -130,18 +130,24 @@
   <!-- 列设置 -->
   <ColSetting
     v-if="toolbarRightArr.some(item => item.name === 'layout')"
-    ref="colRef"
-    v-model:col-setting="colSetting"
+    v-model="showColSetting"
+    :page-id="pageId"
+    :table-columns="tableColumns"
+    @confirm="handleColConfirm"
+    @reset="handleColReset"
   />
 </template>
 
-<script setup lang="ts">
-defineOptions({ name: 'ProTable' })
+<script
+  setup
+  lang="ts"
+  generic="Query = any, Item extends Record<string | number | symbol, any> = any, ExtraQuery = IObject"
+>
 import { ElTable, ElMessage } from 'element-plus'
 import { useTable } from '@/hooks/useTable'
 import { useSelection } from '@/hooks/useSelection'
-import type { ColumnProps, TypeProps, ProTableProps } from './interface'
-import { handleProp } from '@/utils'
+import { type ColumnProps, type ProTableProps, ColumnTypes } from './interface'
+import { handleProp, findFirstMissingNumber } from '@/utils'
 import SearchForm from '@/components/SearchForm/index.vue'
 import Pagination from './components/Pagination.vue'
 import ColSetting from './components/ColSetting.vue'
@@ -152,10 +158,11 @@ import { Operation } from '@element-plus/icons-vue'
 import { ProTablePaginationEnum } from '@/enums'
 import { useI18n } from 'vue-i18n'
 import { useLoadingStore } from '@/stores/modules/loading'
-import { TABLE_COLUMN_OPERATIONS_NAME } from '@/constants/proTable'
+defineOptions({ name: 'ProTable' })
 
+const { t } = useI18n()
 // 接受父组件参数，配置默认值
-const props = withDefaults(defineProps<ProTableProps>(), {
+const props = withDefaults(defineProps<ProTableProps<Query, Item, ExtraQuery>>(), {
   columns: () => [],
   requestAuto: true,
   pagination: ProTablePaginationEnum.BE,
@@ -170,9 +177,6 @@ const pageId = computed(() => `id-${crypto.randomUUID()}`)
 // table 实例
 const tableRef = ref<InstanceType<typeof ElTable>>()
 
-// column 列类型
-const columnTypes: TypeProps[] = ['selection', 'radio', 'index', 'expand', 'sort']
-
 // 是否显示搜索模块
 const isShowSearch = ref(true)
 
@@ -182,17 +186,15 @@ const searchParamDefaultValuePromises: { key: string; promise: Promise<any> }[] 
 
 const importModal = ref({
   visible: false,
-  title: '导入',
+  title: t('protable.import'),
   type: 'import',
 })
 
 const exportModal = ref({
   visible: false,
-  title: '导出',
+  title: t('protable.export'),
   type: 'export',
 })
-
-const { t } = useI18n()
 
 // 搜索表单实例
 const searchFormRef = ref<InstanceType<typeof SearchForm>>()
@@ -296,7 +298,41 @@ watch(
 )
 
 // 接收 columns 并设置为响应式
-const tableColumns = computed(() => props.columns)
+const tableColumns = ref<ColumnProps<Item>[]>([])
+watch(
+  () => props.columns,
+  () => {
+    // 初始化各列的 columnOrder。策略：
+    // 1，过滤出已经配置 columnOrder 的列，并得到配置的 columnOrder 数组，比如 [1,3,5]
+    // 2，selection 列总是在最左边，找出已配置的数组的最小值减1 设置为 selection 的 columnOrder
+    // 3，未配置 columnOrder 的列，从配置的 columnOrder 数组中找到第一个不存在的数字，比如 [1,3,5] 中的 2，4，6，7，8
+
+    const columnOrderArray = props.columns
+      .filter(item => item.columnOrder !== undefined)
+      .map(item => item.columnOrder)
+      .sort((a, b) => a! - b!) as number[]
+
+    let lastColumnOrder = columnOrderArray[columnOrderArray.length - 1]
+    props.columns
+      .map(item => {
+        if (ColumnTypes.includes(item.type!)) {
+          if (item.type === 'selection') {
+            // selection 列总是在最左边
+            item.columnOrder = columnOrderArray[0]! - 1
+          }
+          item.label = item.label || t(`proTable.${item.type}`)
+        }
+        if (item.columnOrder === undefined) {
+          lastColumnOrder = findFirstMissingNumber(columnOrderArray, lastColumnOrder)
+          item.columnOrder = lastColumnOrder
+        }
+        tableColumns.value.push(item)
+        return item
+      })
+      .toSorted((itemA, itemB) => itemA.columnOrder! - itemB.columnOrder!)
+  },
+  { immediate: true }
+)
 
 // 扁平化 columns
 const flatColumns = computed(() => flatColumnsFunc(tableColumns.value))
@@ -337,9 +373,9 @@ const flatColumnsFunc = (columns: ColumnProps[], flatArr: ColumnProps[] = []) =>
     }
     flatArr.push(col)
 
-    // column 添加默认 isShow && isSetting && isFilterEnum 属性值
+    // column 添加默认 isShow && disableUICustomize && isFilterEnum 属性值
     col.isShow = col.isShow ?? true
-    col.isSetting = col.isSetting ?? true
+    col.disableUICustomize = col.disableUICustomize ?? false
     col.isFilterEnum = col.isFilterEnum ?? true
 
     // 设置 enumMap
@@ -383,13 +419,17 @@ const setSearchParamForm = (key: string, value: any) => {
   searchParam.value[key] = value
 }
 
-// 列设置 ==> 需要过滤掉不需要设置的列
-const colRef = ref()
-const colSetting = tableColumns.value.filter(item => {
-  const { type, prop, isSetting } = item
-  return !columnTypes.includes(type!) && prop !== TABLE_COLUMN_OPERATIONS_NAME && isSetting
-})
-const openColSetting = () => colRef.value.openColSetting()
+const showColSetting = ref(false)
+const openColSetting = () => {
+  showColSetting.value = true
+}
+
+const handleColConfirm = () => {
+  showColSetting.value = false
+}
+const handleColReset = () => {
+  showColSetting.value = false
+}
 
 // 定义 emit 事件
 const emit = defineEmits<{

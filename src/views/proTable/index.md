@@ -24,16 +24,16 @@
 
 column 的配置继承自 El+ 的 table-column-item。下表列出的是扩展的或者新增的 API。
 
-| 属性名       | 说明                                                                                                                                          | 类型                                                             | 默认值 |
-| :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------- | :----- |
-| type         | 单元格类型，替换原有属性                                                                                                                      | `enum` `'index' \| 'selection' \| 'radio' \| 'expand' \| 'sort'` | -      |
-| tag          | 是否以标签展示                                                                                                                                | `boolean`                                                        | -      |
-| isShow       | 是否展示，一般 layout 用于隐藏和展示某列                                                                                                      | `boolean`                                                        | `true` |
-| isSetting    | 是否可在 layout 中可配置                                                                                                                      | `boolean`                                                        | `true` |
-| search       | [高级筛选栏配置](#search)                                                                                                                     | `object`                                                         | -      |
-| enum         | 字段的枚举值，用来做字段映射，用法类似于[CascaderProps](https://element-plus.org/zh-CN/component/cascader.html#cascaderprops)，支持数组和函数 | `EnumProps[]` \| ()=> Promise<EnumProps[]> \| EnumProps[]        |
-| -            |
-| isFilterEnum | 是否使用enum的值格式化表格单元格，默认为true，jiji                                                                                            |
+| 属性名             | 说明                                                                                                                                          | 类型                                                             | 默认值  |
+| :----------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------- | :------ |
+| type               | 单元格类型，替换原有属性                                                                                                                      | `enum` `'index' \| 'selection' \| 'radio' \| 'expand' \| 'sort'` | -       |
+| tag                | 是否以标签展示                                                                                                                                | `boolean`                                                        | -       |
+| isShow             | 是否展示，一般 layout 用于隐藏和展示某列                                                                                                      | `boolean`                                                        | `true`  |
+| disableUICustomize | 是否可在 layout 中可配置                                                                                                                      | `boolean`                                                        | `false` |
+| search             | [高级筛选栏配置](#search)                                                                                                                     | `object`                                                         | -       |
+| enum               | 字段的枚举值，用来做字段映射，用法类似于[CascaderProps](https://element-plus.org/zh-CN/component/cascader.html#cascaderprops)，支持数组和函数 | `EnumProps[]` \| ()=> Promise<EnumProps[]> \| EnumProps[]        |
+| -                  |
+| isFilterEnum       | 是否使用enum的值格式化表格单元格，默认为true，jiji                                                                                            |
 
 ### 高级筛选栏
 

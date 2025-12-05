@@ -18,8 +18,8 @@ export interface StateProps<T> {
 }
 
 // 重载1
-export function useTable<TableItem>(
-  _api: (_params: IObject) => Promise<ResultPage<TableItem>> | Promise<TableItem[]>,
+export function useTable<Query, TableItem>(
+  _api: (_params: Query) => Promise<ResultPage<TableItem>> | Promise<TableItem[]>,
   _initParam: object,
   _pagination: ProTablePaginationEnum,
   _t: ComposerTranslation,

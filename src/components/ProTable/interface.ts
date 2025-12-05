@@ -6,6 +6,7 @@ import type { ColProps, DialogProps, DrawerProps, ButtonProps, FormItemRule, For
 import type { MaybeRef } from 'vue'
 import type { DefaultRow } from 'element-plus/es/components/table/src/table/defaults.mjs'
 import type { ProTablePaginationEnum } from '@/enums'
+import type { ComponentExposed } from 'vue-component-type-helpers'
 import type { JSX } from 'vue/jsx-runtime'
 
 export interface EnumProps {
@@ -17,7 +18,9 @@ export interface EnumProps {
   [key: string]: any
 }
 
-export type TypeProps = 'index' | 'selection' | 'radio' | 'expand' | 'sort'
+export type TypeProps = 'index' | 'selection' | 'radio' | 'expand' | 'sort' | 'operation'
+
+export const ColumnTypes: TypeProps[] = ['selection', 'radio', 'index', 'expand', 'sort', 'operation']
 
 export type SearchType =
   | 'input'
@@ -77,8 +80,9 @@ export interface ColumnProps<T extends DefaultRow = any>
   extends Partial<Omit<TableColumnCtx<T>, 'type' | 'children' | 'renderCell' | 'renderHeader' | 'label'>> {
   type?: TypeProps // 列类型
   tag?: MaybeRef<boolean> // 是否是标签展示
+  columnOrder?: number // 列排序
+  disableUICustomize?: boolean // 是否禁用列设置
   isShow?: MaybeRef<boolean> // 是否显示在表格当中，默认值为 true
-  isSetting?: MaybeRef<boolean> // 是否在 ColSetting 中可配置
   search?: SearchProps // 搜索项配置
   enum?: EnumProps[] | Ref<EnumProps[]> | ((_params?: any) => Promise<any>) // 枚举字典
   isFilterEnum?: boolean | Ref<boolean> // 当前单元格值是否根据 enum 格式化（示例：enum 只作为搜索项数据）
@@ -89,7 +93,10 @@ export interface ColumnProps<T extends DefaultRow = any>
   label?: MaybeRef<string>
 }
 
-export type ProTableInstance = Omit<InstanceType<typeof ProTable>, keyof ComponentPublicInstance | keyof ProTableProps>
+export type ProTableInstance = Omit<
+  ComponentExposed<typeof ProTable>,
+  keyof ComponentPublicInstance | keyof ProTableProps
+>
 export type RequestApiReturnType<I, P> = P extends ProTablePaginationEnum.BE ? Promise<ResultPage<I>> : Promise<I[]>
 
 export interface ProTableProps<Query = any, Item extends DefaultRow = any, ExtraQuery = IObject> {
