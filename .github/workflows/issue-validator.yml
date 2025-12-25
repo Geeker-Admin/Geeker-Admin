@@ -2,7 +2,7 @@ name: Issue Validator
 
 on:
   issues:
-    types: [opened, edited]
+    types: [opened]
   # 添加并发控制，避免重复运行
 concurrency:
   group: 'issue-validator-${{ github.event.issue.number }}'
