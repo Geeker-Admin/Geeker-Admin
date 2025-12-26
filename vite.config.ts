@@ -73,9 +73,65 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       rollupOptions: {
         output: {
           // Static resource classification and packaging
-          chunkFileNames: 'assets/js/[name]-[hash].js',
-          entryFileNames: 'assets/js/[name]-[hash].js',
-          assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
+          chunkFileNames: 'js/[name]-[hash].js',
+          entryFileNames: 'js/[name]-[hash].js',
+          assetFileNames: '[ext]/[name]-[hash].[ext]',
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              if (id.includes('.pnpm')) {
+                // pnpm compatible - extract package name and version
+                const match = id.match(/\.pnpm\/([^/]+)\//)
+                if (match) {
+                  let pkgStr = match[1]
+                  if (pkgStr.includes('+')) {
+                    pkgStr = pkgStr.split('+').pop()!
+                  }
+                  pkgStr = pkgStr.split('_')[0]
+                  return pkgStr
+                }
+              }
+              const parts = id.split('node_modules/')
+              let pkgName = parts[parts.length - 1].split('/')[0]
+              if (pkgName.startsWith('@')) {
+                pkgName = parts[parts.length - 1].split('/').slice(0, 2).join('/')
+              }
+
+              // Ignore specific packages causing empty chunks or known to be problematic
+              const ignoreList = [
+                'birpc',
+                'devtools-api',
+                'devtools-kit',
+                'devtools-shared',
+                'hookable',
+                'lodash-unified',
+                'perfect-debounce',
+                'vue-demi',
+              ]
+              if (ignoreList.includes(pkgName)) {
+                return
+              }
+
+              return pkgName
+            }
+            if (id.includes('/src/')) {
+              if (id.includes('/components/')) {
+                const match = id.match(/\/src\/components\/([^/]+)/)
+                return match ? `components-${match[1]}` : 'components-common'
+              }
+              if (id.includes('/utils/')) return 'utils'
+              if (id.includes('/stores/')) return 'stores'
+              if (id.includes('/routers/')) return 'routers'
+              if (id.includes('/styles/')) return 'styles'
+              if (id.includes('/views/')) {
+                const relativePath = id.split('/views/')[1]
+                if (relativePath) {
+                  const folders = relativePath.split('/')
+                  folders.pop()
+                  return folders.length > 0 ? folders.join('-') : 'views-root'
+                }
+              }
+            }
+          },
         },
       },
     },
