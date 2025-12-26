@@ -33,7 +33,7 @@ const router = useRouter()
 const authStore = useAuthStore()
 const globalStore = useGlobalStore()
 
-const breadcrumbList = computed(() => {
+const breadcrumbList = computed<MenuOptions[]>(() => {
   let breadcrumbData = authStore.breadcrumbListGet[route.matched[route.matched.length - 1].path] ?? []
   // 🙅‍♀️不需要首页面包屑可删除以下判断
   if (breadcrumbData[0].path !== HOME_URL) {
