@@ -113,7 +113,7 @@
       <template #empty>
         <div class="table-empty">
           <slot name="empty">
-            <img src="@/assets/images/notData.png" alt="notData" />
+            <img src="@/assets/images/noData.webp" alt="noData" />
             <div>暂无数据</div>
           </slot>
         </div>

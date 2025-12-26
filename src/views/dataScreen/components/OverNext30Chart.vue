@@ -172,7 +172,7 @@ const option: ECOption = {
     width: 180px;
     height: 60px;
     padding-left: 20px;
-    background: url('../images/line-bg.png') no-repeat;
+    background: url('@/assets/images/dataScreen/line-bg.png') no-repeat;
     background-size: 100% 100%;
     span {
       font-size: 12px;

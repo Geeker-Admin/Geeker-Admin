@@ -204,7 +204,7 @@ const option: ECOption = {
   width: 206px;
   height: 103px;
   padding: 5px 20px;
-  background: url('../images/contrast-bg.png') no-repeat;
+  background: url('@/assets/images/dataScreen/contrast-bg.png') no-repeat;
   background-size: 100% 100%;
   .annual-month {
     display: inline-block;

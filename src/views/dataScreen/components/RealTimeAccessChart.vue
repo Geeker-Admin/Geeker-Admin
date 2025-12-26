@@ -198,7 +198,7 @@ const option = {
     margin-right: 1px;
     font-size: 32px;
     color: #66ffff;
-    background: url('../images/total.png') no-repeat;
+    background: url('@/assets/images/dataScreen/total.webp') no-repeat;
     background-size: 100% 100%;
     &:last-child {
       margin-right: 0;

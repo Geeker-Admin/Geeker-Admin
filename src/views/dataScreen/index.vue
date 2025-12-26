@@ -21,7 +21,7 @@
           <div class="dataScreen-top">
             <div class="dataScreen-main-title">
               <span>实时游客统计</span>
-              <img src="./images/dataScreen-title.png" alt="" />
+              <img src="@/assets/images/dataScreen/dataScreen-title.png" alt="" />
             </div>
             <div class="dataScreen-main-chart">
               <RealTimeAccessChart />
@@ -30,7 +30,7 @@
           <div class="dataScreen-center">
             <div class="dataScreen-main-title">
               <span>男女比例</span>
-              <img src="./images/dataScreen-title.png" alt="" />
+              <img src="@/assets/images/dataScreen/dataScreen-title.png" alt="" />
             </div>
             <div class="dataScreen-main-chart">
               <MaleFemaleRatioChart />
@@ -39,7 +39,7 @@
           <div class="dataScreen-bottom">
             <div class="dataScreen-main-title">
               <span>年龄比例</span>
-              <img src="./images/dataScreen-title.png" alt="" />
+              <img src="@/assets/images/dataScreen/dataScreen-title.png" alt="" />
             </div>
             <div class="dataScreen-main-chart">
               <AgeRatioChart />
@@ -58,7 +58,7 @@
 						>
 							<div class="dataScreen-alarm">
 								<div class="map-item" v-for="item in alarmData" :key="item.id">
-									<img src="./images/dataScreen-alarm.png" alt="" />
+									<img src="@/assets/images/dataScreen/dataScreen-alarm.webp" alt="" />
 									<span class="map-alarm truncate">{{ item.label }} 预警：{{ item.warnMsg }}</span>
 								</div>
 							</div>
@@ -68,7 +68,7 @@
           <div class="dataScreen-cb">
             <div class="dataScreen-main-title">
               <span>未来30天游客量趋势图</span>
-              <img src="./images/dataScreen-title.png" alt="" />
+              <img src="@/assets/images/dataScreen/dataScreen-title.png" alt="" />
             </div>
             <div class="dataScreen-main-chart">
               <OverNext30Chart />
@@ -79,7 +79,7 @@
           <div class="dataScreen-top">
             <div class="dataScreen-main-title">
               <span>热门景区排行</span>
-              <img src="./images/dataScreen-title.png" alt="" />
+              <img src="@/assets/images/dataScreen/dataScreen-title.png" alt="" />
             </div>
             <div class="dataScreen-main-chart">
               <HotPlateChart />
@@ -88,7 +88,7 @@
           <div class="dataScreen-center">
             <div class="dataScreen-main-title">
               <span>年度游客量对比</span>
-              <img src="./images/dataScreen-title.png" alt="" />
+              <img src="@/assets/images/dataScreen/dataScreen-title.png" alt="" />
             </div>
             <div class="dataScreen-main-chart">
               <AnnualUseChart />
@@ -97,7 +97,7 @@
           <div class="dataScreen-bottom">
             <div class="dataScreen-main-title">
               <span>预约渠道数据统计</span>
-              <img src="./images/dataScreen-title.png" alt="" />
+              <img src="@/assets/images/dataScreen/dataScreen-title.png" alt="" />
             </div>
             <div class="dataScreen-main-chart">
               <PlatformSourceChart />

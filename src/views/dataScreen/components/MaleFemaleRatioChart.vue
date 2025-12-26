@@ -4,11 +4,11 @@
     <div class="ratio-header">
       <div class="man">
         <span>男士</span>
-        <img src="../images/man.png" alt="" />
+        <img src="@/assets/images/dataScreen/man.webp" alt="" />
       </div>
       <div class="woman">
         <span>女士</span>
-        <img src="../images/woman.png" alt="" />
+        <img src="@/assets/images/dataScreen/woman.webp" alt="" />
       </div>
     </div>
     <!-- echarts -->
@@ -148,7 +148,7 @@ const option: ECOption = {
       align-items: center;
       width: 110px;
       height: 115px;
-      background: url('../images/man-bg.png') no-repeat;
+      background: url('@/assets/images/dataScreen/man-bg.webp') no-repeat;
       background-size: 100% 100%;
       img {
         width: 60px;
@@ -162,7 +162,7 @@ const option: ECOption = {
       }
     }
     .woman {
-      background: url('../images/woman-bg.png') no-repeat;
+      background: url('@/assets/images/dataScreen/woman-bg.webp') no-repeat;
     }
   }
   .echarts {

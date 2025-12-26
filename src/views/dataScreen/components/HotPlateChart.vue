@@ -13,7 +13,10 @@
 <script setup lang="ts">
 import ECharts from '@/components/ECharts/index.vue'
 import type { ECOption } from '@/components/ECharts/config'
-import { ranking1, ranking2, ranking3, ranking4 } from '../assets/ranking-icon'
+import ranking1 from '@/assets/images/dataScreen/ranking1.webp'
+import ranking2 from '@/assets/images/dataScreen/ranking2.webp'
+import ranking3 from '@/assets/images/dataScreen/ranking3.webp'
+import ranking4 from '@/assets/images/dataScreen/ranking4.webp'
 
 interface ChartProp {
   name: string
@@ -239,7 +242,7 @@ const option: ECOption = {
   height: 36px;
   margin: 10px 10px 0;
   line-height: 36px;
-  background: url('../images/rankingChart-bg.png') no-repeat;
+  background: url('@/assets/images/dataScreen/rankingChart-bg.webp') no-repeat;
   background-size: 100% 100%;
   span {
     width: 18%;
