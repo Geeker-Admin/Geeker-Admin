@@ -28,6 +28,7 @@
     "username": "用户姓名",
     "view": "查看"
   },
+  "confirm": "确认",
   "error": {
     "fePaginationFilterMethodIsRequired": "前端分页且有查询项时，fePaginationFilterMethod 是必要参数。",
     "localeNotSupported": "本地化语言 [{locale}] 不支持，请检查 `src/locales/index.ts`",
@@ -53,12 +54,31 @@
     "welcome": "欢迎使用"
   },
   "proTable": {
+    "asc": "升序",
     "colName": "列名称",
     "colSetting": "列设置",
     "colShow": "显示",
     "colSort": "排序",
-    "noColSetting": "暂无可配置列"
+    "columnOrder": "顺序",
+    "desc": "降序",
+    "expand": "展开",
+    "fixed": "固定",
+    "index": "序号",
+    "left": "左",
+    "noColSetting": "暂无可配置列",
+    "operation": "操作",
+    "radio": "单选",
+    "right": "右",
+    "selection": "选择",
+    "sort": "排序",
+    "unset": "不设置",
+    "width": "宽度"
   },
+  "protable": {
+    "export": "导出",
+    "import": "导入"
+  },
+  "reset": "重置",
   "system": {
     "dictManage": {
       "dictCode": "字典编码",

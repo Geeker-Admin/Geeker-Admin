@@ -1,6 +1,6 @@
 <template>
   <div class="table-box">
-    <ProTable :columns="columns" :request-api="getList" :toolbar-middle="toolbarMiddle" />
+    <ProTable page-id="proTable:async" :columns="columns" :request-api="getList" :toolbar-middle="toolbarMiddle" />
     <el-dialog v-model="functionDialogVisible" title="功能说明" width="600px">
       <h3 class="mb-2 text-lg font-bold">本页面演示了 ProTable 的异步请求功能。使用场景：</h3>
       <div class="mt-2">

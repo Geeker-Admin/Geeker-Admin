@@ -43,6 +43,7 @@ declare module 'vue' {
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElImageViewer: typeof import('element-plus/es')['ElImageViewer']
     ElInput: typeof import('element-plus/es')['ElInput']
+    ElInputNumber: typeof import('element-plus/es')['ElInputNumber']
     ElLink: typeof import('element-plus/es')['ElLink']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElMenu: typeof import('element-plus/es')['ElMenu']
@@ -92,6 +93,9 @@ declare module 'vue' {
     TreeFilter: typeof import('./../components/TreeFilter/index.vue')['default']
     WangEditor: typeof import('./../components/WangEditor/index.vue')['default']
   }
+  export interface GlobalDirectives {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
+  }
 }
 
 // For TSX support
@@ -127,6 +131,7 @@ declare global {
   const ElIcon: (typeof import('element-plus/es'))['ElIcon']
   const ElImageViewer: (typeof import('element-plus/es'))['ElImageViewer']
   const ElInput: (typeof import('element-plus/es'))['ElInput']
+  const ElInputNumber: (typeof import('element-plus/es'))['ElInputNumber']
   const ElLink: (typeof import('element-plus/es'))['ElLink']
   const ElMain: (typeof import('element-plus/es'))['ElMain']
   const ElMenu: (typeof import('element-plus/es'))['ElMenu']

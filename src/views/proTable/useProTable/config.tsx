@@ -4,7 +4,7 @@ import type { ReqUserParams } from '@/api/system/user'
 import { type ResUserList, UserAPI } from '@/api/system/user'
 import type { HeaderRenderScope, ProTableProps } from '@/components/ProTable/interface'
 import { useAuthStore } from '@/stores/modules/auth'
-import { Delete, EditPen, View, Refresh, InfoFilled } from '@element-plus/icons-vue'
+import { Delete, EditPen, View, Refresh, InfoFilled, More, Switch } from '@element-plus/icons-vue'
 
 const authStore = useAuthStore()
 const BUTTONS = computed(() => authStore.authButtonList)
@@ -41,10 +41,11 @@ const getTableConfig = ({
   openFunctionDialog: () => void
 }): ProTableProps<ReqUserParams, ResUserList> => {
   return {
+    pageId: 'proTable:useProTable',
     columns: reactive([
+      { type: 'sort', width: 80 },
+      { type: 'expand', width: 85 },
       { type: 'selection', fixed: 'left', width: 70 },
-      { type: 'sort', label: 'Sort', width: 80 },
-      { type: 'expand', label: 'Expand', width: 85 },
       {
         prop: 'username',
         label: '用户姓名',
@@ -120,10 +121,8 @@ const getTableConfig = ({
         },
       },
       {
-        prop: 'operation',
-        label: '操作',
-        fixed: 'right',
-        width: 330,
+        type: 'operation',
+        width: 280,
         render: scope => {
           // 也可以使用数组的方式，但是要注意不要缺少了 key 属性
           return (
@@ -137,9 +136,27 @@ const getTableConfig = ({
               <ElButton type="primary" link={true} icon={Refresh} onClick={() => resetPass(scope.row)}>
                 重置密码
               </ElButton>
-              <ElButton type="primary" link={true} icon={Delete} onClick={() => deleteAccount(scope.row)}>
-                删除
-              </ElButton>
+              <ElDropdown
+                class="ml-3"
+                v-slots={{
+                  dropdown: () => (
+                    <ElDropdownMenu>
+                      <ElDropdownItem>
+                        <ElButton type="danger" link={true} icon={Delete} onClick={() => deleteAccount(scope.row)}>
+                          删除
+                        </ElButton>
+                      </ElDropdownItem>
+                      <ElDropdownItem>
+                        <ElButton type="danger" link={true} icon={Switch} onClick={() => ElMessage.success('占位按钮')}>
+                          占位按钮
+                        </ElButton>
+                      </ElDropdownItem>
+                    </ElDropdownMenu>
+                  ),
+                }}
+              >
+                <ElButton type="primary" link={true} icon={More} />
+              </ElDropdown>
             </>
           )
         },

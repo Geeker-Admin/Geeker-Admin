@@ -1,6 +1,7 @@
 import http from '@/utils/request/geeker'
 
 export interface ReqUserParams extends RequestPage {
+  departmentId?: string | string[]
   username: string
   gender: number
   idCard: string

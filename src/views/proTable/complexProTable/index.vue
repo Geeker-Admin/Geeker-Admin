@@ -2,7 +2,7 @@
   <div class="table-box">
     <ProTable
       ref="proTable"
-      page-auth-id="pro-table:complex-pro-table"
+      page-id="proTable:complexProTable"
       title="用户列表"
       highlight-current-row
       :columns="columns"
@@ -34,7 +34,7 @@
         {{ scope.row }}
       </template>
       <!-- 表格操作 -->
-      <template #[TABLE_COLUMN_OPERATIONS_NAME]="scope">
+      <template #operation1="scope">
         <el-button type="primary" link :icon="Refresh" @click="resetPass(scope.row)">重置密码</el-button>
         <el-button type="primary" link :icon="Delete" @click="deleteAccount(scope.row)">删除</el-button>
       </template>
@@ -58,7 +58,6 @@ import type { TableColumnCtx } from 'element-plus/es/components/table/src/table-
 import type { ProTableInstance, ColumnProps, HeaderRenderScope } from '@/components/ProTable/interface'
 import { UserAPI } from '@/api/system/user'
 import type { DefaultRow } from 'element-plus/es/components/table/src/table/defaults.mjs'
-import { TABLE_COLUMN_OPERATIONS_NAME } from '@/constants/proTable'
 
 // ProTable 实例
 const proTable = ref<ProTableInstance>()
@@ -113,7 +112,7 @@ const columns = reactive<ColumnProps<ResUserList>[]>([
     fieldNames: { label: 'userLabel', value: 'userStatus' },
   },
   { prop: 'createTime', label: '创建时间', width: 200 },
-  { prop: TABLE_COLUMN_OPERATIONS_NAME, label: '操作', fixed: 'right', width: 230 },
+  { prop: 'operation1', label: '操作', fixed: 'right', width: 230 },
 ])
 
 // 选择行
@@ -173,7 +172,7 @@ const tableRowClassName = ({ rowIndex }: { row: ResUserList; rowIndex: number })
 
 // 单击行
 const rowClick = (row: ResUserList, column: TableColumnCtx<ResUserList>) => {
-  if (column.property == 'radio' || column.property == TABLE_COLUMN_OPERATIONS_NAME) {
+  if (column.property == 'radio' || column.property == 'operation') {
     return
   }
   ElMessage.success('当前行被点击了！' + row.id)
