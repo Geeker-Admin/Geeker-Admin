@@ -78,23 +78,29 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
           assetFileNames: '[ext]/[name]-[hash].[ext]',
           manualChunks(id) {
             if (id.includes('node_modules')) {
+              let pkgName = ''
               if (id.includes('.pnpm')) {
                 // pnpm compatible - extract package name and version
                 const match = id.match(/\.pnpm\/([^/]+)\//)
                 if (match) {
                   let pkgStr = match[1]
+                  // Handle pnpm scoped packages and peer dependencies
                   if (pkgStr.includes('+')) {
                     pkgStr = pkgStr.split('+').pop()!
                   }
                   pkgStr = pkgStr.split('_')[0]
-                  return pkgStr
+                  pkgName = pkgStr
                 }
+              } else {
+                const parts = id.split('node_modules/')
+                let name = parts[parts.length - 1].split('/')[0]
+                if (name.startsWith('@')) {
+                  name = parts[parts.length - 1].split('/').slice(0, 2).join('/')
+                }
+                pkgName = name
               }
-              const parts = id.split('node_modules/')
-              let pkgName = parts[parts.length - 1].split('/')[0]
-              if (pkgName.startsWith('@')) {
-                pkgName = parts[parts.length - 1].split('/').slice(0, 2).join('/')
-              }
+
+              if (!pkgName) return
 
               // Ignore specific packages causing empty chunks or known to be problematic
               const ignoreList = [
@@ -107,7 +113,13 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
                 'perfect-debounce',
                 'vue-demi',
               ]
-              if (ignoreList.includes(pkgName)) {
+
+              // Check if pkgName exactly matches or starts with "name@" (for versioned pnpm names)
+              const isIgnored = ignoreList.some(item => {
+                return pkgName === item || pkgName.startsWith(item + '@')
+              })
+
+              if (isIgnored) {
                 return
               }
 
