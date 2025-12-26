@@ -28,6 +28,7 @@
     "username": "Username",
     "view": "View"
   },
+  "confirm": "COnfirm",
   "error": {
     "fePaginationFilterMethodIsRequired": "fePaginationFilterMethod is a necessary parameter when paging in front-end and has search config.",
     "localeNotSupported": "Localization language [{locale}] is not supported, please check `src/locales/index.ts`",
@@ -53,12 +54,31 @@
     "welcome": "Welcome"
   },
   "proTable": {
+    "asc": "ASC",
     "colName": "Col Name",
     "colSetting": "Col Setting",
     "colShow": "Show",
     "colSort": "Sort",
-    "noColSetting": "No Col Settings"
+    "columnOrder": "Column Order",
+    "desc": "DESC",
+    "expand": "Expand",
+    "fixed": "Fixed",
+    "index": "Index",
+    "left": "Left",
+    "noColSetting": "No Col Settings",
+    "operation": "Operation",
+    "radio": "Radio",
+    "right": "Right",
+    "selection": "Selection",
+    "sort": "Sort",
+    "unset": "Unset",
+    "width": "Width"
   },
+  "protable": {
+    "export": "Export",
+    "import": "Import"
+  },
+  "reset": "Reset",
   "system": {
     "dictManage": {
       "dictCode": "Dict Code",

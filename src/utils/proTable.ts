@@ -1,3 +1,6 @@
+import type { IColumnSettingItem } from '@/components/ProTable/components/ColSetting.vue'
+import type { ColumnProps } from '@/components/ProTable/interface'
+import { COL_SETTINGS_CACHE_KEY } from '@/constants/proTable'
 import type { ButtonProps } from 'element-plus'
 
 /**
@@ -72,4 +75,54 @@ export const toolbarButtonsConfig: Record<
     text: '搜索',
     type: 'primary',
   },
+}
+
+export const applyColSetting = (pageId: string, columns: ColumnProps[]) => {
+  const cachedValue = localStorage.getItem(`${pageId}${COL_SETTINGS_CACHE_KEY}`)
+  if (cachedValue) {
+    const colSettings: IColumnSettingCache = JSON.parse(cachedValue)
+    columns.forEach(col => {
+      if (col.prop && colSettings[col.prop]) {
+        const setting = colSettings[col.prop]
+        col.isShow = setting.show
+        col.sortable = setting.sort
+        col.fixed = setting.fixed
+      }
+    })
+    // 根据 order 排序
+    columns.sort((a, b) => {
+      const aOrder = a.prop && colSettings[a.prop]?.order
+      const bOrder = b.prop && colSettings[b.prop]?.order
+      if (typeof aOrder === 'number' && typeof bOrder === 'number') {
+        return aOrder - bOrder
+      }
+      return 0
+    })
+  }
+}
+
+export const generateColumnSettingCache = (columns: IColumnSettingItem[]): IColumnSettingCache => {
+  const cache: IColumnSettingCache = {}
+  columns.forEach((item, index) => {
+    if (item.prop) {
+      cache[item.prop] = {
+        order: index,
+        show: item.isShow !== false, // 默认为 true
+        sort: !!item.sortable,
+        fixed: item.fixed,
+        children: item.children ? generateColumnSettingCache(item.children) : undefined,
+      }
+    }
+  })
+  return cache
+}
+
+export type IColumnSettingCache = {
+  [key: string]: {
+    order: number
+    show: boolean
+    sort: boolean
+    fixed?: string | boolean
+    children?: IColumnSettingCache
+  }
 }

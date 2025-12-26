@@ -4,6 +4,7 @@
       <el-tab-pane label="前端分页" name="fePagination" class="table-box">
         <pro-table
           ref="proTableRef"
+          page-id="proTable:pagination:fe"
           :columns="fePaginationColumns"
           :request-api="getAllData"
           :toolbar-middle="toolbarMiddle"
@@ -12,7 +13,12 @@
         />
       </el-tab-pane>
       <el-tab-pane label="无分页" name="noPagination" class="table-box">
-        <pro-table :columns="noPaginationColumns" :request-api="getAllData" :pagination="ProTablePaginationEnum.NONE" />
+        <pro-table
+          page-id="proTable:pagination:no"
+          :columns="noPaginationColumns"
+          :request-api="getAllData"
+          :pagination="ProTablePaginationEnum.NONE"
+        />
       </el-tab-pane>
     </el-tabs>
     <el-dialog v-model="functionDialogVisible" title="功能说明" width="30%">

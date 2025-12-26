@@ -2,7 +2,7 @@
   <component
     :is="column.search?.render ?? `el-${column.search?.el}`"
     v-bind="{ ...handleSearchProps, ...attrs, ...placeholder, searchParam: _searchParam, clearable }"
-    v-model.trim="_searchParam[column.search?.key ?? handleProp(column.prop!)]"
+    v-model.trim="_searchParam[column.search?.key ?? handlePropPath(column.prop!)]"
     :data="column.search?.el === 'tree-select' ? columnEnum : []"
     :options="['cascader', 'select-v2'].includes(column.search?.el!) ? columnEnum : []"
   >
@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 defineOptions({ name: 'SearchFormItem' })
-import { handleProp } from '@/utils'
+import { handlePropPath } from '@/utils'
 import type { ColumnProps } from '@/components/ProTable/interface'
 
 interface SearchFormItem {

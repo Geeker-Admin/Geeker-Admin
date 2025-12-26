@@ -14,6 +14,7 @@
       </div>
       <pro-table
         ref="proTableRef"
+        page-id="proTable-useSelectFilter"
         highlight-current-row
         :columns="columns"
         :toolbar-middle="toolbarMiddle"
@@ -27,7 +28,7 @@
           <el-button type="primary" :icon="Pointer" plain @click="setCurrent"> 选中第四行 </el-button>
         </template>
         <!-- 表格操作 -->
-        <template #[TABLE_COLUMN_OPERATIONS_NAME]="scope">
+        <template #operation="scope">
           <el-button type="primary" link :icon="View" @click="openDrawer('查看', scope.row)">
             {{ t('common.view') }}
           </el-button>
@@ -70,7 +71,6 @@ import type { ProTableInstance, ColumnProps } from '@/components/ProTable/interf
 import { CirclePlus, Delete, EditPen, Pointer, Upload, View, Refresh, InfoFilled } from '@element-plus/icons-vue'
 import { UserAPI } from '@/api/system/user'
 import { useI18n } from 'vue-i18n'
-import { TABLE_COLUMN_OPERATIONS_NAME } from '@/constants/proTable'
 
 // ProTable 实例
 const proTableRef = ref<ProTableInstance>()
@@ -97,7 +97,7 @@ const columns = computed<ColumnProps<ResUserList>[]>(() => [
     enum: userStatus,
   },
   { prop: 'createTime', label: t('common.createTime'), width: 180, sortable: true },
-  { prop: TABLE_COLUMN_OPERATIONS_NAME, label: t('common.operations'), width: 410, fixed: 'right' },
+  { type: 'operation', width: 410, fixed: 'right' },
 ])
 
 const toolbarMiddle = () => (

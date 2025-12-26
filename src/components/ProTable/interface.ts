@@ -17,7 +17,9 @@ export interface EnumProps {
   [key: string]: any
 }
 
-export type TypeProps = 'index' | 'selection' | 'radio' | 'expand' | 'sort'
+export type TypeProps = 'index' | 'selection' | 'radio' | 'expand' | 'sort' | 'operation'
+
+export const ColumnTypes: TypeProps[] = ['selection', 'radio', 'index', 'expand', 'sort', 'operation']
 
 export type SearchType =
   | 'input'
@@ -73,12 +75,13 @@ export type HeaderRenderScope<T extends DefaultRow> = {
   [key: string]: any
 }
 
-export interface ColumnProps<T extends DefaultRow = any>
-  extends Partial<Omit<TableColumnCtx<T>, 'type' | 'children' | 'renderCell' | 'renderHeader' | 'label'>> {
+export interface ColumnProps<T extends DefaultRow = any> extends Partial<
+  Omit<TableColumnCtx<T>, 'type' | 'children' | 'renderCell' | 'renderHeader' | 'label'>
+> {
   type?: TypeProps // 列类型
   tag?: MaybeRef<boolean> // 是否是标签展示
+  disableUICustomize?: boolean // 是否禁用列设置
   isShow?: MaybeRef<boolean> // 是否显示在表格当中，默认值为 true
-  isSetting?: MaybeRef<boolean> // 是否在 ColSetting 中可配置
   search?: SearchProps // 搜索项配置
   enum?: EnumProps[] | Ref<EnumProps[]> | ((_params?: any) => Promise<any>) // 枚举字典
   isFilterEnum?: boolean | Ref<boolean> // 当前单元格值是否根据 enum 格式化（示例：enum 只作为搜索项数据）
@@ -123,6 +126,7 @@ export interface ProTableProps<Query = any, Item extends DefaultRow = any, Extra
         attrs?: Partial<Omit<ButtonProps, 'icon' | 'text' | 'circle'>>
       }
   >
+  pageId: string // 表格 id，用于唯一标识表格，不可使用随机字符，否则表格自定义设置缓存无效。建议使用路由路径。
   toolbarMiddle?: () => VNodeChild | Component | JSX.Element | JSX.Element[] // 表格工具栏中间内容
   columns: ColumnProps<Item>[] // 列配置项  ==> 必传
   pagination?: ProTablePaginationEnum // 是否需要分页组件 ==> 非必传（默认为1）

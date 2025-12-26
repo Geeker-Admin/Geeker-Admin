@@ -1,7 +1,7 @@
 import type { ColumnProps, RenderScope, HeaderRenderScope } from '../interface'
-import { filterEnum, formatValue, handleProp, handleRowAccordingToProp } from '@/utils'
+import { filterEnum, formatValue, handlePropPath, handleRowAccordingToProp } from '@/utils'
 import { ElTableColumn, ElTag, ElText } from 'element-plus'
-import { TABLE_COLUMN_OPERATIONS_NAME } from '@/constants/proTable'
+import { useI18n } from 'vue-i18n'
 
 const highlightKeyword = (value: string, keyword: string) => {
   const index = value.indexOf(keyword)
@@ -30,6 +30,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { t } = useI18n()
     const slots = useSlots()
     const enumMap = inject('enumMap', ref(new Map()))
 
@@ -64,24 +65,27 @@ export default defineComponent({
     const RenderTableColumn = (item: ColumnProps) => {
       return (
         <>
-          {item.isShow && (
+          {unref(item.isShow) && (
             <ElTableColumn
               {...item}
               align={item.align}
-              showOverflowTooltip={item.showOverflowTooltip ?? item.prop !== TABLE_COLUMN_OPERATIONS_NAME}
-              label={unref(item.label)}
-              fixed={item.fixed}
+              showOverflowTooltip={item.showOverflowTooltip ?? item.type !== 'operation'}
+              label={unref(item.label) || t(`proTable.${item.type}`)}
+              fixed={item.type === 'operation' ? 'right' : item.fixed}
             >
               {{
                 default: (scope: RenderScope<any>) => {
-                  if (item.children) {
+                  if (item.children?.length) {
                     return item.children.map(child => RenderTableColumn(child))
                   }
                   if (item.render) {
                     return item.render(scope)
                   }
-                  if (item.prop && slots[handleProp(item.prop)]) {
-                    return slots[handleProp(item.prop)]!(scope)
+                  if (item.type === 'operation') {
+                    return slots.operation!(scope)
+                  }
+                  if (item.prop && slots[handlePropPath(item.prop)]) {
+                    return slots[handlePropPath(item.prop!)]!(scope)
                   }
                   if (item.tag) {
                     return <ElTag type={getTagType(item, scope)}>{renderCellData(item, scope)}</ElTag>
@@ -92,8 +96,8 @@ export default defineComponent({
                   if (item.headerRender) {
                     return item.headerRender(scope)
                   }
-                  if (item.prop && slots[`${handleProp(item.prop)}Header`]) {
-                    return slots[`${handleProp(item.prop)}Header`]!(scope)
+                  if (item.prop && slots[`${handlePropPath(item.prop)}Header`]) {
+                    return slots[`${handlePropPath(item.prop)}Header`]!(scope)
                   }
                   return item.label
                 },
