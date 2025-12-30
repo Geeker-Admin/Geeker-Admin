@@ -5,8 +5,6 @@ import { useKeepAliveStore } from './keepAlive'
 import type { TabsState, TabsMenuProps } from '@/stores/interface/store'
 import piniaPersistConfig from '@/stores/helper/persist'
 
-const keepAliveStore = useKeepAliveStore()
-
 export const useTabsStore = defineStore('geeker-tabs', {
   state: (): TabsState => ({
     tabsMenuList: [],
@@ -14,6 +12,7 @@ export const useTabsStore = defineStore('geeker-tabs', {
   actions: {
     // Add Tabs
     async addTabs(tabItem: TabsMenuProps) {
+      const keepAliveStore = useKeepAliveStore()
       if (this.tabsMenuList.every(item => item.path !== tabItem.path)) {
         this.tabsMenuList.push(tabItem)
       }
@@ -24,6 +23,7 @@ export const useTabsStore = defineStore('geeker-tabs', {
     },
     // Remove Tabs
     async removeTabs(tabPath: string, isCurrent: boolean = true) {
+      const keepAliveStore = useKeepAliveStore()
       if (isCurrent) {
         this.tabsMenuList.forEach((item, index) => {
           if (item.path !== tabPath) {
@@ -44,6 +44,7 @@ export const useTabsStore = defineStore('geeker-tabs', {
     },
     // Close Tabs On Side
     async closeTabsOnSide(path: string, type: 'left' | 'right') {
+      const keepAliveStore = useKeepAliveStore()
       const currentIndex = this.tabsMenuList.findIndex(item => item.path === path)
       if (currentIndex !== -1) {
         const range = type === 'left' ? [0, currentIndex] : [currentIndex + 1, this.tabsMenuList.length]
@@ -57,6 +58,7 @@ export const useTabsStore = defineStore('geeker-tabs', {
     },
     // Close MultipleTab
     async closeMultipleTab(tabsMenuValue?: string) {
+      const keepAliveStore = useKeepAliveStore()
       this.tabsMenuList = this.tabsMenuList.filter(item => {
         return item.path === tabsMenuValue || !item.close
       })

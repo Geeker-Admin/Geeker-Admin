@@ -26,7 +26,7 @@ const iconsDir = './src/assets/icons/svg'
 export const createVitePlugins = (viteEnv: ViteEnv): (PluginOption | PluginOption[])[] => {
   const { VITE_GLOB_APP_TITLE, VITE_REPORT, VITE_DEVTOOLS, VITE_PWA, VITE_CODE_INSPECTOR } = viteEnv
   return [
-    analyzer(),
+    VITE_REPORT && analyzer(),
     vue(),
     // vue 可以使用 jsx/tsx 语法
     vueJsx(),
