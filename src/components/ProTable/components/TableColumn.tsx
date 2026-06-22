@@ -1,3 +1,4 @@
+import { defineComponent, inject, ref, unref, useSlots } from 'vue'
 import type { ColumnProps, RenderScope, HeaderRenderScope } from '../interface'
 import { filterEnum, formatValue, handlePropPath, handleRowAccordingToProp } from '@/utils'
 import { ElTableColumn, ElTag, ElText } from 'element-plus'

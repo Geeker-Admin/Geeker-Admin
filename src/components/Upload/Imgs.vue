@@ -44,13 +44,12 @@
 </template>
 
 <script setup lang="ts">
+import { ElIcon, ElImageViewer, ElNotification, ElUpload, formContextKey, formItemContextKey } from 'element-plus'
 defineOptions({ name: 'UploadImgs' })
 import { ref, computed, inject, watch } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
 import { CommonAPI } from '@/api/common'
 import type { UploadProps, UploadFile, UploadUserFile, UploadRequestOptions } from 'element-plus'
-import { ElNotification, formContextKey, formItemContextKey } from 'element-plus'
-
 interface UploadFileProps {
   fileList?: UploadUserFile[]
   api?: (_params: any) => Promise<any> // 上传图片的 api 方法，一般项目上传都是同一个 api 方法，在组件里直接引入即可 ==> 非必传

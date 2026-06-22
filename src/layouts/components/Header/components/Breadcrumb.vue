@@ -20,6 +20,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElBreadcrumb, ElBreadcrumbItem, ElIcon } from 'element-plus'
 import { computed } from 'vue'
 import { HOME_URL } from '@/config'
 import { useRoute, useRouter } from 'vue-router'

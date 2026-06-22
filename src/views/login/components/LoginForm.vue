@@ -34,17 +34,16 @@
 </template>
 
 <script setup lang="ts">
+import { ElButton, ElForm, ElFormItem, ElIcon, ElInput, ElNotification } from 'element-plus'
 import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { encryptPassword, getTimeState, parseRedirect } from '@/utils'
-import { ElNotification } from 'element-plus'
 import { AuthApi, type ReqLoginForm } from '@/api/auth'
 import { useUserStore } from '@/stores/modules/user'
 import { useTabsStore } from '@/stores/modules/tabs'
 import { useKeepAliveStore } from '@/stores/modules/keepAlive'
 import { initDynamicRouter } from '@/routers/modules/dynamicRouter'
 import { CircleClose, UserFilled } from '@element-plus/icons-vue'
-import type { ElForm } from 'element-plus'
 import { useLoadingStore } from '@/stores/modules/loading'
 import { storeToRefs } from 'pinia'
 import { useDictStore } from '@/stores/modules/dict'

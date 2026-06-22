@@ -55,6 +55,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElAlert, ElDescriptions, ElDescriptionsItem, ElDivider, ElForm, ElFormItem } from 'element-plus'
 import Dict from '@/components/Dict/index.vue'
 import { ref } from 'vue'
 const form = ref({

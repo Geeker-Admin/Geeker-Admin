@@ -48,12 +48,11 @@
 </template>
 
 <script setup lang="ts">
+import { ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon, ElInput, ElScrollbar, ElTree } from 'element-plus'
 defineOptions({
   name: 'TreeFilter',
 })
 import { ref, watch, onBeforeMount, nextTick } from 'vue'
-import { ElTree } from 'element-plus'
-
 // 接收父组件参数并设置默认值
 interface TreeFilterProps {
   requestApi?: (_data?: any) => Promise<any> // 请求分类数据的 api ==> 非必传

@@ -36,11 +36,11 @@
 </template>
 
 <script setup lang="tsx" name="treeProTable">
+import { ElButton, ElMessage, ElNotification } from 'element-plus'
 import { onMounted, reactive, ref } from 'vue'
 import type { ResUserList } from '@/api/system/user'
 import { genderType } from '@/utils/dict'
 import { useHandleData } from '@/hooks/useHandleData'
-import { ElMessage, ElNotification } from 'element-plus'
 import ProTable from '@/components/ProTable/index.vue'
 import TreeFilter from '@/components/TreeFilter/index.vue'
 import ImportExcel from '@/components/ImportExcel/index.vue'

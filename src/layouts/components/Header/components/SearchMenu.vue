@@ -38,6 +38,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElDialog, ElEmpty, ElIcon, ElInput } from 'element-plus'
 defineOptions({ name: 'SearchMenu' })
 import { ref, computed, nextTick, watch } from 'vue'
 import type { InputInstance } from 'element-plus'

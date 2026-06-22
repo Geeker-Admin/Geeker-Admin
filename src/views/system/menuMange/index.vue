@@ -30,6 +30,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElButton, ElIcon } from 'element-plus'
 defineOptions({ name: 'MenuMange' })
 import { ref } from 'vue'
 import type { ColumnProps } from '@/components/ProTable/interface'

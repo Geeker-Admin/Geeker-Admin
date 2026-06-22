@@ -170,6 +170,16 @@
 </template>
 
 <script setup lang="ts">
+import {
+  ElAlert,
+  ElButton,
+  ElDescriptions,
+  ElDescriptionsItem,
+  ElForm,
+  ElFormItem,
+  ElIcon,
+  ElInput,
+} from 'element-plus'
 defineOptions({ name: 'UploadFile' })
 import { ref, reactive } from 'vue'
 import type { FormInstance } from 'element-plus'

@@ -46,8 +46,24 @@
 </template>
 
 <script setup lang="ts">
+import {
+  ElButton,
+  ElCheckbox,
+  ElCheckboxGroup,
+  ElCol,
+  ElDatePicker,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElMessage,
+  ElOption,
+  ElRadio,
+  ElRadioGroup,
+  ElSelect,
+  ElSwitch,
+  ElTimePicker,
+} from 'element-plus'
 defineOptions({ name: 'BasicForm' })
-import { ElMessage } from 'element-plus'
 import { reactive } from 'vue'
 
 // do not use same name with ref

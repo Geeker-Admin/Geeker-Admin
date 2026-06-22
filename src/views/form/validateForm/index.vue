@@ -45,12 +45,25 @@
 </template>
 
 <script setup lang="ts">
+import {
+  ElButton,
+  ElCol,
+  ElDatePicker,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElMessage,
+  ElOption,
+  ElRadio,
+  ElRadioGroup,
+  ElSelect,
+  ElSwitch,
+  ElTimePicker,
+} from 'element-plus'
 defineOptions({ name: 'DynamicForm' })
 import { reactive, ref } from 'vue'
 import { checkPhoneNumber } from '@/utils/eleValidate'
 import type { FormInstance, FormRules } from 'element-plus'
-import { ElMessage } from 'element-plus'
-
 const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive({
   name: 'Geeker-Admin',

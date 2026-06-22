@@ -12,6 +12,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElButton, ElInput } from 'element-plus'
 defineOptions({ name: 'CopyDirect' })
 import { ref } from 'vue'
 

@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="column.search?.render ?? `el-${column.search?.el}`"
+    :is="column.search?.render ?? formElMap[column.search?.el ?? '']"
     v-bind="{ ...handleSearchProps, ...attrs, ...placeholder, searchParam: _searchParam, clearable }"
     v-model.trim="_searchParam[column.search?.key ?? handlePropPath(column.prop!)]"
     :data="column.search?.el === 'tree-select' ? columnEnum : []"
@@ -11,7 +11,7 @@
     </template>
     <template v-if="column.search?.el === 'select'">
       <component
-        :is="`el-option`"
+        :is="ElOption"
         v-for="(col, index) in columnEnum"
         :key="index"
         :label="col[fieldNames.label]"
@@ -23,9 +23,39 @@
 </template>
 
 <script setup lang="ts">
+import { computed, inject, ref, type Component } from 'vue'
+import {
+  ElCascader,
+  ElDatePicker,
+  ElInput,
+  ElInputNumber,
+  ElOption,
+  ElSelect,
+  ElSelectV2,
+  ElSlider,
+  ElSwitch,
+  ElTimePicker,
+  ElTimeSelect,
+  ElTreeSelect,
+} from 'element-plus'
 defineOptions({ name: 'SearchFormItem' })
 import { handlePropPath } from '@/utils'
 import type { ColumnProps } from '@/components/ProTable/interface'
+
+// 原 <component :is="`el-${el}`"> 依赖 app.use(ElementPlus) 全局注册；改为按需后用此映射按字符串解析对应组件
+const formElMap: Record<string, Component> = {
+  input: ElInput,
+  'input-number': ElInputNumber,
+  select: ElSelect,
+  'select-v2': ElSelectV2,
+  'tree-select': ElTreeSelect,
+  cascader: ElCascader,
+  'date-picker': ElDatePicker,
+  'time-picker': ElTimePicker,
+  'time-select': ElTimeSelect,
+  switch: ElSwitch,
+  slider: ElSlider,
+}
 
 interface SearchFormItem {
   column: ColumnProps

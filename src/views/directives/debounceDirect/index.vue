@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang="ts">
+import { ElButton, ElMessage } from 'element-plus'
 defineOptions({ name: 'DebounceDirect' })
-import { ElMessage } from 'element-plus'
 const debounceClick = () => {
   ElMessage.success('我是防抖按钮触发的事件 🍍🍓🍌')
 }

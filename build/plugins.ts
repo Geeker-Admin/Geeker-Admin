@@ -9,9 +9,6 @@ import NextDevTools from 'vite-plugin-vue-devtools'
 import { codeInspectorPlugin } from 'code-inspector-plugin'
 import devtoolsJson from 'vite-plugin-devtools-json'
 import UnoCSS from 'unocss/vite'
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import Icons from 'unplugin-icons/vite'
 import { analyzer } from 'vite-bundle-analyzer'
@@ -37,26 +34,6 @@ export const createVitePlugins = (viteEnv: ViteEnv): (PluginOption | PluginOptio
     VITE_DEVTOOLS && NextDevTools({ launchEditor: 'code' }),
     // 创建打包压缩配置
     createCompression(viteEnv),
-    // 自动导入组件 https://github.com/element-plus/element-plus-vite-starter/blob/main/vite.config.ts
-    AutoImport({
-      imports: ['vue'],
-      dumpUnimportItems: false,
-      viteOptimizeDeps: true,
-      vueTemplate: true,
-      resolvers: [ElementPlusResolver()],
-      dts: 'src/types/auto-imports.d.ts',
-    }),
-    // 自动导入组件
-    Components({
-      resolvers: [
-        ElementPlusResolver(),
-        // icon auto import
-        // IconsResolver({
-        //   enabledCollections: ['localSvgIcon'],
-        // }),
-      ],
-      dts: 'src/types/components.d.ts',
-    }),
     // 注入变量到 html 文件
     createHtmlPlugin({
       minify: true,

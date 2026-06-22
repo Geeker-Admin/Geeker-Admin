@@ -9,6 +9,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElSwitch } from 'element-plus'
 defineOptions({
   name: 'SwitchDark',
 })

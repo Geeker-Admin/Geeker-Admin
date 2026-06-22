@@ -18,6 +18,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElButton, ElDescriptions, ElDescriptionsItem } from 'element-plus'
 defineOptions({ name: 'BatchImport' })
 import { ref } from 'vue'
 import { UserAPI } from '@/api/system/user'

@@ -7,6 +7,7 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import type { ECOption } from '@/components/ECharts/config'
 import echarts from '@/components/ECharts/config'
 import ECharts from '@/components/ECharts/index.vue'

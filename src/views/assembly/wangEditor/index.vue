@@ -31,6 +31,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElButton, ElDescriptions, ElDescriptionsItem, ElDialog } from 'element-plus'
 defineOptions({ name: 'WangEditor' })
 import { ref } from 'vue'
 import WangEditor from '@/components/WangEditor/index.vue'

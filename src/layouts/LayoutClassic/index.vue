@@ -37,6 +37,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElAside, ElContainer, ElHeader, ElMenu, ElScrollbar } from 'element-plus'
 defineOptions({
   name: 'LayoutClassic',
 })

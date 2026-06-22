@@ -1,4 +1,4 @@
-import type { VNode, ComponentPublicInstance, Ref, VNodeChild } from 'vue'
+import type { VNode, ComponentPublicInstance, Ref, VNodeChild, Component } from 'vue'
 import type { BreakPoint, Responsive } from '@/components/Grid/interface'
 import type { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults'
 import type ProTable from '@/components/ProTable/index.vue'

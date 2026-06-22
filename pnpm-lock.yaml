@@ -177,15 +177,9 @@ importers:
       unocss:
         specifier: ^66.7.2
         version: 66.7.2(vite@8.0.16(@types/node@26.0.0)(esbuild@0.27.7)(jiti@2.7.0)(sass@1.101.0)(terser@5.48.0)(yaml@2.9.0))
-      unplugin-auto-import:
-        specifier: ^21.0.0
-        version: 21.0.0(@vueuse/core@14.3.0(vue@3.5.38(typescript@6.0.3)))
       unplugin-icons:
         specifier: ^23.0.1
         version: 23.0.1(@vue/compiler-sfc@3.5.38)
-      unplugin-vue-components:
-        specifier: ^32.1.0
-        version: 32.1.0(vue@3.5.38(typescript@6.0.3))
       vite:
         specifier: ^8.0.16
         version: 8.0.16(@types/node@26.0.0)(esbuild@0.27.7)(jiti@2.7.0)(sass@1.101.0)(terser@5.48.0)(yaml@2.9.0)
@@ -3210,10 +3204,6 @@ packages:
     resolution: {integrity: sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==}
     engines: {node: '>=0.8.0'}
 
-  escape-string-regexp@5.0.0:
-    resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
-    engines: {node: '>=12'}
-
   esniff@2.0.1:
     resolution: {integrity: sha512-kTUIGKQ/mDPFoJ0oVfcmyJn4iBDRptjNVIzwIFR7tqWXdVI9xfA2RMwY/gbSpJG3lkdWNEjLap/NqVHZiJsdfg==}
     engines: {node: '>=0.10'}
@@ -3877,9 +3867,6 @@ packages:
 
   js-tokens@9.0.0:
     resolution: {integrity: sha512-WriZw1luRMlmV3LGJaR6QOJjWwgLUTf89OwT2lUOyjX2dJGBwgmIkbcz+7WFZjrZM635JOIR517++e/67CP9dQ==}
-
-  js-tokens@9.0.1:
-    resolution: {integrity: sha512-mxa9E9ITFOt0ban3j6L5MpjwegGz6lBQmM1IJkWeBZGcMxto50+eWdjC/52xDbS2vy0k7vIMK0Fe2wfL9OQSpQ==}
 
   js-yaml@4.2.0:
     resolution: {integrity: sha512-ePWsvanv0DWuDRsW8dnt+R4jQ31SCRCQ7hhNcPXZPsoBZiemuZNYGf7adZdqX2D86j6rvKp3RpCxVTSb8WQlOw==}
@@ -5061,9 +5048,6 @@ packages:
     resolution: {integrity: sha512-laJTa3Jb+VQpaC6DseHhF7dXVqHTfJPCRDaEbid/drOhgitgYku/letMUqOXFoWV0zIIUbjpdH2t+tYj4bQMRQ==}
     engines: {node: '>=8'}
 
-  strip-literal@3.1.0:
-    resolution: {integrity: sha512-8r3mkIM/2+PpjHoOtiAW8Rg3jJLHaV7xPwG+YRGrv6FP0wwk/toTpATxWYOW0BKdWwl82VT2tFYi5DlROa0Mxg==}
-
   stylelint-config-html@1.1.0:
     resolution: {integrity: sha512-IZv4IVESjKLumUGi+HWeb7skgO6/g4VMuAYrJdlqQFndgbj6WJAXPhaysvBiXefX79upBdQVumgYcdd17gCpjQ==}
     engines: {node: ^12 || >=14}
@@ -5327,10 +5311,6 @@ packages:
     resolution: {integrity: sha512-wH590V9VNgYH9g3lH9wWjTrUoKsjLF6sGLjhR4sH1LWpLmCOH0Zf7PukhDA8BiS7KHe4oPNkcTHqYkj7SOGUOw==}
     engines: {node: '>=20'}
 
-  unimport@5.7.0:
-    resolution: {integrity: sha512-njnL6sp8lEA8QQbZrt+52p/g4X0rw3bnGGmUcJnt1jeG8+iiqO779aGz0PirCtydAIVcuTBRlJ52F0u46z309Q==}
-    engines: {node: '>=18.12.0'}
-
   unique-string@2.0.0:
     resolution: {integrity: sha512-uNaeirEPvpZWSgzwsPGtU2zVSTrn/8L5q/IexZmH0eH6SA73CmAA5U4GwORTxQAZs95TAXLNqeLoPPNO5gZfWg==}
     engines: {node: '>=8'}
@@ -5357,18 +5337,6 @@ packages:
       '@unocss/webpack':
         optional: true
 
-  unplugin-auto-import@21.0.0:
-    resolution: {integrity: sha512-vWuC8SwqJmxZFYwPojhOhOXDb5xFhNNcEVb9K/RFkyk/3VnfaOjzitWN7v+8DEKpMjSsY2AEGXNgt6I0yQrhRQ==}
-    engines: {node: '>=20.19.0'}
-    peerDependencies:
-      '@nuxt/kit': ^4.0.0
-      '@vueuse/core': '*'
-    peerDependenciesMeta:
-      '@nuxt/kit':
-        optional: true
-      '@vueuse/core':
-        optional: true
-
   unplugin-icons@23.0.1:
     resolution: {integrity: sha512-rv0XEJepajKzDLvRUWASM8K+8+/CCfZn2jtogXqg6RIp7kpatRc/aFrVJn8ANQA09e++lPEEv9yX8cC9enc+QQ==}
     peerDependencies:
@@ -5389,16 +5357,6 @@ packages:
   unplugin-utils@0.3.1:
     resolution: {integrity: sha512-5lWVjgi6vuHhJ526bI4nlCOmkCIF3nnfXkCMDeMJrtdvxTs6ZFCM8oNufGTsDbKv/tJ/xj8RpvXjRuPBZJuJog==}
     engines: {node: '>=20.19.0'}
-
-  unplugin-vue-components@32.1.0:
-    resolution: {integrity: sha512-YiUkSxuRjab18XFOrX5VsIxXzccrfmHVGsGeJgSgklb829DQmCy9E4vvDUE4tuvZZdxyFJZX0Oc4TPnnxiiMyg==}
-    engines: {node: '>=20.19.0'}
-    peerDependencies:
-      '@nuxt/kit': ^3.2.2 || ^4.0.0
-      vue: ^3.0.0
-    peerDependenciesMeta:
-      '@nuxt/kit':
-        optional: true
 
   unplugin@2.0.0:
     resolution: {integrity: sha512-26eihuX14zPtiW6gzz8B112Buhi9CaWH/5ezO67pzBhKoz3MfHyc2lz/QOMOyEd/DWk+OnS0zCiYixnm8Q3dqA==}
@@ -8921,8 +8879,6 @@ snapshots:
 
   escape-string-regexp@1.0.5: {}
 
-  escape-string-regexp@5.0.0: {}
-
   esniff@2.0.1:
     dependencies:
       d: 1.0.2
@@ -9579,8 +9535,6 @@ snapshots:
   js-tokens@4.0.0: {}
 
   js-tokens@9.0.0: {}
-
-  js-tokens@9.0.1: {}
 
   js-yaml@4.2.0:
     dependencies:
@@ -10833,10 +10787,6 @@ snapshots:
     dependencies:
       min-indent: 1.0.1
 
-  strip-literal@3.1.0:
-    dependencies:
-      js-tokens: 9.0.1
-
   stylelint-config-html@1.1.0(postcss-html@1.8.1)(stylelint@17.13.0(typescript@6.0.3)):
     dependencies:
       postcss-html: 1.8.1
@@ -11131,23 +11081,6 @@ snapshots:
 
   unicorn-magic@0.4.0: {}
 
-  unimport@5.7.0:
-    dependencies:
-      acorn: 8.17.0
-      escape-string-regexp: 5.0.0
-      estree-walker: 3.0.3
-      local-pkg: 1.2.1
-      magic-string: 0.30.21
-      mlly: 1.8.2
-      pathe: 2.0.3
-      picomatch: 4.0.4
-      pkg-types: 2.3.1
-      scule: 1.3.0
-      strip-literal: 3.1.0
-      tinyglobby: 0.2.17
-      unplugin: 2.3.11
-      unplugin-utils: 0.3.1
-
   unique-string@2.0.0:
     dependencies:
       crypto-random-string: 2.0.0
@@ -11178,17 +11111,6 @@ snapshots:
     transitivePeerDependencies:
       - vite
 
-  unplugin-auto-import@21.0.0(@vueuse/core@14.3.0(vue@3.5.38(typescript@6.0.3))):
-    dependencies:
-      local-pkg: 1.2.1
-      magic-string: 0.30.21
-      picomatch: 4.0.4
-      unimport: 5.7.0
-      unplugin: 2.3.11
-      unplugin-utils: 0.3.1
-    optionalDependencies:
-      '@vueuse/core': 14.3.0(vue@3.5.38(typescript@6.0.3))
-
   unplugin-icons@23.0.1(@vue/compiler-sfc@3.5.38):
     dependencies:
       '@antfu/install-pkg': 1.1.0
@@ -11203,19 +11125,6 @@ snapshots:
     dependencies:
       pathe: 2.0.3
       picomatch: 4.0.4
-
-  unplugin-vue-components@32.1.0(vue@3.5.38(typescript@6.0.3)):
-    dependencies:
-      chokidar: 5.0.0
-      local-pkg: 1.2.1
-      magic-string: 0.30.21
-      mlly: 1.8.2
-      obug: 2.1.3
-      picomatch: 4.0.4
-      tinyglobby: 0.2.17
-      unplugin: 3.0.0
-      unplugin-utils: 0.3.1
-      vue: 3.5.38(typescript@6.0.3)
 
   unplugin@2.0.0:
     dependencies:

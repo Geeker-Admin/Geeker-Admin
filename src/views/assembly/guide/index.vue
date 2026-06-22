@@ -13,6 +13,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElAlert, ElButton } from 'element-plus'
 defineOptions({ name: 'Guide' })
 import { driver } from 'driver.js'
 import 'driver.js/dist/driver.css'

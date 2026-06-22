@@ -5,6 +5,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElIcon } from 'element-plus'
 import { useGlobalStore } from '@/stores/modules/global'
 
 const globalStore = useGlobalStore()

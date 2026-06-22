@@ -6,6 +6,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElInput } from 'element-plus'
 defineOptions({ name: 'Menu23' })
 import { ref } from 'vue'
 const value = ref('')

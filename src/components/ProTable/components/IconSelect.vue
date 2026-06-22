@@ -72,6 +72,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElIcon, ElInput, ElPopover, ElScrollbar, ElTabPane, ElTabs, ElTooltip } from 'element-plus'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { onClickOutside } from '@vueuse/core'
 import { computed, onMounted, ref } from 'vue'

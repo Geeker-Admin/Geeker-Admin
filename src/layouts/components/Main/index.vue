@@ -16,6 +16,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElFooter, ElMain } from 'element-plus'
 import { ref, provide, watch, h } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useDebounceFn, useEventListener } from '@vueuse/core'

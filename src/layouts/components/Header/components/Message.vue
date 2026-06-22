@@ -64,6 +64,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElBadge, ElPopover, ElTabPane, ElTabs } from 'element-plus'
 import { ref } from 'vue'
 import LineMdBell from '~icons/line-md/bell?width=20px&height=20px'
 const activeName = ref('first')

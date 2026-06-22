@@ -25,13 +25,13 @@
 </template>
 
 <script setup lang="ts">
+import { ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon, ElMessage, ElMessageBox } from 'element-plus'
 defineOptions({
   name: 'Avatar',
 })
 import { computed, ref } from 'vue'
 import { AuthApi } from '@/api/auth'
 import { useUserStore } from '@/stores/modules/user'
-import { ElMessageBox, ElMessage } from 'element-plus'
 import InfoDialog from './InfoDialog.vue'
 import PasswordDialog from './PasswordDialog.vue'
 import { logoutWithRedirect } from '@/utils'

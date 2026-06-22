@@ -7,6 +7,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElWatermark } from 'element-plus'
 defineOptions({
   name: 'Layout',
 })

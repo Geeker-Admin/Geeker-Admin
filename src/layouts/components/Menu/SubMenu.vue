@@ -21,6 +21,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElIcon, ElMenuItem, ElSubMenu } from 'element-plus'
 defineOptions({
   name: 'SubMenu',
 })

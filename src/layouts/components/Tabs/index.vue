@@ -23,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElIcon, ElTabPane, ElTabs } from 'element-plus'
 import Sortable from 'sortablejs'
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'

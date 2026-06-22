@@ -45,12 +45,13 @@
 </template>
 
 <script setup lang="tsx">
+import { ref } from 'vue'
+import { ElButton, ElDialog, ElTabPane, ElTabs } from 'element-plus'
 defineOptions({ name: 'UseProTablePagination' })
 import type { TabPaneName } from 'element-plus'
 import type { ColumnProps, ProTableInstance } from '@/components/ProTable/interface'
 import { ProTablePaginationEnum } from '@/enums'
-import { ElButton } from 'element-plus'
-
+import ProTable from '@/components/ProTable/index.vue'
 interface MockDataItem {
   id: number
   name: string
@@ -91,9 +92,9 @@ const toolbarMiddle = () => {
     <ElButton type="primary" icon="InfoFilled" onClick={() => (functionDialogVisible.value = true)}>
       功能说明
     </ElButton>,
-    <el-button type="success" onClick={setFormData}>
+    <ElButton type="success" onClick={setFormData}>
       设置表单数据
-    </el-button>,
+    </ElButton>,
   ]
 }
 

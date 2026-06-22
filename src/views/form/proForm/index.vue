@@ -5,10 +5,10 @@
       type="warning"
       :closable="false"
     />
-    <component :is="'el-form'" v-bind="options.form" ref="proFormRef" :model="model">
+    <component :is="ElForm" v-bind="options.form" ref="proFormRef" :model="model">
       <template v-for="item in options.columns" :key="item.formItem.prop">
-        <component :is="'el-form-item'" v-bind="item.formItem">
-          <component :is="`el-${item.attrs.typeName}`" v-bind="item.attrs" v-model="model[item.formItem.prop]" />
+        <component :is="ElFormItem" v-bind="item.formItem">
+          <component :is="formElMap[item.attrs.typeName]" v-bind="item.attrs" v-model="model[item.formItem.prop]" />
         </component>
       </template>
       <el-form-item>
@@ -19,10 +19,14 @@
 </template>
 
 <script setup lang="ts">
+import { ref, type Component } from 'vue'
+import { ElAlert, ElForm, ElFormItem, ElInput } from 'element-plus'
 defineOptions({
   name: 'ProForm',
 })
-import { ref } from 'vue'
+
+// 原 <component :is="`el-${typeName}`"> 依赖 app.use(ElementPlus) 全局注册；改为按需后用此映射按字符串解析对应组件
+const formElMap: Record<string, Component> = { input: ElInput }
 
 const model = ref<any>({})
 
@@ -35,7 +39,7 @@ const options = ref({
     size: 'default',
     disabled: false,
     labelSuffix: ':',
-  },
+  } as const,
   // 表单列配置项 (formItem 代表 item 配置项，attrs 代表 输入、选择框 配置项)
   columns: [
     {

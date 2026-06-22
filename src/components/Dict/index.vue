@@ -24,6 +24,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElOption, ElRadio, ElRadioButton, ElRadioGroup, ElSelect } from 'element-plus'
 import { computed, ref } from 'vue'
 import type { SelectProps } from 'element-plus'
 import { useLoadingStore } from '@/stores/modules/loading'

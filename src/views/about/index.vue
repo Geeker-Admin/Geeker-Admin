@@ -56,6 +56,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElDescriptions, ElDescriptionsItem, ElLink, ElTag } from 'element-plus'
 defineOptions({ name: 'About' })
 const { pkg, lastBuildTime } = __APP_INFO__
 const { dependencies, devDependencies, version } = pkg

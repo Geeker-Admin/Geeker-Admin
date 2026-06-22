@@ -31,9 +31,9 @@
 </template>
 
 <script setup lang="ts">
+import { ElDescriptions, ElDescriptionsItem, ElMessage } from 'element-plus'
 defineOptions({ name: 'TreeFilter' })
 import { reactive } from 'vue'
-import { ElMessage } from 'element-plus'
 import { UserAPI } from '@/api/system/user'
 import TreeFilter from '@/components/TreeFilter/index.vue'
 

@@ -11,6 +11,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElButton, ElDialog } from 'element-plus'
 defineOptions({
   name: 'PasswordDialog',
 })

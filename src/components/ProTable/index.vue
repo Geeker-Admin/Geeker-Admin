@@ -141,7 +141,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElTable, ElMessage, TableInstance } from 'element-plus'
+import { computed, onMounted, provide, ref, unref, watch } from 'vue'
+import { ElButton, ElIcon, ElMessage, ElRadio, ElTable, ElTableColumn, ElTag, TableInstance } from 'element-plus'
 import { useTable } from '@/hooks/useTable'
 import { useSelection } from '@/hooks/useSelection'
 import { type ColumnProps, type ProTableProps, ColumnTypes } from './interface'

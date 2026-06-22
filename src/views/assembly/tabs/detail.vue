@@ -7,6 +7,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElInput } from 'element-plus'
 defineOptions({ name: 'TabsDetail' })
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'

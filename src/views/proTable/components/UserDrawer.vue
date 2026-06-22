@@ -53,11 +53,11 @@
 </template>
 
 <script setup lang="ts">
+import { ElButton, ElDrawer, ElForm, ElFormItem, ElIcon, ElInput, ElMessage, ElOption, ElSelect } from 'element-plus'
 defineOptions({ name: 'UserDrawer' })
 import { ref, reactive } from 'vue'
 import { genderType } from '@/utils/dict'
 import type { FormInstance } from 'element-plus'
-import { ElMessage } from 'element-plus'
 import type { ResUserList } from '@/api/system/user'
 import UploadImg from '@/components/Upload/Img.vue'
 import UploadImgs from '@/components/Upload/Imgs.vue'

@@ -48,8 +48,20 @@
 </template>
 
 <script setup lang="ts">
+import { computed, nextTick, ref, unref, watch } from 'vue'
+import {
+  ElButton,
+  ElDrawer,
+  ElEmpty,
+  ElIcon,
+  ElRadioButton,
+  ElRadioGroup,
+  ElSwitch,
+  ElTable,
+  ElTableColumn,
+  ElTag,
+} from 'element-plus'
 defineOptions({ name: 'ProTableColSetting' })
-import { ref } from 'vue'
 import { ColumnTypes, type ColumnProps } from '@/components/ProTable/interface'
 import Sortable from 'sortablejs'
 import type { TableInstance } from 'element-plus'

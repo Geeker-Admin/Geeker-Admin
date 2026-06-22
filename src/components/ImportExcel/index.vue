@@ -46,13 +46,12 @@
 </template>
 
 <script setup lang="ts">
+import { ElButton, ElDialog, ElForm, ElFormItem, ElIcon, ElNotification, ElSwitch, ElUpload } from 'element-plus'
 defineOptions({ name: 'ImportExcel' })
 import { ref } from 'vue'
 import { useDownload } from '@/hooks/useDownload'
 import { Download } from '@element-plus/icons-vue'
 import type { UploadRequestOptions, UploadRawFile } from 'element-plus'
-import { ElNotification } from 'element-plus'
-
 export interface ExcelParameterProps {
   title: string // 标题
   fileSize?: number // 上传文件的大小

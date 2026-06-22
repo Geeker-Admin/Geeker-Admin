@@ -40,6 +40,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElContainer, ElHeader, ElIcon, ElMenu, ElMenuItem, ElSubMenu } from 'element-plus'
 defineOptions({
   name: 'LayoutTransverse',
 })

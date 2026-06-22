@@ -144,6 +144,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElColorPicker, ElDivider, ElDrawer, ElIcon, ElSwitch, ElTooltip } from 'element-plus'
 defineOptions({
   name: 'ThemeDrawer',
 })

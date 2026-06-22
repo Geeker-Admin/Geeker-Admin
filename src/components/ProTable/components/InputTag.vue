@@ -26,6 +26,7 @@
   </el-scrollbar>
 </template>
 <script setup lang="ts">
+import { ElButton, ElInput, ElScrollbar, ElTag } from 'element-plus'
 import type { InputInstance } from 'element-plus'
 import { nextTick, ref } from 'vue'
 

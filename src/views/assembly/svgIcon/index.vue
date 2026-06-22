@@ -32,6 +32,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElAlert, ElDivider } from 'element-plus'
 defineOptions({ name: 'SvgIcon1' })
 import localSvgIconIsland from '~icons/localSvgIcon/island?width=4em&height=4em'
 import localSvgIconEarth from '~icons/localSvgIcon/earth'

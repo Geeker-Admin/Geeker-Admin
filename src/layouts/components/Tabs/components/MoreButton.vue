@@ -32,6 +32,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon } from 'element-plus'
 import { inject, nextTick } from 'vue'
 import { HOME_URL } from '@/config'
 import { useTabsStore } from '@/stores/modules/tabs'

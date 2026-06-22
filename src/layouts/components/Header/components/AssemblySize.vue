@@ -17,6 +17,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus'
 defineOptions({
   name: 'AssemblySize',
 })

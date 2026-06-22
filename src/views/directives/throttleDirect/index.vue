@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang="ts">
+import { ElButton, ElMessage } from 'element-plus'
 defineOptions({ name: 'ThrottleDirect' })
-import { ElMessage } from 'element-plus'
 const throttleClick = () => {
   ElMessage.success('我是节流按钮触发的事件 🍍🍓🍌')
 }

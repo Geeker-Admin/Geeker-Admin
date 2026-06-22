@@ -58,13 +58,15 @@
   </div>
 </template>
 <script setup lang="tsx">
+import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { ElButton, ElDialog, ElMessage } from 'element-plus'
 defineOptions({ name: 'UseSelectFilter' })
 import type { ResUserList } from '@/api/system/user'
-import { ElMessage, ElButton } from 'element-plus'
 import { useHandleData } from '@/hooks/useHandleData'
 import { genderType, userStatus } from '@/utils/dict'
 import TreeFilter from '@/components/TreeFilter/index.vue'
 import ImportExcel from '@/components/ImportExcel/index.vue'
+import ProTable from '@/components/ProTable/index.vue'
 import UserDrawer from '@/views/proTable/components/UserDrawer.vue'
 import SelectFilter from '@/components/SelectFilter/index.vue'
 import type { ProTableInstance, ColumnProps } from '@/components/ProTable/interface'
