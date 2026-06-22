@@ -109,9 +109,7 @@ const option = {
         color: 'transparent',
       },
       label: {
-        normal: {
-          formatter: '',
-        },
+        formatter: '',
       },
       outline: {
         show: true,
@@ -127,38 +125,30 @@ const option = {
       z: 3,
       radius: ['0%', '55%'],
       center: ['25%', '50%'],
-      hoverAnimation: false,
-      itemStyle: {
-        normal: {
-          label: {
-            show: false,
-          },
-        },
+      emphasis: { scale: false },
+      label: {
+        show: false,
       },
       data: [
         {
           value: 100,
           itemStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  color: '#fefefe',
-                },
-                {
-                  offset: 1,
-                  color: '#e7e8ea',
-                },
-              ]),
-            },
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              {
+                offset: 0,
+                color: '#fefefe',
+              },
+              {
+                offset: 1,
+                color: '#e7e8ea',
+              },
+            ]),
           },
         },
         {
           value: 0,
           itemStyle: {
-            normal: {
-              color: 'transparent',
-            },
+            color: 'transparent',
           },
         },
       ],
@@ -169,13 +159,9 @@ const option = {
       z: 1,
       radius: ['0%', '58%'],
       center: ['25%', '50%'],
-      hoverAnimation: false,
-      itemStyle: {
-        normal: {
-          label: {
-            show: false,
-          },
-        },
+      emphasis: { scale: false },
+      label: {
+        show: false,
       },
       data: [
         {
@@ -187,9 +173,7 @@ const option = {
         {
           value: 0,
           itemStyle: {
-            normal: {
-              color: 'transparent',
-            },
+            color: 'transparent',
           },
         },
       ],
@@ -206,9 +190,7 @@ const option = {
         color: 'transparent',
       },
       label: {
-        normal: {
-          formatter: '',
-        },
+        formatter: '',
       },
       outline: {
         show: true,
@@ -224,38 +206,30 @@ const option = {
       z: 3,
       radius: ['0%', '55%'],
       center: ['75%', '50%'],
-      hoverAnimation: false,
-      itemStyle: {
-        normal: {
-          label: {
-            show: false,
-          },
-        },
+      emphasis: { scale: false },
+      label: {
+        show: false,
       },
       data: [
         {
           value: 100,
           itemStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  color: '#fefefe',
-                },
-                {
-                  offset: 1,
-                  color: '#e7e8ea',
-                },
-              ]),
-            },
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              {
+                offset: 0,
+                color: '#fefefe',
+              },
+              {
+                offset: 1,
+                color: '#e7e8ea',
+              },
+            ]),
           },
         },
         {
           value: 0,
           itemStyle: {
-            normal: {
-              color: 'transparent',
-            },
+            color: 'transparent',
           },
         },
       ],
@@ -266,13 +240,9 @@ const option = {
       z: 1,
       radius: ['0%', '58%'],
       center: ['75%', '50%'],
-      hoverAnimation: false,
-      itemStyle: {
-        normal: {
-          label: {
-            show: false,
-          },
-        },
+      emphasis: { scale: false },
+      label: {
+        show: false,
       },
       data: [
         {
@@ -284,9 +254,7 @@ const option = {
         {
           value: 0,
           itemStyle: {
-            normal: {
-              color: 'transparent',
-            },
+            color: 'transparent',
           },
         },
       ],
