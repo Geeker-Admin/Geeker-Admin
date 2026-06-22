@@ -2,13 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [1.2.0](https://github.com/HalseySpicy/Geeker-Admin/compare/v1.1.0...v1.2.0) (2023-09-15)
+## [Unreleased]
 
+### Build System
+
+- 🔧 migrate lint & formatting toolchain from ESLint + Prettier to Oxlint + Oxfmt (Stylelint, Commitlint and lint-staged are kept)
+- 🔧 fix the broken `.husky/pre-commit` hook (was calling a non-existent script) and rewrite `lint-staged.config.mjs` to run oxc + Stylelint
+- 🔧 remove stale ESLint/Prettier configs, dependencies and doc/VSCode references; update `.vscode` to the Oxc extension
+
+### Bug Fixes
+
+- 🐛 `v-copy` directive: `removeEventListener` passed a fresh arrow function, so the click listener could never be removed
+- 🐛 `proForm`: `:key` accessed non-existent `item.prop` (now `item.formItem.prop`)
+- 🐛 remove redundant `declare` keywords inside `declare global {}` in `global.d.ts` (TS1038)
+- 🐛 fix malformed `.github/FUNDING.yml` value (`]#` missing whitespace)
+
+## [1.2.0](https://github.com/HalseySpicy/Geeker-Admin/compare/v1.1.0...v1.2.0) (2023-09-15)
 
 ### Features
 
-* 🚀 update and optimize project content ([17bc017](https://github.com/HalseySpicy/Geeker-Admin/commit/17bc017c5abbd2c87813d6c6f9d587ddf9d57da7))
-* 🚀 upgrade plugins and add tab functionality ([f21a41d](https://github.com/HalseySpicy/Geeker-Admin/commit/f21a41d8df44efe5216dec39bf4abf0ea86a7781))
+- 🚀 update and optimize project content ([17bc017](https://github.com/HalseySpicy/Geeker-Admin/commit/17bc017c5abbd2c87813d6c6f9d587ddf9d57da7))
+- 🚀 upgrade plugins and add tab functionality ([f21a41d](https://github.com/HalseySpicy/Geeker-Admin/commit/f21a41d8df44efe5216dec39bf4abf0ea86a7781))
 
 ## [1.1.0](https://github.com/HalseySpicy/Geeker-Admin/compare/v1.0.0...v1.1.0) (2023-07-09)
 

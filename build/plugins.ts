@@ -4,7 +4,6 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 import { visualizer } from 'rollup-plugin-visualizer'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import eslintPlugin from 'vite-plugin-eslint'
 import viteCompression from 'vite-plugin-compression'
 import NextDevTools from 'vite-plugin-vue-devtools'
 import { codeInspectorPlugin } from 'code-inspector-plugin'
@@ -36,10 +35,6 @@ export const createVitePlugins = (viteEnv: ViteEnv): (PluginOption | PluginOptio
     devtoolsJson(),
     // devTools
     VITE_DEVTOOLS && NextDevTools({ launchEditor: 'code' }),
-    // esLint 报错信息显示在浏览器界面上
-    eslintPlugin({
-      failOnError: false,
-    }),
     // 创建打包压缩配置
     createCompression(viteEnv),
     // 自动导入组件 https://github.com/element-plus/element-plus-vite-starter/blob/main/vite.config.ts
@@ -48,11 +43,6 @@ export const createVitePlugins = (viteEnv: ViteEnv): (PluginOption | PluginOptio
       dumpUnimportItems: false,
       viteOptimizeDeps: true,
       vueTemplate: true,
-      eslintrc: {
-        enabled: false,
-        filepath: './.eslintrc-auto-import.json',
-        globalsPropValue: true,
-      },
       resolvers: [ElementPlusResolver()],
       dts: 'src/types/auto-imports.d.ts',
     }),

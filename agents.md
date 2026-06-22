@@ -13,7 +13,7 @@ Geeker-Admin is a robust admin dashboard template built with Vue 3, TypeScript, 
 - **State Management**: Pinia
 - **Router**: Vue Router
 - **CSS Utility**: UnoCSS (Wind preset)
-- **Linting/Formatting**: ESLint, Prettier, Stylelint
+- **Linting/Formatting**: Oxlint, Oxfmt, Stylelint
 
 ## Build Configuration
 

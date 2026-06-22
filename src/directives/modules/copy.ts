@@ -8,17 +8,19 @@ import type { Directive, DirectiveBinding } from 'vue'
 import { ElMessage } from 'element-plus'
 interface ElType extends HTMLElement {
   copyData: string | number
+  _copyHandler: () => void
 }
 const copy: Directive = {
   mounted(el: ElType, binding: DirectiveBinding) {
     el.copyData = binding.value
-    el.addEventListener('click', () => void handleClick(el))
+    el._copyHandler = () => void handleClick(el)
+    el.addEventListener('click', el._copyHandler)
   },
   updated(el: ElType, binding: DirectiveBinding) {
     el.copyData = binding.value
   },
   beforeUnmount(el: ElType) {
-    el.removeEventListener('click', () => void handleClick(el))
+    el.removeEventListener('click', el._copyHandler)
   },
 }
 

@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <div class="card content-box">
     <span class="text">富文本编辑器 🍓🍇🍈🍉</span>

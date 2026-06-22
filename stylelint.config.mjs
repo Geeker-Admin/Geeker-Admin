@@ -36,5 +36,5 @@ export default {
       },
     ],
   },
-  ignoreFiles: ['**/*.js', '**/*.jsx', '**/*.tsx', '**/*.ts', 'node_modules', 'dist', 'public', 'stats.html'],
+  ignoreFiles: ['**/*.js', '**/*.jsx', '**/*.tsx', '**/*.ts', 'node_modules/**', 'dist/**', 'public/**', 'stats.html'],
 }

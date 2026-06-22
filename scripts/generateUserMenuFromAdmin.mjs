@@ -17,5 +17,4 @@ if (fs.existsSync(path.resolve(__dirname, './user-menu.json'))) {
 }
 // 写入 user-menu.json
 fs.writeFileSync(path.resolve(__dirname, './user-menu.json'), JSON.stringify(userMenu, null, 2))
-// eslint-disable-next-line no-console
 console.log('写入 user-menu.json 成功')

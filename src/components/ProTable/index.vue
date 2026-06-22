@@ -141,7 +141,7 @@
 </template>
 
 <script setup lang="ts">
-import { ElTable, ElMessage } from 'element-plus'
+import { ElTable, ElMessage, TableInstance } from 'element-plus'
 import { useTable } from '@/hooks/useTable'
 import { useSelection } from '@/hooks/useSelection'
 import { type ColumnProps, type ProTableProps, ColumnTypes } from './interface'
@@ -171,7 +171,7 @@ const props = withDefaults(defineProps<ProTableProps>(), {
 })
 
 // table 实例
-const tableRef = ref<InstanceType<typeof ElTable>>()
+const tableRef = ref<TableInstance>()
 
 // 是否显示搜索模块
 const isShowSearch = ref(true)

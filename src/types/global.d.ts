@@ -16,9 +16,9 @@ declare global {
   type ExcelMimeType = 'application/vnd.ms-excel' | 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 
   /* Vite */
-  declare type Recordable<T = any> = Record<string, T>
+  type Recordable<T = any> = Record<string, T>
 
-  declare interface ViteEnv {
+  interface ViteEnv {
     VITE_USER_NODE_ENV: 'development' | 'production' | 'test'
     VITE_GLOB_APP_TITLE: string
     VITE_PORT: number
@@ -37,7 +37,7 @@ declare global {
   }
 
   /* __APP_INFO__ */
-  declare const __APP_INFO__: {
+  const __APP_INFO__: {
     pkg: {
       name: string
       version: string

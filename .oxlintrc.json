@@ -1,0 +1,37 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "vue"],
+  "categories": {
+    "correctness": "error"
+  },
+  "env": {
+    "builtin": true
+  },
+  "ignorePatterns": [
+    "*.d.ts",
+    "coverage",
+    "dist",
+    "vite.config.ts",
+    "mock/**",
+    "src/types/**",
+    "webhook-receivers/**",
+    "tmp/**",
+    "scripts/**"
+  ],
+  "rules": {
+    "no-console": ["error", { "allow": ["error"] }],
+    "no-debugger": "error",
+    "curly": ["error", "all"],
+    "no-unused-expressions": "off",
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^[A-Z0-9_]+$",
+        "caughtErrors": "none",
+        "ignoreRestSiblings": true
+      }
+    ],
+    "unicorn/no-new-array": "off"
+  }
+}

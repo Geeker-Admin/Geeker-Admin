@@ -50,8 +50,8 @@ jobs:
       - name: Type check
         run: pnpm type:check
 
-      # - name: Lint with ESLint
-      #   run: pnpm lint:eslint
+      # - name: Lint with Oxlint
+      #   run: pnpm lint
 
       # - name: Lint with Stylelint
       #   run: pnpm lint:stylelint

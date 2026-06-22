@@ -33,7 +33,7 @@ Geeker-Admin 一款基于 Vue3.5、TypeScript、Vite7、Pinia、Element-Plus 开
 - 使用 VueRouter 配置动态路由权限拦截、路由懒加载，支持页面按钮权限控制
 - 使用 KeepAlive 对页面进行缓存，支持多级嵌套路由缓存
 - 常用自定义指令开发（权限、复制、水印、拖拽、节流、防抖、长按…）
-- 使用 Prettier 统一格式化代码，集成 ESLint、Stylelint 代码校验规范
+- 使用 Oxfmt 统一格式化代码，集成 Oxlint、Stylelint 代码校验规范
 - 使用 husky、lint-staged、commitlint、czg、cz-git 规范提交信息
 
 ### 安装使用步骤 📔
@@ -74,11 +74,11 @@ pnpm build:pro
 - **Lint：**
 
 ```text
-# eslint 检测代码
-pnpm lint:eslint
+# oxlint 检测代码
+pnpm lint
 
-# prettier 格式化代码
-pnpm lint:prettier
+# oxfmt 格式化代码
+pnpm fmt
 
 # stylelint 格式化样式
 pnpm lint:stylelint
@@ -151,21 +151,18 @@ Geeker-Admin
 ├─ .env.development        # 开发环境配置
 ├─ .env.production         # 生产环境配置
 ├─ .env.test               # 测试环境配置
-├─ .eslintignore           # 忽略 Eslint 校验
-├─ .eslintrc.cjs           # Eslint 校验配置文件
+├─ .oxlintrc.json          # oxlint 校验配置文件
+├─ .oxfmtrc.json           # oxfmt 格式化配置文件
 ├─ .gitignore              # 忽略 git 提交
-├─ .prettierignore         # 忽略 Prettier 格式化
-├─ .prettierrc.cjs         # Prettier 格式化配置
-├─ .stylelintignore        # 忽略 stylelint 格式化
-├─ .stylelintrc.cjs        # stylelint 样式格式化配置
+├─ stylelint.config.mjs    # stylelint 样式校验配置
 ├─ CHANGELOG.md            # 项目更新日志
-├─ commitlint.config.cjs   # git 提交规范配置
+├─ commitlint.config.mjs   # git 提交规范配置
 ├─ index.html              # 入口 html
 ├─ LICENSE                 # 开源协议文件
-├─ lint-staged.config.cjs  # lint-staged 配置文件
-├─ package-lock.json       # 依赖包包版本锁
+├─ lint-staged.config.mjs  # lint-staged 配置文件
+├─ pnpm-lock.yaml          # pnpm 依赖版本锁
 ├─ package.json            # 依赖包管理
-├─ postcss.config.cjs      # postcss 配置
+├─ postcss.config.mjs      # postcss 配置
 ├─ README.md               # README 介绍
 ├─ tsconfig.json           # typescript 全局配置
 └─ vite.config.ts          # vite 全局配置文件

@@ -39,7 +39,7 @@ getTableData()
 
 const sortTable = () => {}
 const batchDelete = (ids: string[]) => {
-  // eslint-disable-next-line no-console
+  // oxlint-disable-next-line no-console
   console.log(ids)
 }
 const openDrawer = (title: string, row: Partial<DictListItem> = {}) => {

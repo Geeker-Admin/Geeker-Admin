@@ -1,17 +1,15 @@
 {
   "recommendations": [
-    "dbaeumer.vscode-eslint",
     "stylelint.vscode-stylelint",
-    "esbenp.prettier-vscode",
     "editorconfig.editorconfig",
     "streetsidesoftware.code-spell-checker",
     "syler.sass-indented",
     "mikestead.dotenv",
-    "nicholashsiang.vscode-vue3-snippets",
     "vue.volar",
     "bradlc.vscode-tailwindcss",
     "lokalise.i18n-ally",
     "gruntfuggly.todo-tree",
-    "antfu.unocss"
+    "antfu.unocss",
+    "oxc.oxc-vscode"
   ]
 }

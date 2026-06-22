@@ -1,10 +1,8 @@
 {
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.stylelint": "explicit",
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.stylelint": "explicit"
   },
-  "eslint.validate": ["vue", "javascript", "typescript", "typescriptreact"],
   "i18n-ally.sortKeys": true,
   "i18n-ally.keepFulfilled": true,
   "i18n-ally.localesPaths": ["src/locales"],
@@ -17,8 +15,8 @@
   "files.eol": "\n",
   "todo-tree.regex.regex": "(//)\\s*($TAGS).*(\\n\\s*//\\s{2,}.*)*",
   "todo-tree.general.tags": ["BUG", "HACK", "FIXME", "TODO", "XXX", "[ ]", "[x]", "todo"],
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
+  "editor.defaultFormatter": "oxc.oxc-vscode",
   "cSpell.words": [
     "apng",
     "axios",

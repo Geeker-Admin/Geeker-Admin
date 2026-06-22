@@ -94,9 +94,9 @@ const { BUTTONS } = useAuthButtons()
 
 // 表格拖拽排序
 const sortTable = ({ newIndex, oldIndex }: { newIndex?: number; oldIndex?: number }) => {
-  // eslint-disable-next-line no-console
+  // oxlint-disable-next-line no-console
   console.log(newIndex, oldIndex)
-  // eslint-disable-next-line no-console
+  // oxlint-disable-next-line no-console
   console.log(proTable.value?.tableData)
   ElMessage.success('修改列表排序成功')
 }
