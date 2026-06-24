@@ -74,8 +74,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElCol, ElRow, ElTabPane, ElTabs } from 'element-plus'
 defineOptions({ name: 'DataVisualize' })
+import { ElCol, ElRow, ElTabPane, ElTabs } from 'element-plus'
 import { ref } from 'vue'
 import Pie from './components/pie.vue'
 import Curve from './components/curve.vue'

@@ -21,10 +21,10 @@
 </template>
 
 <script setup lang="ts">
-import { ElIcon, ElMenuItem, ElSubMenu } from 'element-plus'
 defineOptions({
   name: 'SubMenu',
 })
+import { ElIcon, ElMenuItem, ElSubMenu } from 'element-plus'
 import type { MenuOptions } from '@/api/system/menu'
 import { useRouter } from 'vue-router'
 

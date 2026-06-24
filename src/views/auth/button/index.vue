@@ -45,8 +45,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElAlert, ElButton, ElDivider, ElRow } from 'element-plus'
 defineOptions({ name: 'AuthButton' })
+import { ElAlert, ElButton, ElDivider, ElRow } from 'element-plus'
 import { useAuthButtons } from '@/hooks/useAuthButtons'
 import { CirclePlus, Delete, EditPen, Download, Upload } from '@element-plus/icons-vue'
 

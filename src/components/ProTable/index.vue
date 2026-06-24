@@ -141,6 +141,7 @@
 </template>
 
 <script setup lang="ts">
+defineOptions({ name: 'ProTable' })
 import { computed, onMounted, provide, ref, unref, watch } from 'vue'
 import { ElButton, ElIcon, ElMessage, ElRadio, ElTable, ElTableColumn, ElTag, TableInstance } from 'element-plus'
 import { useTable } from '@/hooks/useTable'
@@ -158,7 +159,6 @@ import { ProTablePaginationEnum } from '@/enums'
 import { useI18n } from 'vue-i18n'
 import { useLoadingStore } from '@/stores/modules/loading'
 import { SORT_HANDLER_CLASS_NAME } from '@/constants/proTable'
-defineOptions({ name: 'ProTable' })
 const { t } = useI18n()
 // 接受父组件参数，配置默认值
 const props = withDefaults(defineProps<ProTableProps>(), {

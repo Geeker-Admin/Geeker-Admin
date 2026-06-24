@@ -14,10 +14,10 @@
 </template>
 
 <script setup lang="ts">
-import { ElWatermark } from 'element-plus'
 defineOptions({
   name: 'LayoutAsync',
 })
+import { ElWatermark } from 'element-plus'
 import { computed, defineAsyncComponent, reactive, watch, type Component } from 'vue'
 import type { LayoutType } from '@/stores/interface/store'
 import { useGlobalStore } from '@/stores/modules/global'

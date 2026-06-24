@@ -18,9 +18,9 @@
 </template>
 
 <script setup lang="tsx">
+defineOptions({ name: 'AsyncProTable' })
 import { ref } from 'vue'
 import { ElButton, ElDialog, ElMessage } from 'element-plus'
-defineOptions({ name: 'AsyncProTable' })
 import ProTable from '@/components/ProTable/index.vue'
 import type { ColumnProps } from '@/components/ProTable/interface'
 import { useLoadingStore } from '@/stores/modules/loading'

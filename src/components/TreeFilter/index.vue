@@ -48,10 +48,10 @@
 </template>
 
 <script setup lang="ts">
-import { ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon, ElInput, ElScrollbar, ElTree } from 'element-plus'
 defineOptions({
   name: 'TreeFilter',
 })
+import { ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon, ElInput, ElScrollbar, ElTree } from 'element-plus'
 import { ref, watch, onBeforeMount, nextTick } from 'vue'
 // 接收父组件参数并设置默认值
 interface TreeFilterProps {

@@ -23,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+defineOptions({ name: 'SearchFormItem' })
 import { computed, inject, ref, type Component } from 'vue'
 import {
   ElCascader,
@@ -38,7 +39,6 @@ import {
   ElTimeSelect,
   ElTreeSelect,
 } from 'element-plus'
-defineOptions({ name: 'SearchFormItem' })
 import { handlePropPath } from '@/utils'
 import type { ColumnProps } from '@/components/ProTable/interface'
 

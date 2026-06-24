@@ -48,8 +48,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElIcon, ElImageViewer, ElNotification, ElUpload, formContextKey, formItemContextKey } from 'element-plus'
 defineOptions({ name: 'UploadImg' })
+import { ElIcon, ElImageViewer, ElNotification, ElUpload, formContextKey, formItemContextKey } from 'element-plus'
 import { ref, computed, inject } from 'vue'
 import type { UploadProps, UploadRequestOptions } from 'element-plus'
 

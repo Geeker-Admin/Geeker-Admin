@@ -45,6 +45,7 @@
 </template>
 
 <script setup lang="ts">
+defineOptions({ name: 'DynamicForm' })
 import {
   ElButton,
   ElCol,
@@ -60,7 +61,6 @@ import {
   ElSwitch,
   ElTimePicker,
 } from 'element-plus'
-defineOptions({ name: 'DynamicForm' })
 import { reactive, ref } from 'vue'
 import { checkPhoneNumber } from '@/utils/eleValidate'
 import type { FormInstance, FormRules } from 'element-plus'

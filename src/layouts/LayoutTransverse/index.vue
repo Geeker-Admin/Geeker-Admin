@@ -40,10 +40,10 @@
 </template>
 
 <script setup lang="ts">
-import { ElContainer, ElHeader, ElIcon, ElMenu, ElMenuItem, ElSubMenu } from 'element-plus'
 defineOptions({
   name: 'LayoutTransverse',
 })
+import { ElContainer, ElHeader, ElIcon, ElMenu, ElMenuItem, ElSubMenu } from 'element-plus'
 import { computed } from 'vue'
 import { useAuthStore } from '@/stores/modules/auth'
 import { useRoute, useRouter } from 'vue-router'

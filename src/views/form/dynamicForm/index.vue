@@ -48,8 +48,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElButton, ElForm, ElFormItem, ElInput } from 'element-plus'
 defineOptions({ name: 'DynamicForm' })
+import { ElButton, ElForm, ElFormItem, ElInput } from 'element-plus'
 import { reactive, ref } from 'vue'
 import type { FormInstance } from 'element-plus'
 

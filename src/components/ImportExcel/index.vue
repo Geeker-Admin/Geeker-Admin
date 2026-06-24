@@ -46,8 +46,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElButton, ElDialog, ElForm, ElFormItem, ElIcon, ElNotification, ElSwitch, ElUpload } from 'element-plus'
 defineOptions({ name: 'ImportExcel' })
+import { ElButton, ElDialog, ElForm, ElFormItem, ElIcon, ElNotification, ElSwitch, ElUpload } from 'element-plus'
 import { ref } from 'vue'
 import { useDownload } from '@/hooks/useDownload'
 import { Download } from '@element-plus/icons-vue'

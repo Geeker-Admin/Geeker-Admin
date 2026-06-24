@@ -30,8 +30,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElButton, ElIcon } from 'element-plus'
 defineOptions({ name: 'MenuMange' })
+import { ElButton, ElIcon } from 'element-plus'
 import { ref } from 'vue'
 import type { ColumnProps } from '@/components/ProTable/interface'
 import { Delete, EditPen, CirclePlus } from '@element-plus/icons-vue'

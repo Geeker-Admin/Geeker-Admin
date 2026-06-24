@@ -49,10 +49,10 @@
 </template>
 
 <script setup lang="ts">
-import { ElAside, ElContainer, ElHeader, ElIcon, ElMenu, ElScrollbar } from 'element-plus'
 defineOptions({
   name: 'LayoutColumns',
 })
+import { ElAside, ElContainer, ElHeader, ElIcon, ElMenu, ElScrollbar } from 'element-plus'
 import { ref, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/modules/auth'

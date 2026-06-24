@@ -7,8 +7,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElInput } from 'element-plus'
 defineOptions({ name: 'TabsDetail' })
+import { ElInput } from 'element-plus'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTabsStore } from '@/stores/modules/tabs'

@@ -46,6 +46,7 @@
 </template>
 
 <script setup lang="ts">
+defineOptions({ name: 'BasicForm' })
 import {
   ElButton,
   ElCheckbox,
@@ -63,7 +64,6 @@ import {
   ElSwitch,
   ElTimePicker,
 } from 'element-plus'
-defineOptions({ name: 'BasicForm' })
 import { reactive } from 'vue'
 
 // do not use same name with ref

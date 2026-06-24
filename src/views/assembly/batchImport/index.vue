@@ -18,8 +18,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElButton, ElDescriptions, ElDescriptionsItem } from 'element-plus'
 defineOptions({ name: 'BatchImport' })
+import { ElButton, ElDescriptions, ElDescriptionsItem } from 'element-plus'
 import { ref } from 'vue'
 import { UserAPI } from '@/api/system/user'
 import { Upload } from '@element-plus/icons-vue'

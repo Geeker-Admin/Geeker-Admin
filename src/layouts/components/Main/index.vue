@@ -16,6 +16,9 @@
 </template>
 
 <script setup lang="ts">
+defineOptions({
+  name: 'MainContainer',
+})
 import { ElFooter, ElMain } from 'element-plus'
 import { ref, provide, watch, h } from 'vue'
 import { storeToRefs } from 'pinia'
@@ -25,10 +28,6 @@ import { useKeepAliveStore } from '@/stores/modules/keepAlive'
 import Maximize from './components/Maximize.vue'
 import Tabs from '@/layouts/components/Tabs/index.vue'
 import Footer from '@/layouts/components/Footer/index.vue'
-
-defineOptions({
-  name: 'MainContainer',
-})
 
 const globalStore = useGlobalStore()
 const { maximize, isCollapse, layout, tabs, footer } = storeToRefs(globalStore)

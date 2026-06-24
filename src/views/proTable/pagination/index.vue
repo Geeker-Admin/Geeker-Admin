@@ -45,9 +45,9 @@
 </template>
 
 <script setup lang="tsx">
+defineOptions({ name: 'UseProTablePagination' })
 import { ref } from 'vue'
 import { ElButton, ElDialog, ElTabPane, ElTabs } from 'element-plus'
-defineOptions({ name: 'UseProTablePagination' })
 import type { TabPaneName } from 'element-plus'
 import type { ColumnProps, ProTableInstance } from '@/components/ProTable/interface'
 import { ProTablePaginationEnum } from '@/enums'

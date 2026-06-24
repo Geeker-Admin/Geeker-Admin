@@ -11,8 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
 defineOptions({ name: 'SelectFilter' })
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
 import { ref } from 'vue'
 import SelectFilter from '@/components/SelectFilter/index.vue'
 

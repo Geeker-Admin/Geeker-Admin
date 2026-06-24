@@ -139,6 +139,7 @@
 </template>
 
 <script setup lang="ts">
+defineOptions({ name: 'ProModal' })
 import {
   ElButton,
   ElCascader,
@@ -174,8 +175,6 @@ import type { IComponentType, IModalConfig } from '../interface'
 import InputTag from './InputTag.vue'
 import IconSelect from './IconSelect.vue'
 import { markRaw, onMounted, reactive, ref } from 'vue'
-
-defineOptions({ name: 'ProModal' })
 
 defineSlots<{ [key: string]: (_args: any) => any }>()
 // 定义接收的属性

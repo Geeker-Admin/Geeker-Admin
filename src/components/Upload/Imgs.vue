@@ -44,8 +44,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElIcon, ElImageViewer, ElNotification, ElUpload, formContextKey, formItemContextKey } from 'element-plus'
 defineOptions({ name: 'UploadImgs' })
+import { ElIcon, ElImageViewer, ElNotification, ElUpload, formContextKey, formItemContextKey } from 'element-plus'
 import { ref, computed, inject, watch } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
 import { CommonAPI } from '@/api/common'

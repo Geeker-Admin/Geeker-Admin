@@ -9,10 +9,10 @@
 </template>
 
 <script setup lang="ts">
-import { ElSwitch } from 'element-plus'
 defineOptions({
   name: 'SwitchDark',
 })
+import { ElSwitch } from 'element-plus'
 import { useTheme } from '@/hooks/useTheme'
 import { useGlobalStore } from '@/stores/modules/global'
 import { Sunny, Moon } from '@element-plus/icons-vue'

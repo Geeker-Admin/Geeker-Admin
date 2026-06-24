@@ -37,8 +37,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ElButton, ElMessage, ElMessageBox } from 'element-plus'
 defineOptions({ name: 'UseTreeFilter' })
+import { ElButton, ElMessage, ElMessageBox } from 'element-plus'
 import { ref, reactive } from 'vue'
 import type { ResUserList } from '@/api/system/user'
 import { useRouter } from 'vue-router'

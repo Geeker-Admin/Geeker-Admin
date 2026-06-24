@@ -12,8 +12,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElButton, ElInput } from 'element-plus'
 defineOptions({ name: 'CopyDirect' })
+import { ElButton, ElInput } from 'element-plus'
 import { ref } from 'vue'
 
 const data = ref<string>('我是被复制的内容 🍒 🍉 🍊')

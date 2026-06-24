@@ -14,8 +14,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
 defineOptions({ name: 'SelectIcon' })
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
 import { ref } from 'vue'
 import SelectIcon from '@/components/SelectIcon/index.vue'
 const iconValue = ref('')

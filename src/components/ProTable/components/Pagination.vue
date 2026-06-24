@@ -15,8 +15,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElPagination } from 'element-plus'
 defineOptions({ name: 'Pagination' })
+import { ElPagination } from 'element-plus'
 import { useGlobalStore } from '@/stores/modules/global'
 const globalStore = useGlobalStore()
 

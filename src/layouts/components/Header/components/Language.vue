@@ -12,10 +12,10 @@
 </template>
 
 <script setup lang="ts">
-import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus'
 defineOptions({
   name: 'Language',
 })
+import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 import { useGlobalStore } from '@/stores/modules/global'
 import type { LanguageType } from '@/stores/interface/store'

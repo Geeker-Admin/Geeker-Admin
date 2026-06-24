@@ -19,11 +19,9 @@
 </template>
 
 <script setup lang="ts">
+defineOptions({ name: 'ProForm' })
 import { ref, type Component } from 'vue'
 import { ElAlert, ElForm, ElFormItem, ElInput } from 'element-plus'
-defineOptions({
-  name: 'ProForm',
-})
 
 // 原 <component :is="`el-${typeName}`"> 依赖 app.use(ElementPlus) 全局注册；改为按需后用此映射按字符串解析对应组件
 const formElMap: Record<string, Component> = { input: ElInput }

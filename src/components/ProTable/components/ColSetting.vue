@@ -48,6 +48,7 @@
 </template>
 
 <script setup lang="ts">
+defineOptions({ name: 'ProTableColSetting' })
 import { computed, nextTick, ref, unref, watch } from 'vue'
 import {
   ElButton,
@@ -61,7 +62,6 @@ import {
   ElTableColumn,
   ElTag,
 } from 'element-plus'
-defineOptions({ name: 'ProTableColSetting' })
 import { ColumnTypes, type ColumnProps } from '@/components/ProTable/interface'
 import Sortable from 'sortablejs'
 import type { TableInstance } from 'element-plus'

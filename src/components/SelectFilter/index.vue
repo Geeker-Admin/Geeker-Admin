@@ -31,8 +31,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElIcon, ElScrollbar } from 'element-plus'
 defineOptions({ name: 'SelectFilter' })
+import { ElIcon, ElScrollbar } from 'element-plus'
 import { ref, watch } from 'vue'
 
 interface OptionsProps {

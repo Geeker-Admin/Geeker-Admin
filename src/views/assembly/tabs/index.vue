@@ -28,8 +28,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElButton, ElInput, ElMessage, ElSpace } from 'element-plus'
 defineOptions({ name: 'Tabs' })
+import { ElButton, ElInput, ElMessage, ElSpace } from 'element-plus'
 import { inject, nextTick, ref } from 'vue'
 import { HOME_URL } from '@/config'
 import { useRoute, useRouter } from 'vue-router'

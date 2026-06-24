@@ -7,10 +7,10 @@
 </template>
 
 <script setup lang="ts">
-import { ElWatermark } from 'element-plus'
 defineOptions({
   name: 'Layout',
 })
+import { ElWatermark } from 'element-plus'
 import { computed, reactive, watch, type Component } from 'vue'
 import type { LayoutType } from '@/stores/interface/store'
 import { useGlobalStore } from '@/stores/modules/global'

@@ -58,9 +58,9 @@
   </div>
 </template>
 <script setup lang="tsx">
+defineOptions({ name: 'UseSelectFilter' })
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { ElButton, ElDialog, ElMessage } from 'element-plus'
-defineOptions({ name: 'UseSelectFilter' })
 import type { ResUserList } from '@/api/system/user'
 import { useHandleData } from '@/hooks/useHandleData'
 import { genderType, userStatus } from '@/utils/dict'

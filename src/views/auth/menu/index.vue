@@ -11,8 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElAlert, ElButton } from 'element-plus'
 defineOptions({ name: 'AuthMenu' })
+import { ElAlert, ElButton } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { LOGIN_URL } from '@/config'
 import { useUserStore } from '@/stores/modules/user'

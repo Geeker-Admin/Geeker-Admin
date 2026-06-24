@@ -17,10 +17,10 @@
 </template>
 
 <script setup lang="ts">
-import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus'
 defineOptions({
   name: 'AssemblySize',
 })
+import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus'
 import { computed } from 'vue'
 import { useGlobalStore } from '@/stores/modules/global'
 import type { AssemblySizeType } from '@/stores/interface/store'

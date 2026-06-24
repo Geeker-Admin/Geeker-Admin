@@ -31,10 +31,10 @@
 </template>
 
 <script setup lang="ts">
-import { ElAside, ElContainer, ElHeader, ElMenu, ElScrollbar } from 'element-plus'
 defineOptions({
   name: 'LayoutVertical',
 })
+import { ElAside, ElContainer, ElHeader, ElMenu, ElScrollbar } from 'element-plus'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/modules/auth'

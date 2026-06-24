@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElButton, ElMessage } from 'element-plus'
 defineOptions({ name: 'LongpressDirect' })
+import { ElButton, ElMessage } from 'element-plus'
 const longpress = () => {
   ElMessage.success('长按事件触发成功 🎉🎉🎉')
 }

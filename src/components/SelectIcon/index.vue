@@ -43,8 +43,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElDialog, ElEmpty, ElInput, ElScrollbar } from 'element-plus'
 defineOptions({ name: 'SelectIcon' })
+import { ElDialog, ElEmpty, ElInput, ElScrollbar } from 'element-plus'
 import { ref, computed } from 'vue'
 import * as Icons from '@element-plus/icons-vue'
 

@@ -25,10 +25,10 @@
 </template>
 
 <script setup lang="ts">
-import { ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon, ElMessage, ElMessageBox } from 'element-plus'
 defineOptions({
   name: 'Avatar',
 })
+import { ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon, ElMessage, ElMessageBox } from 'element-plus'
 import { computed, ref } from 'vue'
 import { AuthApi } from '@/api/auth'
 import { useUserStore } from '@/stores/modules/user'

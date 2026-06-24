@@ -11,10 +11,10 @@
 </template>
 
 <script setup lang="ts">
-import { ElButton, ElDialog } from 'element-plus'
 defineOptions({
   name: 'PasswordDialog',
 })
+import { ElButton, ElDialog } from 'element-plus'
 import { ref } from 'vue'
 
 const dialogVisible = ref(false)

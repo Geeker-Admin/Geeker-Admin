@@ -53,8 +53,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElButton, ElDrawer, ElForm, ElFormItem, ElIcon, ElInput, ElMessage, ElOption, ElSelect } from 'element-plus'
 defineOptions({ name: 'UserDrawer' })
+import { ElButton, ElDrawer, ElForm, ElFormItem, ElIcon, ElInput, ElMessage, ElOption, ElSelect } from 'element-plus'
 import { ref, reactive } from 'vue'
 import { genderType } from '@/utils/dict'
 import type { FormInstance } from 'element-plus'

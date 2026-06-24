@@ -144,10 +144,10 @@
 </template>
 
 <script setup lang="ts">
-import { ElColorPicker, ElDivider, ElDrawer, ElIcon, ElSwitch, ElTooltip } from 'element-plus'
 defineOptions({
   name: 'ThemeDrawer',
 })
+import { ElColorPicker, ElDivider, ElDrawer, ElIcon, ElSwitch, ElTooltip } from 'element-plus'
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useTheme } from '@/hooks/useTheme'
